@@ -1,0 +1,29 @@
+
+{
+  "name": "gurukula-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Shubham Karoti Maitreyi Gurukula Student Journey Tracking System",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "gurukula",
+    "student-journey",
+    "education",
+    "node",
+    "mongodb"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.2"
+  }
+}

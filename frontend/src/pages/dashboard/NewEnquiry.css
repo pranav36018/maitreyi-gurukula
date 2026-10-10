@@ -1,0 +1,282 @@
+.new-enquiry-page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.new-enquiry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+  margin-bottom: 45px;
+}
+
+.new-enquiry-eyebrow {
+  margin: 0 0 12px;
+  color: #b96548;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.new-enquiry-header h1 {
+  margin: 0 0 16px;
+  color: #23382f;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(48px, 5vw, 70px);
+  line-height: 1;
+  font-weight: 600;
+}
+
+.new-enquiry-header p {
+  max-width: 700px;
+  margin: 0;
+  color: #46514b;
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.new-enquiry-back {
+  border: none;
+  background: transparent;
+  color: #b96548;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.new-enquiry-back:hover {
+  color: #23382f;
+}
+
+
+/* SUCCESS MESSAGE */
+
+.new-enquiry-success {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 25px;
+  padding: 18px 22px;
+  border-left: 4px solid #b96548;
+  background: #f4eee4;
+}
+
+.new-enquiry-success strong {
+  color: #23382f;
+  font-size: 15px;
+}
+
+.new-enquiry-success span {
+  color: #5c665f;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+
+/* FORM */
+
+.new-enquiry-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.enquiry-section {
+  padding: 34px;
+  background: #fffdf8;
+  border: 1px solid #e7e0d5;
+}
+
+.enquiry-section-heading {
+  display: grid;
+  grid-template-columns: 55px 1fr;
+  gap: 20px;
+  align-items: start;
+  margin-bottom: 32px;
+}
+
+.enquiry-section-heading > span {
+  color: #b96548;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.enquiry-section-heading p {
+  margin: 0 0 7px;
+  color: #b96548;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.enquiry-section-heading h2 {
+  margin: 0;
+  color: #23382f;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 31px;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+
+/* GRID */
+
+.enquiry-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.enquiry-field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.enquiry-field.full-width {
+  grid-column: 1 / -1;
+}
+
+.enquiry-field label {
+  color: #23382f;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.enquiry-field input,
+.enquiry-field select,
+.enquiry-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d8d1c5;
+  border-radius: 0;
+  background: #ffffff;
+  color: #23382f;
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.enquiry-field input,
+.enquiry-field select {
+  min-height: 50px;
+  padding: 0 14px;
+}
+
+.enquiry-field textarea {
+  padding: 14px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.enquiry-field input::placeholder,
+.enquiry-field textarea::placeholder {
+  color: #8a918c;
+}
+
+.enquiry-field input:focus,
+.enquiry-field select:focus,
+.enquiry-field textarea:focus {
+  border-color: #b96548;
+  box-shadow: 0 0 0 3px rgba(185, 101, 72, 0.08);
+}
+
+
+/* ACTIONS */
+
+.new-enquiry-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 0 40px;
+}
+
+.new-enquiry-cancel {
+  border: none;
+  background: transparent;
+  color: #5c665f;
+  padding: 13px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.new-enquiry-cancel:hover {
+  color: #23382f;
+}
+
+.new-enquiry-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 25px;
+  border: none;
+  background: #23382f;
+  color: #fffdf8;
+  padding: 15px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.new-enquiry-submit span {
+  font-size: 19px;
+}
+
+.new-enquiry-submit:hover {
+  background: #b96548;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  .new-enquiry-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .new-enquiry-header h1 {
+    font-size: 48px;
+  }
+
+  .enquiry-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .enquiry-field.full-width {
+    grid-column: auto;
+  }
+
+  .enquiry-section {
+    padding: 25px;
+  }
+
+  .enquiry-section-heading {
+    grid-template-columns: 40px 1fr;
+    gap: 12px;
+  }
+
+  .enquiry-section-heading h2 {
+    font-size: 27px;
+  }
+
+  .new-enquiry-actions {
+    justify-content: stretch;
+  }
+
+  .new-enquiry-cancel,
+  .new-enquiry-submit {
+    flex: 1;
+    justify-content: center;
+  }
+}

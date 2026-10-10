@@ -1,0 +1,356 @@
+.admissions-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 36px;
+}
+
+.admissions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 25px;
+  margin-bottom: 32px;
+}
+
+.admissions-heading span {
+  color: #a65d3f;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.admissions-heading h1 {
+  margin: 8px 0;
+  color: #183f35;
+  font-family: "Playfair Display", serif;
+  font-size: 48px;
+}
+
+.admissions-heading p {
+  margin: 0;
+  color: #68736d;
+}
+
+.new-admission-button {
+  border: none;
+  background: #183f35;
+  color: white;
+  padding: 13px 20px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.new-admission-button:hover {
+  background: #285b4b;
+}
+
+.admission-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.admission-summary > div {
+  background: #f5f0e7;
+  border: 1px solid #e4ddd0;
+  padding: 22px;
+}
+
+.admission-summary span {
+  display: block;
+  color: #7c847e;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+
+.admission-summary strong {
+  color: #183f35;
+  font-size: 32px;
+}
+
+.admission-form {
+  background: #fffdf9;
+  border: 1px solid #e1dacf;
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.form-section-title {
+  margin-bottom: 22px;
+}
+
+.form-section-title.second {
+  margin-top: 34px;
+  padding-top: 30px;
+  border-top: 1px solid #e7e0d5;
+}
+
+.form-section-title span {
+  color: #a65d3f;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.form-section-title h2 {
+  margin: 6px 0 0;
+  color: #183f35;
+  font-family: "Playfair Display", serif;
+  font-size: 28px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.admission-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: #4d5a53;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.admission-form input,
+.admission-form select,
+.admission-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #dcd5ca;
+  background: #faf8f3;
+  padding: 12px 13px;
+  color: #263f36;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.admission-form input:focus,
+.admission-form select:focus,
+.admission-form textarea:focus {
+  border-color: #7f9b8e;
+}
+
+.full-width-field {
+  margin-top: 18px;
+}
+
+.admission-form textarea {
+  resize: vertical;
+}
+
+.form-notes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.admission-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid #e7e0d5;
+}
+
+.admission-form-actions button {
+  border: 1px solid #d5cec2;
+  background: #f3eee5;
+  color: #29483d;
+  padding: 11px 18px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.admission-form-actions button[type="submit"] {
+  border-color: #183f35;
+  background: #183f35;
+  color: white;
+}
+
+.admission-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.admission-card {
+  background: #fffdf9;
+  border: 1px solid #e2dcd1;
+  padding: 26px;
+}
+
+.admission-card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.admission-label {
+  color: #a65d3f;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.admission-card h2 {
+  margin: 8px 0;
+  color: #183f35;
+  font-family: "Playfair Display", serif;
+  font-size: 27px;
+}
+
+.admission-card p {
+  color: #65716b;
+}
+
+.admission-status {
+  height: fit-content;
+  background: #eee8dc;
+  color: #48584f;
+  padding: 8px 13px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.admission-info-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #ebe5db;
+}
+
+.admission-info-grid span,
+.admission-observation span {
+  display: block;
+  color: #858c87;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.3px;
+  margin-bottom: 6px;
+}
+
+.admission-info-grid strong {
+  color: #29463b;
+  font-size: 13px;
+}
+
+.admission-observation {
+  margin-top: 20px;
+}
+
+.admission-observation p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.admission-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 22px;
+}
+
+.admission-actions button {
+  border: 1px solid #d5cec2;
+  background: #f4efe7;
+  color: #29483d;
+  padding: 9px 13px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.admission-actions .select-button {
+  background: #183f35;
+  border-color: #183f35;
+  color: white;
+}
+
+.admission-actions .delete-button {
+  color: #9b4937;
+}
+
+.admissions-empty,
+.admissions-state,
+.admissions-error {
+  background: #fffdf9;
+  border: 1px solid #e2dcd1;
+  padding: 50px;
+  text-align: center;
+}
+
+.admissions-empty span {
+  color: #a65d3f;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.admissions-empty h2 {
+  color: #183f35;
+  font-family: "Playfair Display", serif;
+}
+
+.admissions-empty p {
+  color: #69746e;
+}
+
+.admissions-error strong {
+  color: #9b4937;
+}
+
+.admissions-error button {
+  margin-top: 12px;
+  border: none;
+  background: #183f35;
+  color: white;
+  padding: 10px 18px;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .admissions-page {
+    padding: 22px;
+  }
+
+  .admissions-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admission-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .admission-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .form-grid,
+  .form-notes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 550px) {
+  .admission-summary,
+  .admission-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admission-card-top {
+    flex-direction: column;
+  }
+}

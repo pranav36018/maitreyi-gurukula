@@ -1,0 +1,2225 @@
+﻿/* =========================================================
+   MAITREYI GURUKULA
+   NEW LOGIN EXPERIENCE
+========================================================= */
+
+.maitreyi-login {
+  min-height: 100vh;
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+
+  background: #f8f5ed;
+}
+
+
+/* =========================================================
+   LEFT BRAND AREA
+========================================================= */
+
+.maitreyi-login-brand {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  padding: 55px 70px;
+
+  overflow: hidden;
+
+  color: #ffffff;
+
+  background:
+    radial-gradient(
+      circle at 85% 20%,
+      rgba(198, 154, 82, 0.18),
+      transparent 25%
+    ),
+    linear-gradient(
+      145deg,
+      #263b32,
+      #1d2e27
+    );
+}
+
+
+/* Decorative circle */
+
+.maitreyi-login-brand::before {
+  content: "";
+
+  position: absolute;
+
+  width: 430px;
+  height: 430px;
+
+  right: -220px;
+  bottom: -200px;
+
+  border-radius: 50%;
+
+  border:
+    1px solid rgba(198, 154, 82, 0.28);
+}
+
+.maitreyi-login-brand::after {
+  content: "";
+
+  position: absolute;
+
+  width: 180px;
+  height: 180px;
+
+  left: -90px;
+  top: 40%;
+
+  border-radius: 50%;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+/* Brand */
+
+.maitreyi-login-brand-top {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+}
+
+.maitreyi-login-mark {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background: #c69a52;
+
+  color: #263b32;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.maitreyi-login-brand-top strong {
+  display: block;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 17px;
+
+  letter-spacing: 1.5px;
+}
+
+.maitreyi-login-brand-top span {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #cfd7d0;
+
+  font-size: 9px;
+
+  letter-spacing: 3px;
+}
+
+
+/* =========================================================
+   STORY
+========================================================= */
+
+.maitreyi-login-story {
+  position: relative;
+  z-index: 2;
+
+  max-width: 620px;
+
+  margin: auto 0;
+}
+
+.maitreyi-login-eyebrow {
+  margin-bottom: 25px;
+
+  color: #d9bb7b;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 3px;
+}
+
+.maitreyi-login-story h1 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(52px, 6vw, 82px);
+
+  font-weight: 400;
+
+  line-height: 0.98;
+
+  letter-spacing: -3px;
+}
+
+.maitreyi-login-story h1 em {
+  color: #d6b675;
+
+  font-style: normal;
+}
+
+.maitreyi-login-description {
+  max-width: 440px;
+
+  margin-top: 35px;
+
+  color: #cbd3cd;
+
+  font-size: 15px;
+
+  line-height: 1.9;
+}
+
+
+/* =========================================================
+   BRAND FOOTER
+========================================================= */
+
+.maitreyi-login-footer {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  padding-top: 25px;
+
+  border-top:
+    1px solid rgba(255, 255, 255, 0.12);
+
+  color: #aeb9b0;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+}
+
+
+/* =========================================================
+   RIGHT PANEL
+========================================================= */
+
+.maitreyi-login-panel {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 50px;
+
+  background: #f8f5ed;
+}
+
+
+/* =========================================================
+   LOGIN CARD
+========================================================= */
+
+.maitreyi-login-card {
+  width: 100%;
+  max-width: 470px;
+
+  padding: 50px;
+
+  background: #ffffff;
+
+  border:
+    1px solid rgba(38, 59, 50, 0.10);
+
+  border-radius: 26px;
+
+  box-shadow:
+    0 25px 70px rgba(38, 59, 50, 0.10);
+}
+
+
+/* Heading */
+
+.maitreyi-login-card-heading > span {
+  display: block;
+
+  margin-bottom: 18px;
+
+  color: #b66a4a;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 2.5px;
+}
+
+.maitreyi-login-card-heading h2 {
+  margin: 0;
+
+  color: #263b32;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 42px;
+
+  font-weight: 400;
+
+  letter-spacing: -1px;
+}
+
+.maitreyi-login-card-heading p {
+  margin: 12px 0 35px;
+
+  color: #77756d;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.maitreyi-login-field {
+  margin-bottom: 22px;
+}
+
+.maitreyi-login-field label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #2f302c;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.3px;
+}
+
+.maitreyi-login-field input {
+  width: 100%;
+
+  padding: 15px 16px;
+
+  border:
+    1px solid rgba(38, 59, 50, 0.14);
+
+  border-radius: 11px;
+
+  outline: none;
+
+  background: #f8f5ed;
+
+  color: #2f302c;
+
+  font-family:
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  font-size: 14px;
+
+  transition:
+    border 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.maitreyi-login-field input::placeholder {
+  color: #aaa79f;
+}
+
+.maitreyi-login-field input:focus {
+  background: #ffffff;
+
+  border-color: #b66a4a;
+
+  box-shadow:
+    0 0 0 4px rgba(182, 106, 74, 0.08);
+}
+
+
+/* =========================================================
+   SIGN IN BUTTON
+========================================================= */
+
+.maitreyi-login-submit {
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 10px;
+
+  padding: 15px 18px;
+
+  border: none;
+
+  border-radius: 11px;
+
+  background: #b66a4a;
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.maitreyi-login-submit span {
+  font-size: 20px;
+
+  transition:
+    transform 0.25s ease;
+}
+
+.maitreyi-login-submit:hover {
+  background: #955039;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 25px rgba(182, 106, 74, 0.20);
+}
+
+.maitreyi-login-submit:hover span {
+  transform: translateX(4px);
+}
+
+
+/* =========================================================
+   SECURITY NOTE
+========================================================= */
+
+.maitreyi-login-note {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 28px;
+
+  padding-top: 20px;
+
+  border-top:
+    1px solid rgba(38, 59, 50, 0.08);
+}
+
+.maitreyi-login-note > span {
+  width: 7px;
+  height: 7px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #c69a52;
+}
+
+.maitreyi-login-note p {
+  margin: 0;
+
+  color: #99968e;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   LOGIN MOBILE
+========================================================= */
+
+@media (max-width: 850px) {
+
+  .maitreyi-login {
+    grid-template-columns: 1fr;
+  }
+
+  .maitreyi-login-brand {
+    min-height: 430px;
+
+    padding: 35px 30px;
+  }
+
+  .maitreyi-login-story {
+    margin-top: 70px;
+  }
+
+  .maitreyi-login-story h1 {
+    font-size: 50px;
+  }
+
+  .maitreyi-login-panel {
+    padding: 30px 20px 50px;
+  }
+
+  .maitreyi-login-card {
+    padding: 35px 25px;
+  }
+
+}
+
+
+@media (max-width: 500px) {
+
+  .maitreyi-login-brand {
+    min-height: 390px;
+  }
+
+  .maitreyi-login-story h1 {
+    font-size: 42px;
+    letter-spacing: -2px;
+  }
+
+  .maitreyi-login-description {
+    font-size: 13px;
+  }
+
+  .maitreyi-login-card-heading h2 {
+    font-size: 34px;
+  }
+
+}
+/* =========================================================
+   MAITREYI GURUKULA
+   NEW PUBLIC HOME DESIGN
+========================================================= */
+
+.maitreyi-home {
+  --m-green: #23382f;
+  --m-green-dark: #182a23;
+  --m-ivory: #f7f4ed;
+  --m-paper: #fffdf8;
+  --m-terracotta: #b96548;
+  --m-gold: #c5a15d;
+  --m-sage: #dfe5dc;
+  --m-text: #29302c;
+  --m-muted: #74766f;
+
+  width: 100%;
+
+  background: var(--m-ivory);
+
+  color: var(--m-text);
+
+  font-family:
+    "Segoe UI",
+    Arial,
+    sans-serif;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.maitreyi-nav {
+  position: sticky;
+
+  top: 0;
+
+  z-index: 100;
+
+  height: 78px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 0 6vw;
+
+  background:
+    rgba(247, 244, 237, 0.94);
+
+  border-bottom:
+    1px solid rgba(35, 56, 47, 0.10);
+
+  backdrop-filter: blur(18px);
+}
+
+
+.maitreyi-brand {
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+}
+
+
+.maitreyi-brand-mark {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: var(--m-green);
+
+  color: #ffffff;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 17px;
+}
+
+
+.maitreyi-brand strong {
+  display: block;
+
+  color: var(--m-green);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 17px;
+}
+
+
+.maitreyi-brand span {
+  display: block;
+
+  margin-top: 2px;
+
+  color: var(--m-muted);
+
+  font-size: 8px;
+
+  letter-spacing: 2.5px;
+
+  text-transform: uppercase;
+}
+
+
+.maitreyi-nav-links {
+  display: flex;
+
+  align-items: center;
+
+  gap: 30px;
+}
+
+
+.maitreyi-nav-links a {
+  color: #4f5751;
+
+  text-decoration: none;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  transition:
+    color 0.2s ease;
+}
+
+
+.maitreyi-nav-links a:hover {
+  color: var(--m-terracotta);
+}
+
+
+.maitreyi-nav-login {
+  border: none;
+
+  padding: 10px 21px;
+
+  border-radius: 999px;
+
+  background: var(--m-terracotta);
+
+  color: white;
+
+  cursor: pointer;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+
+.maitreyi-nav-login:hover {
+  background: #994c35;
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.maitreyi-hero {
+  position: relative;
+
+  min-height: 650px;
+
+  display: grid;
+
+  grid-template-columns:
+    1.1fr
+    0.9fr;
+
+  padding:
+    85px 8vw 30px;
+
+  overflow: hidden;
+
+  background: var(--m-ivory);
+}
+
+
+.maitreyi-hero-content {
+  position: relative;
+
+  z-index: 3;
+
+  align-self: center;
+
+  max-width: 760px;
+}
+
+
+.maitreyi-hero-label,
+.maitreyi-section-label {
+  color: var(--m-terracotta);
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing: 3px;
+
+  text-transform: uppercase;
+}
+
+
+.maitreyi-hero h1 {
+  margin: 25px 0 0;
+
+  color: var(--m-green);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(56px, 7vw, 94px);
+
+  font-weight: 400;
+
+  line-height: 0.98;
+
+  letter-spacing: -4px;
+}
+
+
+.maitreyi-hero h1 span {
+  color: var(--m-terracotta);
+
+  font-style: italic;
+}
+
+
+.maitreyi-hero-description {
+  max-width: 540px;
+
+  margin: 32px 0 0;
+
+  color: var(--m-muted);
+
+  font-size: 16px;
+
+  line-height: 1.85;
+}
+
+
+.maitreyi-hero-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 25px;
+
+  margin-top: 36px;
+}
+
+
+.maitreyi-button-primary {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 20px;
+
+  padding: 14px 20px;
+
+  border-radius: 5px;
+
+  background: var(--m-green);
+
+  color: white;
+
+  text-decoration: none;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+
+.maitreyi-button-primary:hover {
+  background: var(--m-terracotta);
+
+  transform: translateY(-2px);
+}
+
+
+.maitreyi-button-primary span {
+  font-size: 17px;
+}
+
+
+.maitreyi-button-text {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  color: var(--m-green);
+
+  text-decoration: none;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+
+.maitreyi-button-text:hover {
+  color: var(--m-terracotta);
+}
+
+
+/* =========================================================
+   HERO ART
+========================================================= */
+
+.maitreyi-hero-art {
+  position: relative;
+
+  min-height: 500px;
+}
+
+
+.hero-art-circle {
+  position: absolute;
+
+  border-radius: 50%;
+}
+
+
+.hero-art-circle-one {
+  width: 390px;
+  height: 390px;
+
+  top: 30px;
+  right: 3vw;
+
+  background:
+    #e4ded0;
+}
+
+
+.hero-art-circle-two {
+  width: 250px;
+  height: 250px;
+
+  top: 105px;
+  right: 10vw;
+
+  border:
+    1px solid rgba(35, 56, 47, 0.18);
+}
+
+
+.hero-art-card {
+  position: absolute;
+
+  z-index: 2;
+
+  top: 145px;
+  right: 11vw;
+
+  width: 210px;
+  height: 250px;
+
+  padding: 28px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  background: var(--m-green);
+
+  color: white;
+
+  box-shadow:
+    25px 25px 0 rgba(185, 101, 72, 0.14);
+}
+
+
+.hero-art-card span {
+  color: #d7bc7c;
+
+  font-size: 8px;
+
+  font-weight: 800;
+
+  letter-spacing: 3px;
+}
+
+
+.hero-art-card strong {
+  color: white;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 75px;
+
+  font-weight: 400;
+
+  line-height: 1;
+}
+
+
+.hero-art-card p {
+  margin: 0;
+
+  color: #c8d1ca;
+
+  font-size: 11px;
+
+  line-height: 1.6;
+}
+
+
+.hero-art-line {
+  position: absolute;
+
+  width: 100px;
+
+  height: 1px;
+
+  right: 0;
+
+  bottom: 85px;
+
+  background: var(--m-gold);
+}
+
+
+.maitreyi-hero-bottom {
+  position: absolute;
+
+  left: 8vw;
+  right: 8vw;
+
+  bottom: 25px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  color: #96988f;
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing: 2px;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.maitreyi-intro {
+  padding:
+    130px 10vw;
+
+  background:
+    var(--m-paper);
+}
+
+
+.maitreyi-intro-grid {
+  display: grid;
+
+  grid-template-columns:
+    1.2fr
+    0.8fr;
+
+  gap: 100px;
+
+  margin-top: 45px;
+}
+
+
+.maitreyi-intro h2 {
+  margin: 0;
+
+  color: var(--m-green);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(40px, 5vw, 68px);
+
+  font-weight: 400;
+
+  line-height: 1.05;
+
+  letter-spacing: -2px;
+}
+
+
+.maitreyi-intro h2 em {
+  color: var(--m-terracotta);
+
+  font-style: italic;
+}
+
+
+.maitreyi-intro-grid > div {
+  align-self: end;
+}
+
+
+.maitreyi-intro-grid p {
+  max-width: 480px;
+
+  margin: 0 0 18px;
+
+  color: var(--m-muted);
+
+  font-size: 15px;
+
+  line-height: 1.9;
+}
+
+
+.maitreyi-intro-grid p:first-child {
+  color: var(--m-green);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 22px;
+}
+
+
+/* =========================================================
+   STORY
+========================================================= */
+
+.maitreyi-story {
+  padding:
+    130px 10vw;
+
+  background: var(--m-green);
+
+  color: white;
+}
+
+
+.maitreyi-story-heading {
+  margin-bottom: 100px;
+}
+
+
+.maitreyi-story-heading .maitreyi-section-label {
+  color: #d6b675;
+}
+
+
+.maitreyi-story-heading h2 {
+  margin: 25px 0 0;
+
+  color: white;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(44px, 5vw, 70px);
+
+  font-weight: 400;
+
+  line-height: 1.02;
+
+  letter-spacing: -2px;
+}
+
+
+.maitreyi-story-content {
+  max-width: 950px;
+
+  display: grid;
+
+  grid-template-columns: 90px 1fr;
+
+  gap: 35px;
+
+  padding:
+    45px 0;
+
+  border-top:
+    1px solid rgba(255,255,255,0.13);
+}
+
+
+.story-number {
+  color: #d6b675;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  letter-spacing: 2px;
+}
+
+
+.maitreyi-story-content h3 {
+  margin: 0 0 20px;
+
+  color: white;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 30px;
+
+  font-weight: 400;
+}
+
+
+.maitreyi-story-content p {
+  max-width: 720px;
+
+  margin: 0 0 16px;
+
+  color: #cbd4ce;
+
+  font-size: 14px;
+
+  line-height: 1.9;
+}
+
+
+.maitreyi-story-highlight {
+  max-width: 900px;
+
+  margin-top: 60px;
+
+  padding:
+    55px 0;
+
+  border-top:
+    1px solid rgba(255,255,255,0.13);
+
+  border-bottom:
+    1px solid rgba(255,255,255,0.13);
+}
+
+
+.maitreyi-story-highlight span {
+  color: #d6b675;
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing: 3px;
+}
+
+
+.maitreyi-story-highlight h3 {
+  max-width: 750px;
+
+  margin: 25px 0 0;
+
+  color: white;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(32px, 4vw, 52px);
+
+  font-weight: 400;
+
+  line-height: 1.15;
+}
+
+
+/* =========================================================
+   PHILOSOPHY
+========================================================= */
+
+.maitreyi-philosophy {
+  padding:
+    130px 10vw;
+
+  background: var(--m-paper);
+}
+
+
+.maitreyi-philosophy-heading h2 {
+  margin: 25px 0 80px;
+
+  color: var(--m-green);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(45px, 5vw, 70px);
+
+  font-weight: 400;
+
+  line-height: 1;
+
+  letter-spacing: -2px;
+}
+
+
+.maitreyi-philosophy-list {
+  border-top:
+    1px solid rgba(35, 56, 47, 0.16);
+}
+
+
+.philosophy-row {
+  display: grid;
+
+  grid-template-columns:
+    70px
+    1fr
+    1.1fr;
+
+  align-items: center;
+
+  gap: 40px;
+
+  padding: 35px 0;
+
+  border-bottom:
+    1px solid rgba(35, 56, 47, 0.16);
+}
+
+
+.philosophy-row > span {
+  color: var(--m-terracotta);
+
+  font-size: 10px;
+
+  font-weight: 800;
+}
+
+
+.philosophy-row h3 {
+  margin: 0;
+
+  color: var(--m-green);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 28px;
+
+  font-weight: 400;
+}
+
+
+.philosophy-row p {
+  max-width: 480px;
+
+  margin: 0;
+
+  color: var(--m-muted);
+
+  font-size: 13px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   UNIQUE
+========================================================= */
+
+.maitreyi-unique {
+  padding:
+    130px 10vw;
+
+  background: #ebe8df;
+}
+
+
+.maitreyi-unique-heading {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  column-gap: 100px;
+}
+
+
+.maitreyi-unique-heading h2 {
+  grid-column: 1;
+
+  margin: 25px 0 0;
+
+  color: var(--m-green);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(45px, 5vw, 70px);
+
+  font-weight: 400;
+
+  line-height: 1;
+
+  letter-spacing: -2px;
+}
+
+
+.maitreyi-unique-heading > p {
+  grid-column: 2;
+
+  align-self: end;
+
+  max-width: 450px;
+
+  margin: 0;
+
+  color: var(--m-muted);
+
+  font-size: 14px;
+
+  line-height: 1.9;
+}
+
+
+.maitreyi-unique-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 1px;
+
+  margin-top: 80px;
+
+  background:
+    rgba(35, 56, 47, 0.14);
+
+  border:
+    1px solid rgba(35, 56, 47, 0.14);
+}
+
+
+.maitreyi-unique-grid article {
+  min-height: 250px;
+
+  padding: 35px;
+
+  background: var(--m-paper);
+
+  transition:
+    background 0.25s ease;
+}
+
+
+.maitreyi-unique-grid article:hover {
+  background: #f4efe3;
+}
+
+
+.maitreyi-unique-grid article > span {
+  color: var(--m-terracotta);
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  letter-spacing: 2px;
+}
+
+
+.maitreyi-unique-grid h3 {
+  margin: 45px 0 13px;
+
+  color: var(--m-green);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 27px;
+
+  font-weight: 400;
+}
+
+
+.maitreyi-unique-grid p {
+  max-width: 500px;
+
+  margin: 0;
+
+  color: var(--m-muted);
+
+  font-size: 13px;
+
+  line-height: 1.8;
+}
+
+
+/* =========================================================
+   CHILD JOURNEY
+========================================================= */
+
+.maitreyi-journey {
+  padding:
+    130px 10vw;
+
+  background: var(--m-ivory);
+}
+
+
+.maitreyi-journey-heading {
+  max-width: 760px;
+}
+
+
+.maitreyi-journey-heading h2 {
+  margin: 25px 0;
+
+  color: var(--m-green);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(45px, 5vw, 70px);
+
+  font-weight: 400;
+
+  line-height: 1;
+
+  letter-spacing: -2px;
+}
+
+
+.maitreyi-journey-heading p {
+  max-width: 560px;
+
+  color: var(--m-muted);
+
+  font-size: 14px;
+
+  line-height: 1.9;
+}
+
+
+.maitreyi-journey-list {
+  margin-top: 80px;
+
+  border-top:
+    1px solid rgba(35, 56, 47, 0.15);
+}
+
+
+.maitreyi-journey-list > div {
+  display: grid;
+
+  grid-template-columns:
+    70px
+    1fr
+    1.2fr;
+
+  gap: 30px;
+
+  align-items: center;
+
+  padding: 27px 0;
+
+  border-bottom:
+    1px solid rgba(35, 56, 47, 0.15);
+}
+
+
+.maitreyi-journey-list span {
+  color: var(--m-terracotta);
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  letter-spacing: 2px;
+}
+
+
+.maitreyi-journey-list strong {
+  color: var(--m-green);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 23px;
+
+  font-weight: 400;
+}
+
+
+.maitreyi-journey-list p {
+  margin: 0;
+
+  color: var(--m-muted);
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   FINAL CTA
+========================================================= */
+
+.maitreyi-final {
+  position: relative;
+
+  padding:
+    120px 10vw;
+
+  text-align: center;
+
+  overflow: hidden;
+
+  background: var(--m-terracotta);
+
+  color: white;
+}
+
+
+.maitreyi-final::before {
+  content: "";
+
+  position: absolute;
+
+  width: 500px;
+  height: 500px;
+
+  top: -350px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  border-radius: 50%;
+
+  border:
+    1px solid rgba(255,255,255,0.18);
+}
+
+
+.maitreyi-final-mark {
+  position: relative;
+
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 auto 35px;
+
+  border-radius: 50%;
+
+  background: white;
+
+  color: var(--m-terracotta);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 20px;
+}
+
+
+.maitreyi-final .maitreyi-section-label {
+  color: #f4dcb0;
+}
+
+
+.maitreyi-final h2 {
+  margin: 25px 0 0;
+
+  color: white;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(50px, 6vw, 80px);
+
+  font-weight: 400;
+
+  line-height: 0.95;
+
+  letter-spacing: -3px;
+}
+
+
+.maitreyi-final h2 em {
+  color: #f4dcb0;
+
+  font-style: italic;
+}
+
+
+.maitreyi-final > p {
+  margin: 20px 0 35px;
+
+  color: #f6dfc8;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 22px;
+}
+
+
+.maitreyi-final-button {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 20px;
+
+  padding: 14px 22px;
+
+  background: white;
+
+  color: var(--m-green);
+
+  text-decoration: none;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+
+.maitreyi-final-button:hover {
+  background: var(--m-green);
+
+  color: white;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.maitreyi-footer {
+  display: grid;
+
+  grid-template-columns:
+    1.2fr
+    1fr
+    auto;
+
+  gap: 60px;
+
+  padding:
+    60px 10vw 30px;
+
+  background: var(--m-green-dark);
+
+  color: white;
+}
+
+
+.maitreyi-footer strong {
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 20px;
+
+  font-weight: 400;
+}
+
+
+.maitreyi-footer p {
+  margin-top: 12px;
+
+  color: #aeb9b1;
+
+  font-size: 12px;
+
+  line-height: 1.7;
+}
+
+
+.maitreyi-footer-links {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+
+.maitreyi-footer-links a {
+  color: #c7cec8;
+
+  text-decoration: none;
+
+  font-size: 11px;
+}
+
+
+.maitreyi-footer-links a:hover {
+  color: white;
+}
+
+
+.maitreyi-footer-bottom {
+  align-self: end;
+
+  color: #8f9c94;
+
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   HOME RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .maitreyi-nav {
+    padding: 0 25px;
+  }
+
+  .maitreyi-nav-links {
+    display: none;
+  }
+
+  .maitreyi-hero {
+    grid-template-columns: 1fr;
+
+    min-height: 850px;
+
+    padding:
+      70px 30px 80px;
+  }
+
+  .maitreyi-hero-art {
+    min-height: 350px;
+  }
+
+  .hero-art-circle-one {
+    width: 300px;
+    height: 300px;
+
+    right: 10%;
+  }
+
+  .hero-art-card {
+    top: 100px;
+    right: 20%;
+  }
+
+  .maitreyi-hero-bottom {
+    left: 30px;
+    right: 30px;
+  }
+
+  .maitreyi-intro-grid,
+  .maitreyi-unique-heading {
+    grid-template-columns: 1fr;
+
+    gap: 35px;
+  }
+
+  .maitreyi-unique-heading > p {
+    grid-column: 1;
+  }
+
+  .philosophy-row,
+  .maitreyi-journey-list > div {
+    grid-template-columns:
+      50px
+      1fr;
+  }
+
+  .philosophy-row p,
+  .maitreyi-journey-list p {
+    grid-column: 2;
+  }
+
+  .maitreyi-footer {
+    grid-template-columns: 1fr;
+
+    gap: 35px;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .maitreyi-nav {
+    height: 68px;
+  }
+
+  .maitreyi-nav-login {
+    padding: 9px 16px;
+  }
+
+  .maitreyi-hero {
+    min-height: 760px;
+  }
+
+  .maitreyi-hero h1 {
+    font-size: 52px;
+
+    letter-spacing: -2.5px;
+  }
+
+  .maitreyi-hero-description {
+    font-size: 14px;
+  }
+
+  .maitreyi-hero-actions {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 18px;
+  }
+
+  .maitreyi-hero-art {
+    min-height: 280px;
+  }
+
+  .hero-art-circle-one {
+    width: 240px;
+    height: 240px;
+
+    right: 3%;
+  }
+
+  .hero-art-circle-two {
+    width: 170px;
+    height: 170px;
+
+    right: 14%;
+  }
+
+  .hero-art-card {
+    width: 165px;
+    height: 195px;
+
+    top: 55px;
+    right: 18%;
+
+    padding: 22px;
+  }
+
+  .hero-art-card strong {
+    font-size: 58px;
+  }
+
+  .maitreyi-hero-bottom {
+    display: none;
+  }
+
+  .maitreyi-intro,
+  .maitreyi-story,
+  .maitreyi-philosophy,
+  .maitreyi-unique,
+  .maitreyi-journey {
+    padding:
+      90px 25px;
+  }
+
+  .maitreyi-story-content {
+    grid-template-columns: 45px 1fr;
+
+    gap: 15px;
+  }
+
+  .maitreyi-story-content h3 {
+    font-size: 25px;
+  }
+
+  .maitreyi-unique-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .maitreyi-unique-grid article {
+    min-height: auto;
+  }
+
+  .maitreyi-footer {
+    padding:
+      50px 25px 25px;
+  }
+
+}
+
+/* =========================================================
+   FINAL HOME PAGE TYPOGRAPHY â€” SIZE & READABILITY
+========================================================= */
+
+.maitreyi-home,
+.maitreyi-home p,
+.maitreyi-home a,
+.maitreyi-home button {
+  font-family: "Inter", sans-serif;
+}
+
+/* Navigation */
+.maitreyi-nav { min-height: 84px; }
+.maitreyi-brand strong { font-size: 22px; font-weight: 700; }
+.maitreyi-brand span { font-size: 10px; letter-spacing: 0.18em; }
+.maitreyi-nav-links a,
+.maitreyi-nav-login { font-size: 15px; font-weight: 600; }
+
+/* Hero */
+.maitreyi-hero-label {
+  font-size: 19px;
+  line-height: 1.5;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #b96548;
+}
+.maitreyi-hero h1 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(76px, 7.8vw, 116px);
+  line-height: 0.98;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+.maitreyi-hero-description {
+  font-size: 20px;
+  line-height: 1.8;
+  color: #46514b;
+  max-width: 720px;
+}
+
+/* Section labels */
+.maitreyi-section-label {
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+/* Major section headings */
+.maitreyi-intro h2,
+.maitreyi-story-heading h2,
+.maitreyi-philosophy-heading h2,
+.maitreyi-unique-heading h2,
+.maitreyi-journey-heading h2,
+.maitreyi-final h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(52px, 5.3vw, 74px);
+  line-height: 1.08;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+/* General body */
+.maitreyi-home p {
+  font-size: 17px;
+  line-height: 1.82;
+  color: #46514b;
+  opacity: 1;
+}
+.maitreyi-intro p,
+.maitreyi-unique-heading > p,
+.maitreyi-journey-heading > p {
+  font-size: 18px;
+  line-height: 1.82;
+}
+
+/* Our Story */
+.maitreyi-story { color: #fffdf8; }
+.maitreyi-story-heading h2 { color: #fffdf8; }
+.maitreyi-story .maitreyi-section-label { color: #d6a45f; }
+.maitreyi-story-content { grid-template-columns: 78px 1fr; }
+.maitreyi-story-content .story-number {
+  display: block;
+  color: #d6a45f;
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  opacity: 1;
+}
+.maitreyi-story-content h3 {
+  color: #fffdf8;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 28px;
+  line-height: 1.3;
+  font-weight: 600;
+}
+.maitreyi-story-content p {
+  color: #e6ebe6;
+  font-family: "Inter", sans-serif;
+  font-size: 17px;
+  line-height: 1.85;
+  font-weight: 400;
+  opacity: 1;
+}
+.maitreyi-story-highlight span {
+  color: #d6a45f;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+.maitreyi-story-highlight h3 {
+  color: #fffdf8;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(36px, 4vw, 54px);
+  line-height: 1.15;
+  font-weight: 600;
+}
+
+/* Philosophy */
+.maitreyi-philosophy .maitreyi-section-label { color: #b96548; }
+.maitreyi-philosophy-heading h2 { color: #23382f; }
+.philosophy-row > span {
+  color: #b96548;
+  font-family: "Inter", sans-serif;
+  font-size: 17px;
+  line-height: 1;
+  font-weight: 800;
+  opacity: 1;
+}
+.philosophy-row h3 {
+  color: #23382f;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 27px;
+  line-height: 1.3;
+  font-weight: 600;
+}
+.philosophy-row p {
+  color: #46514b;
+  font-family: "Inter", sans-serif;
+  font-size: 17px;
+  line-height: 1.8;
+  opacity: 1;
+}
+
+/* What makes us different */
+.maitreyi-unique-grid article > span {
+  color: #b96548;
+  font-family: "Inter", sans-serif;
+  font-size: 17px;
+  line-height: 1;
+  font-weight: 800;
+  opacity: 1;
+}
+.maitreyi-unique-grid article h3 {
+  color: #23382f;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 26px;
+  line-height: 1.3;
+  font-weight: 600;
+}
+.maitreyi-unique-grid article p {
+  color: #46514b;
+  font-size: 17px;
+  line-height: 1.8;
+  opacity: 1;
+}
+
+/* Child Journey */
+.maitreyi-journey-list > div > span {
+  color: #b96548;
+  font-family: "Inter", sans-serif;
+  font-size: 17px;
+  line-height: 1;
+  font-weight: 800;
+  opacity: 1;
+}
+.maitreyi-journey-list strong {
+  color: #23382f;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 25px;
+  line-height: 1.3;
+  font-weight: 600;
+}
+.maitreyi-journey-list p {
+  color: #46514b;
+  font-size: 16px;
+  line-height: 1.78;
+  opacity: 1;
+}
+
+/* Buttons */
+.maitreyi-button-primary,
+.maitreyi-button-text {
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .maitreyi-nav { min-height: 72px; }
+  .maitreyi-brand strong { font-size: 18px; }
+  .maitreyi-nav-links a,
+  .maitreyi-nav-login { font-size: 13px; }
+  .maitreyi-hero-label { font-size: 14px; }
+  .maitreyi-hero h1 { font-size: 56px; line-height: 1; }
+  .maitreyi-hero-description { font-size: 17px; }
+  .maitreyi-intro h2,
+  .maitreyi-story-heading h2,
+  .maitreyi-philosophy-heading h2,
+  .maitreyi-unique-heading h2,
+  .maitreyi-journey-heading h2,
+  .maitreyi-final h2 { font-size: 42px; }
+  .maitreyi-story-content { grid-template-columns: 48px 1fr; gap: 16px; }
+  .maitreyi-story-content .story-number,
+  .philosophy-row > span,
+  .maitreyi-unique-grid article > span,
+  .maitreyi-journey-list > div > span { font-size: 14px; }
+  .maitreyi-story-content h3,
+  .philosophy-row h3,
+  .maitreyi-unique-grid article h3 { font-size: 22px; }
+  .maitreyi-story-content p,
+  .philosophy-row p,
+  .maitreyi-unique-grid article p,
+  .maitreyi-journey-list p { font-size: 15px; }
+}
