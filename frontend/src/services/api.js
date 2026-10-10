@@ -2,33 +2,61 @@
 const configuredApiUrl = import.meta.env.VITE_API_BASE_URL?.trim();
 
 const API_BASE_URL = (
-  configuredApiUrl || "http://localhost:5000/api"
+  import.meta.env.PROD
+    ? (configuredApiUrl || "/api")
+    : (configuredApiUrl || "http://localhost:5000/api")
 ).replace(/\/+$/, "");
 
+
 const request = async (endpoint, options = {}) => {
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...(options.headers || {}),
-    },
-  });
+  const method = (options.method || "GET").toUpperCase();
+  const maxAttempts = method === "GET" ? 8 : 1;
 
-  const contentType = response.headers.get("content-type") || "";
-  const data = contentType.includes("application/json")
-    ? await response.json()
-    : await response.text();
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        ...options,
+        headers: {
+          "Content-Type": "application/json",
+          ...(options.headers || {}),
+        },
+      });
 
-  if (!response.ok) {
-    throw new Error(
-      (typeof data === "object" && data?.message) ||
-        (typeof data === "string" && data) ||
-        "Something went wrong"
-    );
+      // Retry temporary server errors while Render wakes up.
+      if (
+        method === "GET" &&
+        [502, 503, 504].includes(response.status) &&
+        attempt < maxAttempts
+      ) {
+        await response.body?.cancel();
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+        continue;
+      }
+
+      const contentType = response.headers.get("content-type") || "";
+      const data = contentType.includes("application/json")
+        ? await response.json()
+        : await response.text();
+
+      if (!response.ok) {
+        throw new Error(
+          (typeof data === "object" && data?.message) ||
+            (typeof data === "string" && data) ||
+            "Something went wrong"
+        );
+      }
+
+      return data;
+    } catch (error) {
+      if (attempt >= maxAttempts) {
+        throw error;
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+    }
   }
-
-  return data;
 };
+
 
 // CHILDREN
 export const getChildren = () => request("/children");
