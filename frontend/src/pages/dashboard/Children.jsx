@@ -1,7 +1,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import ChildProfile from "./ChildProfile";
-import { getChildren } from "../../services/api";
+import { getChildren, deleteChild } from "../../services/api";
 import "./Children.css";
 
 function Children() {
@@ -11,6 +11,7 @@ function Children() {
   const [selectedChild, setSelectedChild] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [deletingId, setDeletingId] = useState(null);
 
   const loadChildren = async () => {
     try {
@@ -23,6 +24,38 @@ function Children() {
       setError(err.message || "Unable to load children.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDeleteChild = async (child) => {
+    const fullName = [
+      child.firstName,
+      child.middleName,
+      child.lastName,
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+    const confirmed = window.confirm(
+      `Are you sure you want to delete ${fullName || "this child"}? This action may be permanent.`
+    );
+
+    if (!confirmed) return;
+
+    try {
+      setDeletingId(child._id);
+      setError("");
+
+      await deleteChild(child._id);
+
+      setChildren((current) =>
+        current.filter((item) => item._id !== child._id)
+      );
+    } catch (err) {
+      console.error("Unable to delete child:", err);
+      setError(err.message || "Unable to delete child.");
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -117,9 +150,9 @@ function Children() {
 
       {!loading && error && (
         <div className="children-state children-error">
-          <strong>Unable to load children</strong>
+          <strong>Unable to complete the operation</strong>
           <p>{error}</p>
-          <button onClick={loadChildren}>Try Again</button>
+          <button onClick={loadChildren}>Reload Children</button>
         </div>
       )}
 
@@ -146,42 +179,66 @@ function Children() {
               .join(" ");
 
             return (
-              <button
-                key={child._id}
-                type="button"
-                className="child-card"
-                onClick={() => setSelectedChild(child)}
-                aria-label={`Open profile for ${fullName}`}
-              >
-                <div className="child-card-top">
-                  <div className="child-avatar">
-                    {child.firstName?.charAt(0).toUpperCase() || "?"}
+              <div key={child._id} className="child-card">
+                <div
+                  className="child-card-content"
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setSelectedChild(child)}
+                  onKeyDown={(event) => {
+                    if (
+                      event.key === "Enter" ||
+                      event.key === " "
+                    ) {
+                      event.preventDefault();
+                      setSelectedChild(child);
+                    }
+                  }}
+                  aria-label={`Open profile for ${fullName}`}
+                >
+                  <div className="child-card-top">
+                    <div className="child-avatar">
+                      {child.firstName?.charAt(0).toUpperCase() || "?"}
+                    </div>
+
+                    <span
+                      className={`child-status ${
+                        child.status === "Active" ? "active" : ""
+                      }`}
+                    >
+                      {child.status || "Active"}
+                    </span>
                   </div>
 
-                  <span
-                    className={`child-status ${
-                      child.status === "Active" ? "active" : ""
-                    }`}
-                  >
-                    {child.status || "Active"}
-                  </span>
+                  <div className="child-card-info">
+                    <h2>{fullName || "Unnamed Child"}</h2>
+                    <p>
+                      {child.grade
+                        ? `Grade ${child.grade}`
+                        : "Grade not available"}
+                    </p>
+
+                    {child.admissionNumber && (
+                      <small>{child.admissionNumber}</small>
+                    )}
+
+                    {child.mentor && (
+                      <small>Mentor: {child.mentor}</small>
+                    )}
+                  </div>
+
+                  <div className="child-card-arrow">→</div>
                 </div>
 
-                <div className="child-card-info">
-                  <h2>{fullName || "Unnamed Child"}</h2>
-                  <p>
-                    {child.grade ? `Grade ${child.grade}` : "Grade not available"}
-                  </p>
-
-                  {child.admissionNumber && (
-                    <small>{child.admissionNumber}</small>
-                  )}
-
-                  {child.mentor && <small>Mentor: {child.mentor}</small>}
-                </div>
-
-                <div className="child-card-arrow">→</div>
-              </button>
+                <button
+                  type="button"
+                  className="delete-child-button"
+                  disabled={deletingId === child._id}
+                  onClick={() => handleDeleteChild(child)}
+                >
+                  {deletingId === child._id ? "Deleting..." : "Delete Child"}
+                </button>
+              </div>
             );
           })}
         </div>

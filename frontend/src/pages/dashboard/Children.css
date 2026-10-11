@@ -931,3 +931,78 @@
     width: 100%;
   }
 }
+
+
+/* Keep child records styled as individual cards */
+.child-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  padding: 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.child-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.1);
+}
+
+/* Restore the clickable content area */
+.child-card-content {
+  display: block;
+  width: 100%;
+  padding: 22px;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  font: inherit;
+}
+
+.child-card-content:focus-visible {
+  outline: 2px solid #64748b;
+  outline-offset: -3px;
+}
+
+/* Keep the delete action separate from the profile click */
+.delete-child-button {
+  align-self: flex-start;
+  margin: 0 22px 20px;
+  padding: 9px 15px;
+  border: 1px solid #dc2626;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #b91c1c;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.delete-child-button:hover:not(:disabled) {
+  background: #b91c1c;
+  color: #ffffff;
+}
+
+.delete-child-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Keep cards responsive on smaller screens */
+@media (max-width: 600px) {
+  .child-card-content {
+    padding: 17px;
+  }
+
+  .delete-child-button {
+    margin: 0 17px 17px;
+  }
+}

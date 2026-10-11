@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { wakeUpBackend } from "./services/api";
 
 import Home from "./pages/public/Home";
 import Login from "./pages/public/Login";
@@ -10,6 +11,7 @@ function App() {
   const [page, setPage] = useState("home");
 
   useEffect(() => {
+    wakeUpBackend();
     const handleHashChange = () => {
       const hash = window.location.hash;
 

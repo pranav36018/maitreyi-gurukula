@@ -8,6 +8,21 @@ const API_BASE_URL = (
 ).replace(/\/+$/, "");
 
 
+let wakeUpStarted = false;
+
+export const wakeUpBackend = () => {
+  if (wakeUpStarted) return;
+
+  wakeUpStarted = true;
+
+  fetch(`${API_BASE_URL}/health`, {
+    method: "GET",
+    cache: "no-store",
+  }).catch(() => {
+    // Silent failure: normal API requests can retry later.
+  });
+};
+
 const request = async (endpoint, options = {}) => {
   const method = (options.method || "GET").toUpperCase();
   const maxAttempts = method === "GET" ? 8 : 1;
