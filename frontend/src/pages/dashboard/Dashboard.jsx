@@ -241,7 +241,7 @@ function Dashboard() {
               </div>
               <button
                 onClick={() =>
-                  setActivePage("children")
+                  handleNavSelect("children")
                 }
               >
                 View children →
@@ -262,7 +262,7 @@ function Dashboard() {
             <div className="support-list">
               <button
                 onClick={() =>
-                  setActivePage("followups")
+                  handleNavSelect("followups")
                 }
               >
                 <div>
@@ -278,7 +278,7 @@ function Dashboard() {
               </button>
               <button
                 onClick={() =>
-                  setActivePage("skills")
+                  handleNavSelect("skills")
                 }
               >
                 <div>
@@ -294,7 +294,7 @@ function Dashboard() {
               </button>
               <button
                 onClick={() =>
-                  setActivePage("followups")
+                  handleNavSelect("followups")
                 }
               >
                 <div>
@@ -334,7 +334,7 @@ function Dashboard() {
 
   const handleNavSelect = (pageId) => {
     setActivePage(pageId);
-    if (typeof window !== "undefined" && window.innerWidth <= 850) {
+    if (typeof window !== "undefined" && window.innerWidth <= 900) {
       setTimeout(() => {
         const target = document.getElementById("dashboard-content-area");
         if (target) {
@@ -343,12 +343,12 @@ function Dashboard() {
           } catch {
             const rect = target.getBoundingClientRect();
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            window.scrollTo({ top: rect.top + scrollTop - 12, behavior: "smooth" });
+            window.scrollTo({ top: rect.top + scrollTop - 16, behavior: "smooth" });
           }
         } else {
           window.scrollTo({ top: 380, behavior: "smooth" });
         }
-      }, 60);
+      }, 70);
     }
   };
 

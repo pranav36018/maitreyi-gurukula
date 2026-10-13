@@ -493,33 +493,29 @@ function Home({ onLogin }) {
                 classical Bharatanatyam, and enduring character building.
               </p>
 
-              {/* Welcoming Featured Sanctuary Photograph on Homepage Opening View */}
-              <div
-                className="hero-welcome-photo-banner"
-                onClick={() => handleSelectContent("campus-photos")}
-                title="Click to explore Ramohalli Campus Photo Tour"
-              >
-                <img
-                  src="/images/local/gurukula-activity-1.jpg"
-                  alt="Shubham Karoti Maitreyi Gurukula students and founder in the 12-acre Ramohalli campus grove"
-                  className="hero-welcome-img"
-                  loading="eager"
-                />
-                <div className="hero-welcome-overlay">
-                  <div className="hero-welcome-badge">
-                    <Sparkles size={13} />
-                    <span>OUR GURUKULA KUTUMBA • RAMOHALLI SANCTUARY</span>
-                  </div>
-                  <div className="hero-welcome-caption">
-                    <strong>One United Residential Family Under the Sacred Trees</strong>
-                    <span>Click to explore Campus Photo Tour →</span>
-                  </div>
-                </div>
-              </div>
-
               <div className="hero-action-cluster">
-                {/* Main Action CTAs */}
+                {/* 3 Main Action CTAs */}
                 <div className="hero-cta-buttons-bar">
+                  <button
+                    type="button"
+                    className="hero-cta-quick-access"
+                    onClick={handleBackToQuickAccess}
+                    title="Explore Gurukula Darshanam sacred pathways"
+                  >
+                    <Compass size={16} />
+                    <span>Gurukula Darshanam ↓</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    className="hero-cta-primary"
+                    onClick={() => handleSelectContent("contact")}
+                    title="Inquire about admissions for prospective girls"
+                  >
+                    <span>Admission Enquiry</span>
+                    <ArrowUpRight size={16} />
+                  </button>
+
                   <button
                     type="button"
                     className="hero-cta-login"
@@ -529,44 +525,38 @@ function Home({ onLogin }) {
                     <LogIn size={15} />
                     <span>Portal Login</span>
                   </button>
+                </div>
 
+                {/* Elegant Secondary Quick Links */}
+                <div className="hero-secondary-links">
                   <button
                     type="button"
-                    className="hero-cta-quick-access"
-                    onClick={handleBackToQuickAccess}
-                    title="Explore Gurukula Darshanam sacred pathways"
-                  >
-                    <Compass size={15} />
-                    <span>Gurukula Darshanam ↓</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    className="hero-cta-primary"
-                    onClick={() => handleSelectContent("contact")}
-                  >
-                    <span>Admission Enquiry</span>
-                    <ArrowUpRight size={17} />
-                  </button>
-
-                  <button
-                    type="button"
-                    className="hero-cta-secondary"
+                    className="hero-link-subtle"
                     onClick={() => handleSelectContent("story")}
+                    title="Read our 30-year heritage and origins"
                   >
-                    <Scroll size={16} />
+                    <Scroll size={14} />
                     <span>Our 30-Yr Heritage</span>
-                    <ArrowRight size={15} />
                   </button>
-
+                  <span className="hero-link-sep">•</span>
                   <button
                     type="button"
-                    className="hero-cta-tertiary"
+                    className="hero-link-subtle"
                     onClick={() => setIsDirectionsOpen(true)}
                     title="Interactive Google Maps directions to Gurukula"
                   >
-                    <Navigation size={15} />
+                    <Navigation size={14} />
                     <span>Directions &amp; Map</span>
+                  </button>
+                  <span className="hero-link-sep">•</span>
+                  <button
+                    type="button"
+                    className="hero-link-subtle"
+                    onClick={() => handleSelectContent("campus-photos")}
+                    title="Campus photo gallery tour"
+                  >
+                    <Sparkles size={14} />
+                    <span>Campus Tour</span>
                   </button>
                 </div>
 

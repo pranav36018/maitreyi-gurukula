@@ -341,24 +341,6 @@ export default function HeroShowcaseCard() {
         {/* ================= MODE 1: PHOTOGRAPHIC GLIMPSES ================= */}
         {activeCardMode === "glimpse" && (
           <div className="showcase-glimpse-content">
-            {/* Symmetrical 5 Category Navigation Tabs */}
-            <div className="showcase-tabs-strip">
-              {showcaseGlimpses.map((item, idx) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  className={`glimpse-tab-pill ${activeTabIdx === idx ? "active" : ""}`}
-                  onClick={() => {
-                    setActiveTabIdx(idx);
-                    setIsPlaying(false);
-                  }}
-                  title={item.title}
-                >
-                  <span>{item.tag}</span>
-                </button>
-              ))}
-            </div>
-
             {/* Photo Stage with Golden Trim */}
             <div className="glimpse-photo-stage">
               <img
