@@ -444,7 +444,6 @@ select:focus {
 .section-container,
 .darshanam-container,
 .footer-container,
-.maitreyi-nav-inner,
 .qa-sticky-container,
 .qa-active-content-container,
 .qa-bottom-return-container {
@@ -453,6 +452,16 @@ select:focus {
   margin-right: auto !important;
   padding-left: var(--container-pad) !important;
   padding-right: var(--container-pad) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.maitreyi-nav-inner {
+  max-width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: clamp(12px, 1.5vw, 22px) !important;
+  padding-right: clamp(12px, 1.5vw, 22px) !important;
   width: 100% !important;
   box-sizing: border-box !important;
 }

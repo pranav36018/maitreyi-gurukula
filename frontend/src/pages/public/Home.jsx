@@ -271,6 +271,17 @@ function Home({ onLogin }) {
           <div className="maitreyi-nav-mobile-actions">
             <button
               type="button"
+              className="mobile-quick-login-btn"
+              onClick={onLogin}
+              title="Access Acharya & Staff Portal"
+              aria-label="Portal Login"
+            >
+              <LogIn size={14} />
+              <span>Portal</span>
+            </button>
+
+            <button
+              type="button"
               className="mobile-quick-directions-btn"
               onClick={() => setIsDirectionsOpen(true)}
               title="Directions to Gurukula"
@@ -296,6 +307,18 @@ function Home({ onLogin }) {
       {isMobileMenuOpen && (
         <div className="maitreyi-mobile-drawer">
           <div className="mobile-drawer-links">
+            <button
+              type="button"
+              className="drawer-link-btn drawer-login-highlight-btn"
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                onLogin();
+              }}
+            >
+              <LogIn size={16} />
+              <span>🔐 Acharya &amp; Staff Portal Login</span>
+            </button>
+
             <button
               type="button"
               className="drawer-link-btn"
@@ -517,12 +540,22 @@ function Home({ onLogin }) {
                 <div className="hero-cta-buttons-bar">
                   <button
                     type="button"
+                    className="hero-cta-login"
+                    onClick={onLogin}
+                    title="Access Acharya & Staff Portal"
+                  >
+                    <LogIn size={15} />
+                    <span>Portal Login</span>
+                  </button>
+
+                  <button
+                    type="button"
                     className="hero-cta-quick-access"
                     onClick={handleBackToQuickAccess}
                     title="Explore Gurukula Darshanam sacred pathways"
                   >
-                    <Compass size={17} />
-                    <span>Explore Gurukula Darshanam ↓</span>
+                    <Compass size={15} />
+                    <span>Gurukula Darshanam ↓</span>
                   </button>
 
                   <button
