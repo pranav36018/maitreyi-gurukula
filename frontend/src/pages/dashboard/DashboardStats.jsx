@@ -4,10 +4,10 @@ import {
   getChildren,
   getAdmissions,
   getFollowUps,
-  getAchievementsByChild,
-  getSkillsByChild,
-  getWellbeingByChild,
-  getObservationsByChild,
+  getAchievements,
+  getSkills,
+  getWellbeings,
+  getObservations,
 } from "../../services/api";
 
 function DashboardStats() {
@@ -25,117 +25,89 @@ function DashboardStats() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+
     const loadDashboardStats = async () => {
       try {
         const [
           childrenResponse,
           admissionsResponse,
           followUpsResponse,
+          achievementsResponse,
+          skillsResponse,
+          wellbeingResponse,
+          observationsResponse,
         ] = await Promise.all([
-          getChildren(),
-          getAdmissions(),
-          getFollowUps(),
+          getChildren().catch(() => ({ data: [] })),
+          getAdmissions().catch(() => ({ data: [] })),
+          getFollowUps().catch(() => ({ data: [] })),
+          getAchievements().catch(() => ({ data: [] })),
+          getSkills().catch(() => ({ data: [] })),
+          getWellbeings().catch(() => ({ data: [] })),
+          getObservations().catch(() => ({ data: [] })),
         ]);
 
-        const children =
-          childrenResponse.data || [];
+        const children = childrenResponse.data || [];
+        const admissions = admissionsResponse.data || [];
+        const followUps = followUpsResponse.data || [];
+        const achievements = achievementsResponse.data || [];
+        const skills = skillsResponse.data || [];
+        const wellbeing = wellbeingResponse.data || [];
+        const observations = observationsResponse.data || [];
 
-        const admissions =
-          admissionsResponse.data || [];
-
-        const followUps =
-          followUpsResponse.data || [];
-
-        let achievements = 0;
-        let skills = 0;
-        let wellbeing = 0;
-        let observations = 0;
-        let needsSupport = 0;
-
-        for (const child of children) {
-          if (!child._id) continue;
-
-          const [
-            achievementResponse,
-            skillResponse,
-            wellbeingResponse,
-            observationResponse,
-          ] = await Promise.all([
-            getAchievementsByChild(child._id),
-            getSkillsByChild(child._id),
-            getWellbeingByChild(child._id),
-            getObservationsByChild(child._id),
-          ]);
-
-          const achievementData =
-            achievementResponse.data || [];
-
-          const skillData =
-            skillResponse.data || [];
-
-          const wellbeingData =
-            wellbeingResponse.data || [];
-
-          const observationData =
-            observationResponse.data || [];
-
-          achievements +=
-            achievementData.length;
-
-          skills += skillData.length;
-
-          wellbeing +=
-            wellbeingData.length;
-
-          observations +=
-            observationData.length;
-
-          const childNeedsSupport =
-            wellbeingData.some(
-              (item) =>
-                item.status ===
-                  "Needs Attention" ||
-                item.status ===
-                  "Under Support"
-            ) ||
-            observationData.some(
-              (item) =>
-                item.followUpRequired === true
-            );
-
-          if (childNeedsSupport) {
-            needsSupport += 1;
+        const needSupportChildIds = new Set();
+        wellbeing.forEach((item) => {
+          if (
+            item.status === "Needs Attention" ||
+            item.status === "Under Support"
+          ) {
+            const id = item.child?._id || item.child;
+            if (id) needSupportChildIds.add(String(id));
           }
-        }
-
-        const pendingFollowUps =
-          followUps.filter(
-            (item) =>
-              item.status !== "Completed" &&
-              item.status !== "Closed"
-          ).length;
-
-        setStats({
-          children: children.length,
-          admissions: admissions.length,
-          achievements,
-          skills,
-          wellbeing,
-          observations,
-          followUps: pendingFollowUps,
-          needsSupport,
         });
+
+        observations.forEach((item) => {
+          if (item.followUpRequired === true) {
+            const id = item.child?._id || item.child;
+            if (id) needSupportChildIds.add(String(id));
+          }
+        });
+
+        const pendingFollowUps = followUps.filter(
+          (item) =>
+            item.status !== "Completed" &&
+            item.status !== "Closed"
+        ).length;
+
+        if (isMounted) {
+          setStats({
+            children: children.length,
+            admissions: admissions.length,
+            achievements: achievements.length,
+            skills: skills.length,
+            wellbeing: wellbeing.length,
+            observations: observations.length,
+            followUps: pendingFollowUps,
+            needsSupport: needSupportChildIds.size,
+          });
+        }
       } catch (error) {
         console.error(
           "Unable to load dashboard statistics:",
           error
         );
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
     loadDashboardStats();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   if (loading) {

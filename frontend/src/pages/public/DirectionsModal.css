@@ -1,0 +1,515 @@
+/* =========================================================
+   DIRECTIONS MODAL / GOOGLE MAPS POPUP STYLING
+   Fully responsive across laptop, tablet, and mobile phone.
+========================================================= */
+
+.directions-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background: rgba(8, 26, 19, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+  animation: fadeInModal 0.25s ease-out;
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.directions-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  max-height: 90vh;
+  background: #112A20;
+  border: 2px solid rgba(251, 191, 36, 0.35);
+  border-radius: 26px;
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.65),
+    0 6px 20px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: scaleUpModal 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes scaleUpModal {
+  from { transform: scale(0.94) translateY(12px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* Header */
+.directions-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 28px;
+  background: linear-gradient(135deg, #0D261E 0%, #081A13 100%);
+  color: #ffffff;
+  border-bottom: 2px solid rgba(245, 158, 11, 0.3);
+  flex-shrink: 0;
+}
+
+.modal-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.modal-brand-mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: #10241b;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display, Georgia, serif);
+  font-size: 22px;
+  font-weight: 850;
+  flex-shrink: 0;
+}
+
+.modal-header-brand h3 {
+  margin: 0;
+  font-family: var(--font-display, "Playfair Display", Georgia, serif);
+  font-size: 24px;
+  font-weight: 850;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.modal-header-brand p {
+  margin: 3px 0 0;
+  color: #cbd5e1;
+  font-size: 14.5px;
+  font-weight: 500;
+}
+
+.directions-modal-close {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.directions-modal-close:hover {
+  background: #ea580c;
+  border-color: #ea580c;
+  transform: rotate(90deg);
+}
+
+/* Body */
+.directions-modal-body {
+  padding: 26px 28px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Action Banner */
+.directions-action-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 24px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #0B2219 0%, #071912 100%);
+  border: 1.5px solid rgba(245, 158, 11, 0.4);
+  color: #ffffff;
+}
+
+.action-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(245, 158, 11, 0.22);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  color: #fbbf24;
+  font-size: 12.5px;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.action-banner-text h4 {
+  margin: 0 0 6px;
+  font-family: var(--font-display, "Playfair Display", Georgia, serif);
+  font-size: 22px;
+  font-weight: 850;
+  color: #ffffff;
+}
+
+.action-banner-text p {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 15.5px;
+  line-height: 1.5;
+}
+
+.action-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 24px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 850;
+  white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 18px rgba(234, 88, 12, 0.35);
+  transition: all 0.22s ease;
+  flex-shrink: 0;
+}
+
+.action-nav-btn:hover {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(234, 88, 12, 0.45);
+}
+
+/* Map Frame */
+.directions-map-frame-container {
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 2px solid rgba(251, 191, 36, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  line-height: 0;
+}
+
+/* Address Box */
+.directions-address-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 22px;
+  border-radius: 18px;
+  background: #132F24;
+  border: 1.5px solid rgba(251, 191, 36, 0.25);
+}
+
+.address-box-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.address-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(251, 191, 36, 0.16);
+  color: #FBBF24;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.address-box-left strong {
+  display: block;
+  font-size: 16.5px;
+  font-weight: 850;
+  color: #F8FAFC;
+  margin-bottom: 4px;
+}
+
+.address-box-left p {
+  margin: 0 0 8px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #CBD5E1;
+}
+
+.landmark-tag {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 750;
+  color: #6EE7B7;
+  background: rgba(16, 185, 129, 0.16);
+  padding: 3px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.copy-address-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 18px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(251, 191, 36, 0.35);
+  background: #0B2219;
+  color: #FDE68A;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.copy-address-btn:hover {
+  background: rgba(251, 191, 36, 0.16);
+  border-color: #FBBF24;
+  color: #FFFFFF;
+}
+
+.copy-address-btn.copied {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: #10b981;
+  color: #6EE7B7;
+}
+
+/* Transit Grid */
+.directions-transit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.transit-card {
+  padding: 18px 16px;
+  border-radius: 16px;
+  background: #132F24;
+  border: 1.5px solid rgba(251, 191, 36, 0.22);
+  display: flex;
+  flex-direction: column;
+}
+
+.transit-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.transit-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.car-icon { background: rgba(234, 88, 12, 0.2); color: #FDBA74; }
+.metro-icon { background: rgba(99, 102, 241, 0.2); color: #A5B4FC; }
+.bus-icon { background: rgba(16, 185, 129, 0.2); color: #6EE7B7; }
+
+.transit-card h5 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: #F8FAFC;
+}
+
+.transit-card p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #CBD5E1;
+  flex: 1;
+}
+
+/* Helpline Strip */
+.directions-helpline-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
+  border-radius: 14px;
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+}
+
+.helpline-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #FDE68A;
+  font-size: 15px;
+  font-weight: 750;
+}
+
+.helpline-phones {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.helpline-phones a {
+  color: #FBBF24;
+  font-weight: 850;
+  font-size: 15.5px;
+  text-decoration: none;
+}
+
+.helpline-phones a:hover {
+  text-decoration: underline;
+}
+
+.helpline-sep {
+  color: #d97706;
+}
+
+/* Footer */
+.directions-modal-footer {
+  padding: 18px 28px;
+  background: #0B2219;
+  border-top: 1.5px solid rgba(251, 191, 36, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.footer-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  background: #C2410C;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16.5px;
+  font-weight: 800;
+  transition: all 0.2s ease;
+}
+
+.footer-nav-btn:hover {
+  background: #EA580C;
+}
+
+.footer-close-btn {
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(251, 191, 36, 0.35);
+  background: #132F24;
+  color: #F8FAFC;
+  font-size: 16px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.footer-close-btn:hover {
+  background: #1A3E30;
+}
+
+/* =========================================================
+   RESPONSIVE DESIGN FOR MODAL (MOBILE SCREENS)
+========================================================= */
+
+@media (max-width: 768px) {
+  .directions-modal-backdrop {
+    padding: 10px;
+  }
+
+  .directions-modal-card {
+    max-height: 94vh;
+    border-radius: 20px;
+  }
+
+  .directions-modal-header {
+    padding: 16px 20px;
+  }
+
+  .modal-header-brand h3 {
+    font-size: 20px;
+  }
+
+  .modal-header-brand p {
+    font-size: 13.5px;
+  }
+
+  .directions-modal-body {
+    padding: 18px 16px;
+    gap: 16px;
+  }
+
+  .directions-action-banner {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    padding: 18px 16px;
+  }
+
+  .action-nav-btn {
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .directions-address-box {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .copy-address-btn {
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .directions-transit-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .directions-helpline-strip {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .helpline-phones {
+    justify-content: center;
+  }
+
+  .directions-modal-footer {
+    padding: 14px 16px;
+    flex-direction: column;
+  }
+
+  .footer-nav-btn,
+  .footer-close-btn {
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+}

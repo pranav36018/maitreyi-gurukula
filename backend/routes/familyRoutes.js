@@ -1,6 +1,7 @@
 import express from "express";
 
 import {
+  getFamilies,
   getFamilyByChild,
   createFamily,
   updateFamily,
@@ -8,6 +9,8 @@ import {
 } from "../controllers/familyController.js";
 
 const router = express.Router();
+
+router.get("/", getFamilies);
 
 router.get(
   "/child/:childId",

@@ -1,5 +1,26 @@
 import Family from "../models/Family.js";
 
+export const getFamilies = async (req, res, next) => {
+  try {
+    const filter = {};
+    if (req.query.childId) {
+      filter.child = req.query.childId;
+    }
+
+    const families = await Family.find(filter)
+      .populate("child", "firstName middleName lastName grade admissionNumber")
+      .sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      count: families.length,
+      data: families,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getFamilyByChild = async (
   req,
   res,

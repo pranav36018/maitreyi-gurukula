@@ -1,6 +1,6 @@
 .achievements-page {
   width: 100%;
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -17,7 +17,7 @@
 
 .achievements-eyebrow {
   margin: 0 0 12px;
-  color: #b96548;
+  color: #FBBF24;
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.16em;
@@ -25,35 +25,38 @@
 
 .achievements-header h1 {
   margin: 0 0 16px;
-  color: #23382f;
+  color: #F8FAFC;
   font-family: "Playfair Display", Georgia, serif;
-  font-size: clamp(48px, 5vw, 70px);
-  line-height: 1;
+  font-size: clamp(44px, 4.8vw, 66px);
+  line-height: 1.05;
   font-weight: 600;
 }
 
 .achievements-description {
-  max-width: 700px;
+  max-width: 100%;
   margin: 0;
-  color: #46514b;
+  color: #CBD5E1;
   font-size: 17px;
   line-height: 1.75;
 }
 
 .achievement-add-button {
   flex-shrink: 0;
-  border: none;
-  padding: 15px 21px;
-  background: #23382f;
-  color: #fffdf8;
+  border: 1.5px solid rgba(254, 240, 138, 0.45);
+  border-radius: 12px;
+  padding: 15px 24px;
+  background: linear-gradient(135deg, #c2410c 0%, #ea580c 100%);
+  color: #ffffff;
   font-family: "Inter", sans-serif;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
+  transition: all 0.22s ease;
 }
 
 .achievement-add-button:hover {
-  background: #b96548;
+  background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+  transform: translateY(-2px);
 }
 
 
@@ -65,13 +68,13 @@
   gap: 25px;
   margin-bottom: 40px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #ded7cc;
+  border-bottom: 1px solid rgba(251, 191, 36, 0.18);
 }
 
 .achievement-category-bar > span {
   flex-shrink: 0;
   padding-top: 10px;
-  color: #8a7568;
+  color: #FBBF24;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.14em;
@@ -84,25 +87,27 @@
 }
 
 .achievement-category {
-  border: 1px solid #d8d1c5;
-  background: #fffdf8;
-  color: #5c665f;
-  padding: 9px 15px;
+  border: 1px solid rgba(251, 191, 36, 0.22);
+  border-radius: 999px;
+  background: #0B2219;
+  color: #CBD5E1;
+  padding: 9px 18px;
   font-family: "Inter", sans-serif;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .achievement-category:hover {
-  border-color: #b96548;
-  color: #b96548;
+  border-color: #FBBF24;
+  color: #FBBF24;
 }
 
 .achievement-category.active {
-  border-color: #23382f;
-  background: #23382f;
-  color: #fffdf8;
+  border-color: #fbbf24;
+  background: linear-gradient(135deg, #c2410c 0%, #ea580c 100%);
+  color: #ffffff;
 }
 
 
@@ -117,7 +122,7 @@
 }
 
 .achievement-wall-heading span {
-  color: #b96548;
+  color: #FBBF24;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.15em;
@@ -125,16 +130,16 @@
 
 .achievement-wall-heading h2 {
   margin: 9px 0 0;
-  color: #23382f;
+  color: #F8FAFC;
   font-family: "Playfair Display", Georgia, serif;
   font-size: 35px;
   font-weight: 600;
 }
 
 .achievement-wall-heading p {
-  max-width: 420px;
+  max-width: 520px;
   margin: 0;
-  color: #657069;
+  color: #CBD5E1;
   font-size: 14px;
   line-height: 1.7;
 }
@@ -144,8 +149,8 @@
 
 .achievement-wall {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
   margin-bottom: 55px;
 }
 
@@ -153,10 +158,12 @@
   position: relative;
   min-height: 330px;
   padding: 25px;
-  border: 1px solid #e2dbd0;
-  background: #fffdf8;
+  border: 1.5px solid rgba(251, 191, 36, 0.18);
+  border-radius: 18px;
+  background: #132F24;
   text-align: left;
   cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
   transition:
     transform 0.2s ease,
     border-color 0.2s ease;
@@ -164,7 +171,7 @@
 
 .achievement-card:hover {
   transform: translateY(-4px);
-  border-color: #b96548;
+  border-color: #FBBF24;
 }
 
 .achievement-card-top {
@@ -174,14 +181,14 @@
 }
 
 .achievement-number {
-  color: #b96548;
+  color: #FBBF24;
   font-size: 14px;
   font-weight: 800;
   letter-spacing: 0.08em;
 }
 
 .achievement-card-category {
-  color: #8a7568;
+  color: #CBD5E1;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -190,12 +197,12 @@
 
 .achievement-symbol {
   margin: 38px 0 28px;
-  color: #d6a45f;
+  color: #FBBF24;
   font-size: 34px;
 }
 
 .achievement-card-content > span {
-  color: #8a7568;
+  color: #94A3B8;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -204,7 +211,7 @@
 
 .achievement-card-content h3 {
   margin: 9px 0 7px;
-  color: #23382f;
+  color: #F8FAFC;
   font-family: "Playfair Display", Georgia, serif;
   font-size: 27px;
   line-height: 1.2;
@@ -213,7 +220,7 @@
 
 .achievement-card-content p {
   margin: 0;
-  color: #59645d;
+  color: #CBD5E1;
   font-size: 14px;
   font-weight: 600;
 }
@@ -227,16 +234,16 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 14px;
-  border-top: 1px solid #e8e1d7;
+  border-top: 1px solid rgba(251, 191, 36, 0.16);
 }
 
 .achievement-card-bottom span {
-  color: #657069;
+  color: #94A3B8;
   font-size: 12px;
 }
 
 .achievement-card-bottom strong {
-  color: #b96548;
+  color: #FBBF24;
   font-size: 20px;
 }
 
@@ -246,19 +253,21 @@
 .achievement-empty {
   margin-bottom: 55px;
   padding: 75px 30px;
-  border: 1px dashed #d8d1c5;
+  border: 1.5px dashed rgba(251, 191, 36, 0.25);
+  border-radius: 18px;
+  background: #132F24;
   text-align: center;
 }
 
 .achievement-empty > div {
-  color: #d6a45f;
+  color: #FBBF24;
   font-size: 38px;
   margin-bottom: 12px;
 }
 
 .achievement-empty h2 {
   margin: 0 0 10px;
-  color: #23382f;
+  color: #F8FAFC;
   font-family: "Playfair Display", Georgia, serif;
   font-size: 30px;
 }
@@ -266,7 +275,7 @@
 .achievement-empty p {
   max-width: 480px;
   margin: 0 auto 22px;
-  color: #657069;
+  color: #CBD5E1;
   font-size: 14px;
   line-height: 1.7;
 }
@@ -274,7 +283,7 @@
 .achievement-empty button {
   border: none;
   background: transparent;
-  color: #b96548;
+  color: #FBBF24;
   font-size: 14px;
   font-weight: 800;
   cursor: pointer;
@@ -289,7 +298,8 @@
   z-index: 100;
   display: flex;
   justify-content: flex-end;
-  background: rgba(25, 38, 32, 0.38);
+  background: rgba(4, 15, 11, 0.78);
+  backdrop-filter: blur(8px);
 }
 
 .achievement-form-panel,
@@ -300,7 +310,9 @@
   box-sizing: border-box;
   overflow-y: auto;
   padding: 55px 45px;
-  background: #fffdf8;
+  background: #132F24;
+  border-left: 1.5px solid rgba(251, 191, 36, 0.25);
+  color: #F8FAFC;
 }
 
 .achievement-close {
@@ -309,13 +321,13 @@
   right: 25px;
   border: none;
   background: transparent;
-  color: #59645d;
+  color: #F8FAFC;
   font-size: 28px;
   cursor: pointer;
 }
 
 .achievement-form-label {
-  color: #b96548;
+  color: #FBBF24;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.15em;
@@ -324,7 +336,7 @@
 .achievement-form-panel h2,
 .achievement-detail-panel h2 {
   margin: 12px 0;
-  color: #23382f;
+  color: #F8FAFC;
   font-family: "Playfair Display", Georgia, serif;
   font-size: 42px;
   line-height: 1.1;
@@ -333,7 +345,7 @@
 
 .achievement-form-intro {
   margin: 0 0 30px;
-  color: #657069;
+  color: #CBD5E1;
   font-size: 14px;
   line-height: 1.7;
 }
@@ -360,7 +372,7 @@
 }
 
 .achievement-form-field label {
-  color: #23382f;
+  color: #E2E8F0;
   font-size: 13px;
   font-weight: 700;
 }
@@ -370,9 +382,10 @@
 .achievement-form-field textarea {
   box-sizing: border-box;
   width: 100%;
-  border: 1px solid #d8d1c5;
-  background: #ffffff;
-  color: #23382f;
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  border-radius: 10px;
+  background: #0B2219;
+  color: #F8FAFC;
   font-family: "Inter", sans-serif;
   font-size: 14px;
   outline: none;
@@ -393,7 +406,7 @@
 .achievement-form-field input:focus,
 .achievement-form-field select:focus,
 .achievement-form-field textarea:focus {
-  border-color: #b96548;
+  border-color: #FBBF24;
 }
 
 .achievement-submit {
@@ -401,17 +414,18 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 5px;
-  border: none;
+  border: 1.5px solid rgba(254, 240, 138, 0.45);
+  border-radius: 12px;
   padding: 15px 18px;
-  background: #23382f;
-  color: #fffdf8;
+  background: linear-gradient(135deg, #c2410c 0%, #ea580c 100%);
+  color: #ffffff;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
 }
 
 .achievement-submit:hover {
-  background: #b96548;
+  background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
 }
 
 
@@ -419,13 +433,13 @@
 
 .achievement-detail-symbol {
   margin: 35px 0 10px;
-  color: #d6a45f;
+  color: #FBBF24;
   font-size: 40px;
 }
 
 .achievement-detail-child {
   margin: 0 0 30px;
-  color: #59645d;
+  color: #CBD5E1;
   font-size: 16px;
   font-weight: 600;
 }
@@ -435,7 +449,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 1px;
   margin-bottom: 30px;
-  background: #ddd6ca;
+  background: rgba(251, 191, 36, 0.2);
 }
 
 .achievement-detail-grid > div {
@@ -443,19 +457,19 @@
   flex-direction: column;
   gap: 7px;
   padding: 16px;
-  background: #fffdf8;
+  background: #0B2219;
 }
 
 .achievement-detail-grid span,
 .achievement-detail-description > span {
-  color: #8a7568;
+  color: #FBBF24;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.12em;
 }
 
 .achievement-detail-grid strong {
-  color: #23382f;
+  color: #F8FAFC;
   font-size: 13px;
 }
 
@@ -470,25 +484,26 @@
 
 .achievement-detail-description p {
   margin: 0;
-  color: #59645d;
+  color: #CBD5E1;
   font-size: 15px;
   line-height: 1.75;
 }
 
 .achievement-detail-close-button {
   width: 100%;
-  border: 1px solid #23382f;
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 10px;
   padding: 14px;
-  background: transparent;
-  color: #23382f;
+  background: #0B2219;
+  color: #F8FAFC;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
 }
 
 .achievement-detail-close-button:hover {
-  background: #23382f;
-  color: #fffdf8;
+  background: #173B2D;
+  border-color: #FBBF24;
 }
 
 
@@ -499,20 +514,22 @@
   grid-template-columns: 1fr 0.8fr;
   gap: 70px;
   padding: 55px;
-  background: #23382f;
+  border-radius: 20px;
+  border: 1.5px solid rgba(251, 191, 36, 0.22);
+  background: linear-gradient(145deg, #132F24 0%, #071912 100%);
 }
 
 .achievement-journey-banner span {
-  color: #d6a45f;
+  color: #FBBF24;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.15em;
 }
 
 .achievement-journey-banner h2 {
-  max-width: 600px;
+  max-width: 100%;
   margin: 15px 0 0;
-  color: #fffdf8;
+  color: #F8FAFC;
   font-family: "Playfair Display", Georgia, serif;
   font-size: clamp(40px, 4vw, 58px);
   line-height: 1.05;
@@ -522,7 +539,7 @@
 .achievement-journey-banner p {
   align-self: end;
   margin: 0;
-  color: #e5e9e5;
+  color: #CBD5E1;
   font-size: 16px;
   line-height: 1.8;
 }

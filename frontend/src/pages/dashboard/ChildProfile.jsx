@@ -1,16 +1,11 @@
 import { useEffect, useState } from "react";
 
-
-
 import "./ChildProfile.css";
 import FamilySection from "./FamilySection";
 import DocumentSection from "./DocumentSection";
 import { getMentors, updateChild } from "../../services/api";
 
-
-
 import {
-
   getAcademicsByChild,
 
   createAcademic,
@@ -34,14 +29,7 @@ import {
   getResponsibilitiesByChild,
 
   createResponsibility,
-
-  getFamilyByChild,
-
-  createFamily,
-
 } from "../../services/api";
-
-
 
 function ChildProfile({ child, onBack }) {
     const [mentors, setMentors] = useState([]);
@@ -53,19 +41,35 @@ function ChildProfile({ child, onBack }) {
   );
   const [mentorSaving, setMentorSaving] = useState(false);
   const [mentorMessage, setMentorMessage] = useState("");
+  const [currentStatus, setCurrentStatus] = useState(child?.status || "Active");
+  const [statusUpdating, setStatusUpdating] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("");
+
+  const handleStatusChange = async (event) => {
+    const newStatus = event.target.value;
+    try {
+      setStatusUpdating(true);
+      setStatusMessage("");
+      await updateChild(child._id, { status: newStatus });
+      setCurrentStatus(newStatus);
+      setStatusMessage(`Journey status updated to ${newStatus}.`);
+    } catch (error) {
+      console.error("Unable to update journey status:", error);
+      setStatusMessage(error.message || "Unable to update status.");
+    } finally {
+      setStatusUpdating(false);
+    }
+  };
 
   const [activeTab, setActiveTab] =
 
     useState("Overview");
 
-
-
-  const [showObservation, setShowObservation] =
+const [showObservation, setShowObservation] =
 
     useState(false);
 
-    
-  useEffect(() => {
+useEffect(() => {
     const loadMentors = async () => {
       try {
         const response = await getMentors();
@@ -119,44 +123,31 @@ function ChildProfile({ child, onBack }) {
     }
   };
 
-
-
-  // =====================================
+// =====================================
 
   // ACADEMIC STATE
 
   // =====================================
 
-
-
-  const [academics, setAcademics] =
+const [academics, setAcademics] =
 
     useState([]);
 
-
-
-  const [academicLoading, setAcademicLoading] =
+const [academicLoading, setAcademicLoading] =
 
     useState(false);
 
-
-
-  const [academicError, setAcademicError] =
+const [academicError, setAcademicError] =
 
     useState("");
 
-
-
-  const [showAcademicForm, setShowAcademicForm] =
+const [showAcademicForm, setShowAcademicForm] =
 
     useState(false);
 
-
-
-  const [academicForm, setAcademicForm] =
+const [academicForm, setAcademicForm] =
 
     useState({
-
       academicYear: "",
 
       subject: "",
@@ -164,47 +155,33 @@ function ChildProfile({ child, onBack }) {
       performance: "",
 
       remarks: "",
-
     });
 
-
-
-  // =====================================
+// =====================================
 
   // SKILL STATE
 
   // =====================================
 
-
-
-  const [skills, setSkills] =
+const [skills, setSkills] =
 
     useState([]);
 
-
-
-  const [skillLoading, setSkillLoading] =
+const [skillLoading, setSkillLoading] =
 
     useState(false);
 
-
-
-  const [skillError, setSkillError] =
+const [skillError, setSkillError] =
 
     useState("");
 
-
-
-  const [showSkillForm, setShowSkillForm] =
+const [showSkillForm, setShowSkillForm] =
 
     useState(false);
 
-
-
-  const [skillForm, setSkillForm] =
+const [skillForm, setSkillForm] =
 
     useState({
-
       skillName: "",
 
       category: "",
@@ -214,24 +191,17 @@ function ChildProfile({ child, onBack }) {
       interestLevel: "Moderate",
 
       remarks: "",
-
     });
 
-
-
-    // =====================================
+// =====================================
 
 // ACHIEVEMENT STATE
 
 // =====================================
 
-
-
 const [achievements, setAchievements] =
 
   useState([]);
-
-
 
 const [
 
@@ -241,8 +211,6 @@ const [
 
 ] = useState(false);
 
-
-
 const [
 
   achievementError,
@@ -250,8 +218,6 @@ const [
   setAchievementError,
 
 ] = useState("");
-
-
 
 const [
 
@@ -261,8 +227,6 @@ const [
 
 ] = useState(false);
 
-
-
 const [
 
   achievementForm,
@@ -270,7 +234,6 @@ const [
   setAchievementForm,
 
 ] = useState({
-
   title: "",
 
   category: "",
@@ -280,10 +243,7 @@ const [
   level: "Gurukula",
 
   description: "",
-
 });
-
-
 
 // =====================================
 
@@ -291,13 +251,9 @@ const [
 
 // =====================================
 
-
-
 const [observations, setObservations] =
 
   useState([]);
-
-
 
 const [
 
@@ -307,8 +263,6 @@ const [
 
 ] = useState(false);
 
-
-
 const [
 
   observationError,
@@ -317,8 +271,6 @@ const [
 
 ] = useState("");
 
-
-
 const [
 
   observationForm,
@@ -326,7 +278,6 @@ const [
   setObservationForm,
 
 ] = useState({
-
   category: "General",
 
   tags: "",
@@ -336,15 +287,11 @@ const [
   followUpRequired: false,
 
   followUpDate: "",
-
 });
-
-
 
 const [wellbeing, setWellbeing] = useState([]);
 
 const [wellbeingForm, setWellbeingForm] = useState({
-
   area: "General Wellbeing",
 
   status: "Doing Well",
@@ -356,12 +303,9 @@ const [wellbeingForm, setWellbeingForm] = useState({
   followUpRequired: false,
 
   followUpDate: "",
-
 });
 
-
-
-  const [responsibilities, setResponsibilities] = useState([]);
+const [responsibilities, setResponsibilities] = useState([]);
 
   const [responsibilityLoading, setResponsibilityLoading] = useState(false);
 
@@ -383,9 +327,7 @@ const [wellbeingForm, setWellbeingForm] = useState({
 
   // =====================================
 
-
-
-  const tabs = [
+const tabs = [
 
     "Overview",
 
@@ -409,17 +351,13 @@ const [wellbeingForm, setWellbeingForm] = useState({
 
   ];
 
-
-
-  // =====================================
+// =====================================
 
   // CHILD INFORMATION
 
   // =====================================
 
-
-
-  const fullName = [
+const fullName = [
 
     child?.firstName,
 
@@ -433,304 +371,185 @@ const [wellbeingForm, setWellbeingForm] = useState({
 
     .join(" ");
 
-
-
-  const childName =
+const childName =
 
     fullName || "Unnamed Child";
 
-
-
-  const grade = child?.grade
+const grade = child?.grade
 
     ? `Grade ${child.grade}`
 
     : "Grade not available";
 
-
-
-  const admissionYear =
+const admissionYear =
 
     child?.admissionYear ||
 
     (child?.admissionDate
 
       ? new Date(
-
           child.admissionDate
-
         ).getFullYear()
 
       : "Not available");
 
-
-
-  const mentor =
+const mentor =
     assignedMentorName || child?.mentorId?.name || child?.mentor || "Not assigned";
 
+const status =
+    currentStatus || child?.status || "Active";
 
-
-  const status =
-
-    child?.status || "Active";
-
-
-
-  const dateOfBirth =
+const dateOfBirth =
 
     child?.dateOfBirth
 
       ? new Date(
-
           child.dateOfBirth
-
         ).toLocaleDateString(
-
           "en-IN",
 
           {
-
             day: "2-digit",
 
             month: "short",
 
             year: "numeric",
-
           }
-
         )
 
       : "Not available";
 
-
-
-  const phone =
+const phone =
 
     child?.phone || "Not available";
 
-
-
-  const email =
+const email =
 
     child?.email || "Not available";
 
-
-
-  const address =
+const address =
 
     child?.address || "Not available";
 
-
-
-  // =====================================
+// =====================================
 
   // LOAD ACADEMICS
 
   // =====================================
 
-
-
-  useEffect(() => {
-
+useEffect(() => {
     const loadAcademics = async () => {
-
       if (!child?._id) return;
 
-
-
-      try {
-
+try {
         setAcademicLoading(true);
 
         setAcademicError("");
 
-
-
-        const response =
+const response =
 
           await getAcademicsByChild(
-
             child._id
-
           );
 
-
-
-        setAcademics(
-
+setAcademics(
           response.data || []
-
         );
-
       } catch (error) {
-
         console.error(error);
 
-
-
-        setAcademicError(
-
+setAcademicError(
           error.message ||
 
             "Unable to load academic records."
-
         );
-
       } finally {
-
         setAcademicLoading(false);
-
       }
-
     };
 
-
-
-    loadAcademics();
-
+loadAcademics();
   }, [child?._id]);
 
-
-
-  // =====================================
+// =====================================
 
   // LOAD SKILLS
 
   // =====================================
 
-
-
-  useEffect(() => {
-
+useEffect(() => {
     const loadSkills = async () => {
-
       if (!child?._id) return;
 
-
-
-      try {
-
+try {
         setSkillLoading(true);
 
         setSkillError("");
 
-
-
-        const response =
+const response =
 
           await getSkillsByChild(
-
             child._id
-
           );
 
-
-
-        setSkills(
-
+setSkills(
           response.data || []
-
         );
-
       } catch (error) {
-
         console.error(error);
 
-
-
-        setSkillError(
-
+setSkillError(
           error.message ||
 
             "Unable to load skills."
-
         );
-
       } finally {
-
         setSkillLoading(false);
-
       }
-
     };
 
-
-
-    loadSkills();
-
+loadSkills();
   }, [child?._id]);
 
-
-
-  // =====================================
+// =====================================
 
 // LOAD ACHIEVEMENTS
 
 // =====================================
 
-
-
 useEffect(() => {
-
   const loadAchievements = async () => {
-
     if (!child?._id) return;
 
-
-
-    try {
-
+try {
       setAchievementLoading(true);
 
       setAchievementError("");
 
-
-
-      const response =
+const response =
 
         await getAchievementsByChild(
-
           child._id
-
         );
 
-
-
-      setAchievements(
-
+setAchievements(
         response.data || []
-
       );
-
     } catch (error) {
-
       console.error(error);
 
-
-
-      setAchievementError(
-
+setAchievementError(
         error.message ||
 
           "Unable to load achievements."
-
       );
-
     } finally {
-
       setAchievementLoading(false);
-
     }
-
   };
 
-
-
-  loadAchievements();
-
+loadAchievements();
 }, [child?._id]);
-
-
 
 // =====================================
 
@@ -738,101 +557,57 @@ useEffect(() => {
 
 // =====================================
 
-
-
 useEffect(() => {
-
   const loadObservations = async () => {
-
     if (!child?._id) return;
 
-
-
-    try {
-
+try {
       setObservationLoading(true);
 
       setObservationError("");
 
-
-
-      const response =
+const response =
 
         await getObservationsByChild(
-
           child._id
-
         );
 
-
-
-      setObservations(
-
+setObservations(
         response.data || []
-
       );
-
     } catch (error) {
-
       console.error(error);
 
-
-
-      setObservationError(
-
+setObservationError(
         error.message ||
 
           "Unable to load observations."
-
       );
-
     } finally {
-
       setObservationLoading(false);
-
     }
-
   };
 
-
-
-  loadObservations();
-
+loadObservations();
 }, [child?._id]);
 
-
-
 useEffect(() => {
-
   if (!child?._id) return;
 
-
-
-  const loadWellbeing = async () => {
-
+const loadWellbeing = async () => {
     try {
-
       const response = await getWellbeingByChild(child._id);
 
       setWellbeing(response.data || []);
-
     } catch (error) {
-
       console.error("Unable to load wellbeing:", error);
-
     }
-
   };
 
-
-
-  loadWellbeing();
-
+loadWellbeing();
 }, [child?._id]);
 
-
-
-  // =====================================
+// =====================================
   // LOAD RESPONSIBILITIES
   // =====================================
 
@@ -887,50 +662,29 @@ useEffect(() => {
 
   // =====================================
 
-
-
-  const handleAcademicSubmit = async (
-
+const handleAcademicSubmit = async (
     event
-
   ) => {
-
     event.preventDefault();
 
-
-
-    if (
-
+if (
       !academicForm.academicYear ||
 
       !academicForm.subject ||
 
       !academicForm.performance
-
     ) {
-
       setAcademicError(
-
         "Academic year, subject and performance are required."
-
       );
 
-
-
-      return;
-
+return;
     }
 
-
-
-    try {
-
+try {
       setAcademicError("");
 
-
-
-      await createAcademic({
-
+await createAcademic({
         child: child._id,
 
         academicYear:
@@ -948,31 +702,19 @@ useEffect(() => {
         remarks:
 
           academicForm.remarks,
-
       });
 
-
-
-      const response =
+const response =
 
         await getAcademicsByChild(
-
           child._id
-
         );
 
-
-
-      setAcademics(
-
+setAcademics(
         response.data || []
-
       );
 
-
-
-      setAcademicForm({
-
+setAcademicForm({
         academicYear: "",
 
         subject: "",
@@ -980,83 +722,49 @@ useEffect(() => {
         performance: "",
 
         remarks: "",
-
       });
 
-
-
-      setShowAcademicForm(false);
-
+setShowAcademicForm(false);
     } catch (error) {
-
       console.error(error);
 
-
-
-      setAcademicError(
-
+setAcademicError(
         error.message ||
 
           "Unable to save academic record."
-
       );
-
     }
-
   };
 
-
-
-  // =====================================
+// =====================================
 
   // SAVE SKILL
 
   // =====================================
 
-
-
-  const handleSkillSubmit = async (
-
+const handleSkillSubmit = async (
     event
-
   ) => {
-
     event.preventDefault();
 
-
-
-    if (
-
+if (
       !skillForm.skillName ||
 
       !skillForm.category ||
 
       !skillForm.developmentLevel
-
     ) {
-
       setSkillError(
-
         "Skill name, category and development level are required."
-
       );
 
-
-
-      return;
-
+return;
     }
 
-
-
-    try {
-
+try {
       setSkillError("");
 
-
-
-      await createSkill({
-
+await createSkill({
         child: child._id,
 
         skillName:
@@ -1078,31 +786,19 @@ useEffect(() => {
         remarks:
 
           skillForm.remarks,
-
       });
 
-
-
-      const response =
+const response =
 
         await getSkillsByChild(
-
           child._id
-
         );
 
-
-
-      setSkills(
-
+setSkills(
         response.data || []
-
       );
 
-
-
-      setSkillForm({
-
+setSkillForm({
         skillName: "",
 
         category: "",
@@ -1112,81 +808,47 @@ useEffect(() => {
         interestLevel: "Moderate",
 
         remarks: "",
-
       });
 
-
-
-      setShowSkillForm(false);
-
+setShowSkillForm(false);
     } catch (error) {
-
       console.error(error);
 
-
-
-      setSkillError(
-
+setSkillError(
         error.message ||
 
           "Unable to save skill."
-
       );
-
     }
-
   };
 
-
-
-  // =====================================
+// =====================================
 
 // SAVE ACHIEVEMENT
 
 // =====================================
 
-
-
 const handleAchievementSubmit = async (
-
   event
-
 ) => {
-
   event.preventDefault();
 
-
-
-  if (
-
+if (
     !achievementForm.title ||
 
     !achievementForm.category
-
   ) {
-
     setAchievementError(
-
       "Achievement title and category are required."
-
     );
 
-
-
-    return;
-
+return;
   }
 
-
-
-  try {
-
+try {
     setAchievementError("");
 
-
-
-    await createAchievement({
-
+await createAchievement({
       child: child._id,
 
       title: achievementForm.title,
@@ -1208,31 +870,19 @@ const handleAchievementSubmit = async (
       description:
 
         achievementForm.description,
-
     });
 
-
-
-    const response =
+const response =
 
       await getAchievementsByChild(
-
         child._id
-
       );
 
-
-
-    setAchievements(
-
+setAchievements(
       response.data || []
-
     );
 
-
-
-    setAchievementForm({
-
+setAchievementForm({
       title: "",
 
       category: "",
@@ -1242,32 +892,19 @@ const handleAchievementSubmit = async (
       level: "Gurukula",
 
       description: "",
-
     });
 
-
-
-    setShowAchievementForm(false);
-
+setShowAchievementForm(false);
   } catch (error) {
-
     console.error(error);
 
-
-
-    setAchievementError(
-
+setAchievementError(
       error.message ||
 
         "Unable to save achievement."
-
     );
-
   }
-
 };
-
-
 
 // =====================================
 
@@ -1275,41 +912,23 @@ const handleAchievementSubmit = async (
 
 // =====================================
 
-
-
 const handleObservationSubmit = async (
-
   event
-
 ) => {
-
   event.preventDefault();
 
-
-
-  if (!observationForm.note.trim()) {
-
+if (!observationForm.note.trim()) {
     setObservationError(
-
       "Please enter an observation."
-
     );
 
-
-
-    return;
-
+return;
   }
 
-
-
-  try {
-
+try {
     setObservationError("");
 
-
-
-    const tags = observationForm.tags
+const tags = observationForm.tags
 
       .split(",")
 
@@ -1317,70 +936,43 @@ const handleObservationSubmit = async (
 
       .filter(Boolean);
 
-
-
-    await createObservation({
-
+await createObservation({
       child: child._id,
 
-
-
-      category:
+category:
 
         observationForm.category,
 
+tags,
 
-
-      tags,
-
-
-
-      note:
+note:
 
         observationForm.note,
 
-
-
-      followUpRequired:
+followUpRequired:
 
         observationForm.followUpRequired,
 
-
-
-      followUpDate:
+followUpDate:
 
         observationForm.followUpDate ||
 
         undefined,
 
-
-
-      observer: "Gurukula Mentor",
-
+observer: "Gurukula Mentor",
     });
 
-
-
-    const response =
+const response =
 
       await getObservationsByChild(
-
         child._id
-
       );
 
-
-
-    setObservations(
-
+setObservations(
       response.data || []
-
     );
 
-
-
-    setObservationForm({
-
+setObservationForm({
       category: "General",
 
       tags: "",
@@ -1390,53 +982,31 @@ const handleObservationSubmit = async (
       followUpRequired: false,
 
       followUpDate: "",
-
     });
 
-
-
-    setShowObservation(false);
-
+setShowObservation(false);
   } catch (error) {
-
     console.error(error);
 
-
-
-    setObservationError(
-
+setObservationError(
       error.message ||
 
         "Unable to save observation."
-
     );
-
   }
-
 };
 
-
-
 const handleWellbeingSubmit = async (event) => {
-
   event.preventDefault();
 
-
-
-  if (!wellbeingForm.observation.trim()) {
-
+if (!wellbeingForm.observation.trim()) {
     alert("Please enter an observation.");
 
     return;
-
   }
 
-
-
-  try {
-
+try {
     await createWellbeing({
-
       child: child._id,
 
       ...wellbeingForm,
@@ -1444,21 +1014,13 @@ const handleWellbeingSubmit = async (event) => {
       followUpDate:
 
         wellbeingForm.followUpDate || undefined,
-
     });
 
+const response = await getWellbeingByChild(child._id);
 
+setWellbeing(response.data || []);
 
-    const response = await getWellbeingByChild(child._id);
-
-
-
-    setWellbeing(response.data || []);
-
-
-
-    setWellbeingForm({
-
+setWellbeingForm({
       area: "General Wellbeing",
 
       status: "Doing Well",
@@ -1470,15 +1032,10 @@ const handleWellbeingSubmit = async (event) => {
       followUpRequired: false,
 
       followUpDate: "",
-
     });
-
   } catch (error) {
-
     alert(error.message || "Unable to save wellbeing record");
-
   }
-
 };
 
   // =====================================
@@ -1487,42 +1044,23 @@ const handleWellbeingSubmit = async (event) => {
 
   // =====================================
 
-
-
-  const renderContent = () => {
-
+const renderContent = () => {
     // ===================================
 
     // OVERVIEW
 
     // ===================================
 
-
-
-    if (activeTab === "Overview") {
-
+if (activeTab === "Overview") {
       return (
-
         <>
-
           <div className="profile-overview-grid">
-
             <section className="profile-card profile-about">
-
               <span className="profile-card-label">
-
                 ABOUT THE CHILD
-
               </span>
-
-
-
-              <h2>{childName}</h2>
-
-
-
-              <p>
-
+<h2>{childName}</h2>
+<p>
                 This child profile brings
 
                 together learning, skills,
@@ -1534,164 +1072,80 @@ const handleWellbeingSubmit = async (event) => {
                 and the child's Gurukula
 
                 journey.
-
               </p>
-
-
-
-              <div className="profile-detail-grid">
-
+<div className="profile-detail-grid">
                 <div>
-
                   <span>GRADE</span>
-
                   <strong>{grade}</strong>
-
                 </div>
-
-
-
-                <div>
-
+<div>
                   <span>JOURNEY</span>
-
                   <strong>{status}</strong>
-
                 </div>
-
-
-
-                <div>
-
+<div>
                   <span>ADMISSION</span>
-
                   <strong>
-
                     {admissionYear}
-
                   </strong>
-
                 </div>
-
-
-
-                <div>
-
+<div>
                   <span>MENTOR</span>
-
                   <strong>
-
                     {mentor}
-
                   </strong>
-
                 </div>
-
               </div>
-
             </section>
-
-
-
-            <section className="profile-card">
-
+<section className="profile-card">
               <span className="profile-card-label">
-
                 CHILD INFORMATION
-
               </span>
-
-
-
-              <div className="profile-detail-grid">
-
+<div className="profile-detail-grid">
                 <div>
-
                   <span>
-
                     DATE OF BIRTH
-
                   </span>
-
-
-
-                  <strong>
-
+<strong>
                     {dateOfBirth}
-
                   </strong>
-
                 </div>
-
-
-
-                <div>
-
+<div>
                   <span>
-
                     ADMISSION NUMBER
-
                   </span>
-
-
-
-                  <strong>
-
+<strong>
                     {child?.admissionNumber ||
 
                       "Not available"}
-
                   </strong>
-
                 </div>
-
-
-
-                <div>
-
+<div>
                   <span>PHONE</span>
-
-
-
-                  <strong>
-
+<strong>
                     {phone}
-
                   </strong>
-
                 </div>
-
-
-
-                <div>
-
+<div>
                   <span>EMAIL</span>
-
-
-
-                  <strong>
-
+<strong>
                     {email}
-
                   </strong>
-
                 </div>
-
+                <div>
+                  <span>ADDRESS</span>
+                  <strong>
+                    {address}
+                  </strong>
+                </div>
               </div>
-
             </section>
-
           </div>
-
-
-
-          <section className="profile-card" style={{ marginBottom: "24px" }}>
+<section className="profile-card" style={{ marginBottom: "24px" }}>
             <span className="profile-card-label">MENTOR ASSIGNMENT</span>
             <h3>Assign a mentor to {childName}</h3>
             <p>
               Current mentor: <strong>{mentor}</strong>
             </p>
-
             <form onSubmit={handleMentorSave}>
               <label htmlFor="child-mentor-select">Select Mentor</label>
               <select
@@ -1717,13 +1171,11 @@ const handleWellbeingSubmit = async (event) => {
                   </option>
                 ))}
               </select>
-
               {mentorMessage && (
                 <p role="status" style={{ marginBottom: "12px" }}>
                   {mentorMessage}
                 </p>
               )}
-
               <button
                 type="submit"
                 className="profile-primary-button"
@@ -1733,234 +1185,145 @@ const handleWellbeingSubmit = async (event) => {
               </button>
             </form>
           </section>
-
-          <div className="profile-card">
-
-            <span className="profile-card-label">
-
-              JOURNEY AT A GLANCE
-
-            </span>
-
-
-
-            <div className="profile-milestones">
-
-              <div>
-
-                <strong>
-
-                  {admissionYear}
-
-                </strong>
-
-
-
-                <p>
-
-                  Joined Gurukula
-
+          <section className="profile-card" style={{ marginBottom: "24px" }}>
+            <span className="profile-card-label">JOURNEY STATUS &amp; ALUMNI PROGRESSION</span>
+            <h3>Manage Student Journey State</h3>
+            <p>
+              Current status: <strong>{status}</strong>
+            </p>
+            <div style={{ marginTop: "12px" }}>
+              <label htmlFor="child-status-select" style={{ display: "block", marginBottom: "6px", fontWeight: "600", fontSize: "14px" }}>
+                Update Journey / Alumni Status
+              </label>
+              <select
+                id="child-status-select"
+                value={status}
+                onChange={handleStatusChange}
+                disabled={statusUpdating}
+                style={{
+                  display: "block",
+                  width: "100%",
+                  padding: "12px",
+                  margin: "6px 0 12px",
+                  borderRadius: "8px",
+                  border: "1px solid #ccc",
+                  fontSize: "14.5px",
+                }}
+              >
+                <option value="Active">Active (Currently Studying)</option>
+                <option value="Alumni">Alumni (Graduated &amp; Maintaining Interaction)</option>
+                <option value="Completed">Completed (Graduated Gurukula)</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+              {statusMessage && (
+                <p role="status" style={{ color: "#047857", fontWeight: "600", margin: "6px 0 0" }}>
+                  {statusMessage}
                 </p>
-
-              </div>
-
-
-
+              )}
+            </div>
+          </section>
+          <div className="profile-card">
+            <span className="profile-card-label">
+              JOURNEY AT A GLANCE
+            </span>
+<div className="profile-milestones">
               <div>
-
                 <strong>
-
-                  Current
-
+                  {admissionYear}
                 </strong>
-
-
-
-                <p>
-
+<p>
+                  Joined Gurukula
+                </p>
+              </div>
+<div>
+                <strong>
+                  Current
+                </strong>
+<p>
                   Continuing Gurukula
 
                   journey
-
                 </p>
-
               </div>
-
-
-
-              <div>
-
+<div>
                 <strong>
-
                   {status}
-
                 </strong>
-
-
-
-                <p>
-
+<p>
                   Current journey
 
                   status
-
                 </p>
-
               </div>
-
             </div>
-
           </div>
-
-
-
-          <div className="profile-section-heading">
-
+<div className="profile-section-heading">
             <div>
-
               <span>
-
                 HOLISTIC DEVELOPMENT
-
               </span>
-
-
-
-              <h2>
-
+<h2>
                 Growing in many
 
                 directions.
-
               </h2>
-
             </div>
-
           </div>
-
-
-
-          <div className="profile-growth-grid">
-
+<div className="profile-growth-grid">
             <div>
-
               <span>01</span>
-
-
-
-              <strong>
-
+<strong>
                 Academics
-
               </strong>
-
-
-
-              <p>
-
+<p>
                 Learning and subject
 
                 progress.
-
               </p>
-
             </div>
-
-
-
-            <div>
-
+<div>
               <span>02</span>
-
-
-
-              <strong>
-
+<strong>
                 Skills
-
               </strong>
-
-
-
-              <p>
-
+<p>
                 Talents, interests
 
                 and abilities.
-
               </p>
-
             </div>
-
-
-
-            <div>
-
+<div>
               <span>03</span>
-
-
-
-              <strong>
-
+<strong>
                 Achievements
-
               </strong>
-
-
-
-              <p>
-
+<p>
                 Participation and
 
                 accomplishments.
-
               </p>
-
             </div>
-
-
-
-            <div>
-
+<div>
               <span>04</span>
-
-
-
-              <strong>
-
+<strong>
                 Wellbeing
-
               </strong>
-
-
-
-              <p>
-
+<p>
                 Health and general
 
                 wellbeing.
-
               </p>
-
             </div>
-
           </div>
-
         </>
-
       );
-
     }
 
-
-
-    // ===================================
+// ===================================
 
     // JOURNEY
 
     // ===================================
-
-
 
 if (activeTab === "Journey") {
   const journeyEvents = [];
@@ -2048,12 +1411,10 @@ if (activeTab === "Journey") {
     <section className="profile-content-card">
       <span>THE JOURNEY</span>
       <h2>{childName}'s Gurukula Journey</h2>
-
       <p>
         A timeline of admission, learning, skills, achievements,
         observations and wellbeing records saved for this child.
       </p>
-
       <div className="timeline">
         {datedEvents.length === 0 ? (
           <div className="profile-empty">
@@ -2073,7 +1434,6 @@ if (activeTab === "Journey") {
                   year: "numeric",
                 })}
               </strong>
-
               <article>
                 <h3>{event.title}</h3>
                 <p>{event.description || "Record saved."}</p>
@@ -2082,7 +1442,6 @@ if (activeTab === "Journey") {
           ))
         )}
       </div>
-
       <div style={{ marginTop: "24px" }}>
         <span>CURRENT JOURNEY STATUS</span>
         <h3>{status}</h3>
@@ -2094,155 +1453,86 @@ if (activeTab === "Journey") {
   );
 }
 
-
-
-
-    // ===================================
+// ===================================
 
     // ACADEMICS
 
     // ===================================
 
-
-
-    if (activeTab === "Academics") {
-
+if (activeTab === "Academics") {
       return (
-
         <section className="profile-content-card">
-
           <div className="profile-content-heading">
-
             <div>
-
               <span>
-
                 ACADEMIC PROGRESS
-
               </span>
-
-
-
-              <h2>
-
+<h2>
                 Learning journey
-
               </h2>
-
-
-
-              <p>
-
+<p>
                 Subject-wise academic
 
                 progress for{" "}
 
                 {childName}.
-
               </p>
-
             </div>
-
-
-
-            <button
+<button
 
               className="profile-primary-button"
 
               onClick={() =>
-
                 setShowAcademicForm(
-
                   true
-
                 )
-
               }
 
             >
-
               + Add Academic Record
-
             </button>
-
           </div>
-
-
-
-          {academicError && (
-
+{academicError && (
             <p
 
               style={{
-
                 marginTop: "16px",
 
                 color: "#9b3d2e",
-
               }}
 
             >
-
               {academicError}
-
             </p>
-
           )}
 
-
-
-          {academicLoading ? (
-
+{academicLoading ? (
             <div className="academic-list">
-
               <div className="academic-row">
-
                 <div>
-
                   <strong>
-
                     Loading academic
 
                     records...
-
                   </strong>
-
-
-
-                  <p>
-
+<p>
                     Please wait.
-
                   </p>
-
                 </div>
-
               </div>
-
             </div>
-
           ) : academics.length ===
 
             0 ? (
-
             <div className="academic-list">
-
               <div className="academic-row">
-
                 <div>
-
                   <strong>
-
                     No academic
 
                     records yet
-
                   </strong>
-
-
-
-                  <p>
-
+<p>
                     Add the first
 
                     academic record
@@ -2250,149 +1540,80 @@ if (activeTab === "Journey") {
                     for{" "}
 
                     {childName}.
-
                   </p>
-
                 </div>
-
-
-
-                <span>
-
+<span>
                   EMPTY
-
                 </span>
-
               </div>
-
             </div>
-
           ) : (
-
             <div className="academic-list">
-
               {academics.map(
-
                 (academic) => (
-
                   <div
 
                     className="academic-row"
 
                     key={
-
                       academic._id
-
                     }
 
                   >
-
                     <div>
-
                       <strong>
-
                         {
-
                           academic.subject
-
                         }
-
                       </strong>
-
-
-
-                      <p>
-
+<p>
                         {
-
                           academic.academicYear
-
                         }
 
-
-
-                        {academic.remarks
+{academic.remarks
 
                           ? ` • ${academic.remarks}`
 
                           : ""}
-
                       </p>
-
                     </div>
-
-
-
-                    <span>
-
+<span>
                       {
-
                         academic.performance
-
                       }
-
                     </span>
-
                   </div>
-
                 )
-
               )}
-
             </div>
-
           )}
 
-
-
-          {showAcademicForm && (
-
+{showAcademicForm && (
             <div className="observation-overlay">
-
               <div className="observation-modal">
-
                 <button
 
                   className="observation-close"
 
                   onClick={() =>
-
                     setShowAcademicForm(
-
                       false
-
                     )
-
                   }
 
                 >
-
                   ×
-
                 </button>
-
-
-
-                <span>
-
+<span>
                   ACADEMIC RECORD
-
                 </span>
-
-
-
-                <h2>
-
+<h2>
                   Add academic
 
                   progress
-
                 </h2>
-
-
-
-                <p>
-
+<p>
                   Add subject-wise
 
                   academic
@@ -2400,45 +1621,29 @@ if (activeTab === "Journey") {
                   information for{" "}
 
                   {childName}.
-
                 </p>
-
-
-
-                <form
+<form
 
                   onSubmit={
-
                     handleAcademicSubmit
-
                   }
 
                 >
-
                   <label>
-
                     Academic Year
-
                   </label>
-
-
-
-                  <input
+<input
 
                     type="text"
 
                     placeholder="e.g. 2026-27"
 
                     value={
-
                       academicForm.academicYear
-
                     }
 
                     onChange={(event) =>
-
                       setAcademicForm({
-
                         ...academicForm,
 
                         academicYear:
@@ -2446,39 +1651,25 @@ if (activeTab === "Journey") {
                           event.target
 
                             .value,
-
                       })
-
                     }
 
                   />
-
-
-
-                  <label>
-
+<label>
                     Subject
-
                   </label>
-
-
-
-                  <input
+<input
 
                     type="text"
 
                     placeholder="e.g. Mathematics"
 
                     value={
-
                       academicForm.subject
-
                     }
 
                     onChange={(event) =>
-
                       setAcademicForm({
-
                         ...academicForm,
 
                         subject:
@@ -2486,35 +1677,21 @@ if (activeTab === "Journey") {
                           event.target
 
                             .value,
-
                       })
-
                     }
 
                   />
-
-
-
-                  <label>
-
+<label>
                     Performance
-
                   </label>
-
-
-
-                  <select
+<select
 
                     value={
-
                       academicForm.performance
-
                     }
 
                     onChange={(event) =>
-
                       setAcademicForm({
-
                         ...academicForm,
 
                         performance:
@@ -2522,81 +1699,43 @@ if (activeTab === "Journey") {
                           event.target
 
                             .value,
-
                       })
-
                     }
 
                   >
-
                     <option value="">
-
                       Select
 
                       performance
-
                     </option>
-
-
-
-                    <option value="Excellent">
-
+<option value="Excellent">
                       Excellent
-
                     </option>
-
-
-
-                    <option value="Strong">
-
+<option value="Strong">
                       Strong
-
                     </option>
-
-
-
-                    <option value="Developing">
-
+<option value="Developing">
                       Developing
-
                     </option>
-
-
-
-                    <option value="Needs Support">
-
+<option value="Needs Support">
                       Needs Support
-
                     </option>
-
                   </select>
-
-
-
-                  <label>
-
+<label>
                     Remarks
-
                   </label>
-
-
-
-                  <textarea
+<textarea
 
                     rows="4"
 
                     placeholder="Short note about the child's progress..."
 
                     value={
-
                       academicForm.remarks
-
                     }
 
                     onChange={(event) =>
-
                       setAcademicForm({
-
                         ...academicForm,
 
                         remarks:
@@ -2604,81 +1743,47 @@ if (activeTab === "Journey") {
                           event.target
 
                             .value,
-
                       })
-
                     }
 
                   />
-
-
-
-                  <button
+<button
 
                     type="submit"
 
                     className="profile-primary-button full"
 
                   >
-
                     Save Academic
 
                     Record
-
                   </button>
-
                 </form>
-
               </div>
-
             </div>
-
           )}
-
         </section>
-
       );
-
     }
 
-
-
-    // ===================================
+// ===================================
 
     // SKILLS
 
     // ===================================
 
-
-
-    if (activeTab === "Skills") {
-
+if (activeTab === "Skills") {
       return (
-
         <section className="profile-content-card">
-
           <div className="profile-content-heading">
-
             <div>
-
               <span>
-
                 SKILLS & TALENTS
-
               </span>
-
-
-
-              <h2>
-
+<h2>
                 Areas of development
-
               </h2>
-
-
-
-              <p>
-
+<p>
                 Skills, talents,
 
                 interests and
@@ -2686,269 +1791,141 @@ if (activeTab === "Journey") {
                 special abilities
 
                 of {childName}.
-
               </p>
-
             </div>
-
-
-
-            <button
+<button
 
               className="profile-primary-button"
 
               onClick={() =>
-
                 setShowSkillForm(
-
                   true
-
                 )
-
               }
 
             >
-
               + Add Skill
-
             </button>
-
           </div>
-
-
-
-          {skillError && (
-
+{skillError && (
             <p
 
               style={{
-
                 marginTop: "16px",
 
                 color: "#9b3d2e",
-
               }}
 
             >
-
               {skillError}
-
             </p>
-
           )}
 
-
-
-          {skillLoading ? (
-
+{skillLoading ? (
             <div className="profile-item-grid">
-
               <article>
-
                 <h3>
-
                   Loading skills...
-
                 </h3>
-
-
-
-                <p>
-
+<p>
                   Please wait.
-
                 </p>
-
               </article>
-
             </div>
-
           ) : skills.length ===
 
             0 ? (
-
             <div className="profile-item-grid">
-
               <article>
-
                 <span>
-
                   NO RECORDS
-
                 </span>
-
-
-
-                <h3>
-
+<h3>
                   No skills added
 
                   yet
-
                 </h3>
-
-
-
-                <p>
-
+<p>
                   Add the first
 
                   skill or talent
 
                   for {childName}.
-
                 </p>
-
               </article>
-
             </div>
-
           ) : (
-
             <div className="profile-item-grid">
-
               {skills.map(
-
                 (skill) => (
-
                   <article
 
                     key={
-
                       skill._id
-
                     }
 
                   >
-
                     <span>
-
                       {
-
                         skill.category
-
                       }
-
                     </span>
-
-
-
-                    <h3>
-
+<h3>
                       {
-
                         skill.skillName
-
                       }
-
                     </h3>
-
-
-
-                    <p>
-
+<p>
                       Development:{" "}
-
                       <strong>
-
                         {
-
                           skill.developmentLevel
-
                         }
-
                       </strong>
-
                     </p>
-
-
-
-                    <small>
-
+<small>
                       Interest:{" "}
 
                       {
-
                         skill.interestLevel
-
                       }
-
                     </small>
-
-
-
-                    {skill.remarks && (
-
+{skill.remarks && (
                       <p>
-
                         {
-
                           skill.remarks
-
                         }
-
                       </p>
-
                     )}
-
                   </article>
-
                 )
-
               )}
-
             </div>
-
           )}
 
-
-
-          {showSkillForm && (
-
+{showSkillForm && (
             <div className="observation-overlay">
-
               <div className="observation-modal">
-
                 <button
 
                   className="observation-close"
 
                   onClick={() =>
-
                     setShowSkillForm(
-
                       false
-
                     )
-
                   }
 
                 >
-
                   ×
-
                 </button>
-
-
-
-                <span>
-
+<span>
                   SKILL & TALENT
-
                 </span>
-
-
-
-                <h2>
-
+<h2>
                   Add a skill
-
                 </h2>
-
-
-
-                <p>
-
+<p>
                   Record a skill,
 
                   talent or area
@@ -2956,45 +1933,29 @@ if (activeTab === "Journey") {
                   of interest for{" "}
 
                   {childName}.
-
                 </p>
-
-
-
-                <form
+<form
 
                   onSubmit={
-
                     handleSkillSubmit
-
                   }
 
                 >
-
                   <label>
-
                     Skill / Talent
-
                   </label>
-
-
-
-                  <input
+<input
 
                     type="text"
 
                     placeholder="e.g. Bharatanatyam"
 
                     value={
-
                       skillForm.skillName
-
                     }
 
                     onChange={(event) =>
-
                       setSkillForm({
-
                         ...skillForm,
 
                         skillName:
@@ -3002,35 +1963,21 @@ if (activeTab === "Journey") {
                           event.target
 
                             .value,
-
                       })
-
                     }
 
                   />
-
-
-
-                  <label>
-
+<label>
                     Category
-
                   </label>
-
-
-
-                  <select
+<select
 
                     value={
-
                       skillForm.category
-
                     }
 
                     onChange={(event) =>
-
                       setSkillForm({
-
                         ...skillForm,
 
                         category:
@@ -3038,103 +1985,50 @@ if (activeTab === "Journey") {
                           event.target
 
                             .value,
-
                       })
-
                     }
 
                   >
-
                     <option value="">
-
                       Select
 
                       category
-
                     </option>
-
-
-
-                    <option value="Arts">
-
+<option value="Arts">
                       Arts
-
                     </option>
-
-
-
-                    <option value="Cultural">
-
+<option value="Cultural">
                       Cultural
-
                     </option>
-
-
-
-                    <option value="Sports">
-
+<option value="Sports">
                       Sports
-
                     </option>
-
-
-
-                    <option value="Leadership">
-
+<option value="Leadership">
                       Leadership
-
                     </option>
-
-
-
-                    <option value="Academic">
-
+<option value="Academic">
                       Academic
-
                     </option>
-
-
-
-                    <option value="Communication">
-
+<option value="Communication">
                       Communication
-
                     </option>
-
-
-
-                    <option value="Other">
-
+<option value="Other">
                       Other
-
                     </option>
-
                   </select>
-
-
-
-                  <label>
-
+<label>
                     Development
 
                     Level
-
                   </label>
-
-
-
-                  <select
+<select
 
                     value={
-
                       skillForm.developmentLevel
-
                     }
 
                     onChange={(event) =>
-
                       setSkillForm({
-
                         ...skillForm,
 
                         developmentLevel:
@@ -3142,79 +2036,41 @@ if (activeTab === "Journey") {
                           event.target
 
                             .value,
-
                       })
-
                     }
 
                   >
-
                     <option value="">
-
                       Select
 
                       development
 
                       level
-
                     </option>
-
-
-
-                    <option value="Exploring">
-
+<option value="Exploring">
                       Exploring
-
                     </option>
-
-
-
-                    <option value="Developing">
-
+<option value="Developing">
                       Developing
-
                     </option>
-
-
-
-                    <option value="Strong">
-
+<option value="Strong">
                       Strong
-
                     </option>
-
-
-
-                    <option value="Advanced">
-
+<option value="Advanced">
                       Advanced
-
                     </option>
-
                   </select>
-
-
-
-                  <label>
-
+<label>
                     Interest Level
-
                   </label>
-
-
-
-                  <select
+<select
 
                     value={
-
                       skillForm.interestLevel
-
                     }
 
                     onChange={(event) =>
-
                       setSkillForm({
-
                         ...skillForm,
 
                         interestLevel:
@@ -3222,63 +2078,35 @@ if (activeTab === "Journey") {
                           event.target
 
                             .value,
-
                       })
-
                     }
 
                   >
-
                     <option value="Low">
-
                       Low
-
                     </option>
-
-
-
-                    <option value="Moderate">
-
+<option value="Moderate">
                       Moderate
-
                     </option>
-
-
-
-                    <option value="High">
-
+<option value="High">
                       High
-
                     </option>
-
                   </select>
-
-
-
-                  <label>
-
+<label>
                     Remarks
-
                   </label>
-
-
-
-                  <textarea
+<textarea
 
                     rows="4"
 
                     placeholder="Short note..."
 
                     value={
-
                       skillForm.remarks
-
                     }
 
                     onChange={(event) =>
-
                       setSkillForm({
-
                         ...skillForm,
 
                         remarks:
@@ -3286,44 +2114,28 @@ if (activeTab === "Journey") {
                           event.target
 
                             .value,
-
                       })
-
                     }
 
                   />
-
-
-
-                  <button
+<button
 
                     type="submit"
 
                     className="profile-primary-button full"
 
                   >
-
                     Save Skill
-
                   </button>
-
                 </form>
-
               </div>
-
             </div>
-
           )}
-
         </section>
-
       );
-
     }
 
-
-
-    // ===================================
+// ===================================
 
     // RESPONSIBILITIES
 
@@ -3339,9 +2151,7 @@ if (activeTab === "Journey") {
               <p>Record responsibilities, participation, leadership roles, and seva contributions throughout {childName}'s Gurukula journey.</p>
             </div>
           </div>
-
           {responsibilityError && <p style={{ marginTop: "16px", color: "#9b3d2e" }}>{responsibilityError}</p>}
-
           <form className="journey-form" onSubmit={handleResponsibilitySubmit}>
             <div className="journey-form-grid">
               <label>
@@ -3380,7 +2190,6 @@ if (activeTab === "Journey") {
             </div>
             <button type="submit" className="profile-primary-button full">Save Responsibility</button>
           </form>
-
           <div className="profile-item-grid">
             {responsibilityLoading ? (
               <article><h3>Loading responsibilities...</h3><p>Please wait.</p></article>
@@ -3408,659 +2217,342 @@ if (activeTab === "Journey") {
 
     // ===================================
 
-
-
-    if (
-
+if (
   activeTab ===
 
   "Achievements"
-
 ) {
-
   return (
-
     <section className="profile-content-card">
-
-
-
-      <div className="profile-content-heading">
-
+<div className="profile-content-heading">
         <div>
-
           <span>
-
             ACHIEVEMENT WALL
-
           </span>
-
-
-
-          <h2>
-
+<h2>
             Moments worth remembering
-
           </h2>
-
-
-
-          <p>
-
+<p>
             Achievements and
 
             meaningful milestones
 
             in {childName}'s journey.
-
           </p>
-
         </div>
-
-
-
-        <button
+<button
 
           className="profile-primary-button"
 
           onClick={() =>
-
             setShowAchievementForm(true)
-
           }
 
         >
-
           + Add Achievement
-
         </button>
-
       </div>
-
-
-
-      {achievementError && (
-
+{achievementError && (
         <p
 
           style={{
-
             marginTop: "16px",
 
             color: "#9b3d2e",
-
           }}
 
         >
-
           {achievementError}
-
         </p>
-
       )}
 
-
-
-      {achievementLoading ? (
-
+{achievementLoading ? (
         <div className="profile-item-grid">
-
           <article>
-
             <h3>
-
               Loading achievements...
-
             </h3>
-
-
-
-            <p>
-
+<p>
               Please wait.
-
             </p>
-
           </article>
-
         </div>
-
       ) : achievements.length === 0 ? (
-
         <div className="profile-item-grid">
-
           <article>
-
             <span>
-
               NO RECORDS
-
             </span>
-
-
-
-            <h3>
-
+<h3>
               No achievements added yet
-
             </h3>
-
-
-
-            <p>
-
+<p>
               Add an achievement or
 
               milestone for{" "}
 
               {childName}.
-
             </p>
-
           </article>
-
         </div>
-
       ) : (
-
         <div className="profile-item-grid">
-
-
-
-          {achievements.map(
-
+{achievements.map(
             (achievement) => (
-
               <article
 
                 key={achievement._id}
 
               >
-
                 <span>
-
                   {achievement.category}
-
                 </span>
-
-
-
-                <h3>
-
+<h3>
                   {achievement.title}
-
                 </h3>
-
-
-
-                <p>
-
+<p>
                   Level:{" "}
-
                   <strong>
-
                     {achievement.level}
-
                   </strong>
-
                 </p>
-
-
-
-                {achievement.achievementDate && (
-
+{achievement.achievementDate && (
                   <small>
-
                     {new Date(
-
                       achievement.achievementDate
-
                     ).toLocaleDateString(
-
                       "en-IN",
 
                       {
-
                         day: "2-digit",
 
                         month: "short",
 
                         year: "numeric",
-
                       }
-
                     )}
-
                   </small>
-
                 )}
 
-
-
-                {achievement.description && (
-
+{achievement.description && (
                   <p>
-
                     {
-
                       achievement.description
-
                     }
-
                   </p>
-
                 )}
-
               </article>
-
             )
-
           )}
-
-
-
-        </div>
-
+</div>
       )}
 
-
-
-      {showAchievementForm && (
-
+{showAchievementForm && (
         <div className="observation-overlay">
-
-
-
-          <div className="observation-modal">
-
-
-
-            <button
+<div className="observation-modal">
+<button
 
               className="observation-close"
 
               onClick={() =>
-
                 setShowAchievementForm(false)
-
               }
 
             >
-
               ×
-
             </button>
-
-
-
-            <span>
-
+<span>
               ACHIEVEMENT
-
             </span>
-
-
-
-            <h2>
-
+<h2>
               Add an achievement
-
             </h2>
-
-
-
-            <p>
-
+<p>
               Record an achievement,
 
               competition, performance
 
               or meaningful milestone.
-
             </p>
-
-
-
-            <form
+<form
 
               onSubmit={
-
                 handleAchievementSubmit
-
               }
 
             >
-
-
-
-              <label>
-
+<label>
                 Achievement Title
-
               </label>
-
-
-
-              <input
+<input
 
                 type="text"
 
                 placeholder="e.g. State Level Bharatanatyam Competition"
 
                 value={
-
                   achievementForm.title
-
                 }
 
                 onChange={(event) =>
-
                   setAchievementForm({
-
                     ...achievementForm,
 
                     title:
 
                       event.target.value,
-
                   })
-
                 }
 
               />
-
-
-
-              <label>
-
+<label>
                 Category
-
               </label>
-
-
-
-              <select
+<select
 
                 value={
-
                   achievementForm.category
-
                 }
 
                 onChange={(event) =>
-
                   setAchievementForm({
-
                     ...achievementForm,
 
                     category:
 
                       event.target.value,
-
                   })
-
                 }
 
               >
-
                 <option value="">
-
                   Select category
-
                 </option>
-
-
-
-                <option value="Academic">
-
+<option value="Academic">
                   Academic
-
                 </option>
-
-
-
-                <option value="Sports">
-
+<option value="Sports">
                   Sports
-
                 </option>
-
-
-
-                <option value="Arts">
-
+<option value="Arts">
                   Arts
-
                 </option>
-
-
-
-                <option value="Leadership">
-
+<option value="Leadership">
                   Leadership
-
                 </option>
-
-
-
-                <option value="Cultural">
-
+<option value="Cultural">
                   Cultural
-
                 </option>
-
-
-
-                <option value="Other">
-
+<option value="Other">
                   Other
-
                 </option>
-
               </select>
-
-
-
-              <label>
-
+<label>
                 Achievement Date
-
               </label>
-
-
-
-              <input
+<input
 
                 type="date"
 
                 value={
-
                   achievementForm.achievementDate
-
                 }
 
                 onChange={(event) =>
-
                   setAchievementForm({
-
                     ...achievementForm,
 
                     achievementDate:
 
                       event.target.value,
-
                   })
-
                 }
 
               />
-
-
-
-              <label>
-
+<label>
                 Level
-
               </label>
-
-
-
-              <select
+<select
 
                 value={
-
                   achievementForm.level
-
                 }
 
                 onChange={(event) =>
-
                   setAchievementForm({
-
                     ...achievementForm,
 
                     level:
 
                       event.target.value,
-
                   })
-
                 }
 
               >
-
                 <option value="Gurukula">
-
                   Gurukula
-
                 </option>
-
-
-
-                <option value="School">
-
+<option value="School">
                   School
-
                 </option>
-
-
-
-                <option value="District">
-
+<option value="District">
                   District
-
                 </option>
-
-
-
-                <option value="State">
-
+<option value="State">
                   State
-
                 </option>
-
-
-
-                <option value="National">
-
+<option value="National">
                   National
-
                 </option>
-
-
-
-                <option value="International">
-
+<option value="International">
                   International
-
                 </option>
-
-
-
-                <option value="Other">
-
+<option value="Other">
                   Other
-
                 </option>
-
               </select>
-
-
-
-              <label>
-
+<label>
                 Description
-
               </label>
-
-
-
-              <textarea
+<textarea
 
                 rows="4"
 
                 placeholder="Short description..."
 
                 value={
-
                   achievementForm.description
-
                 }
 
                 onChange={(event) =>
-
                   setAchievementForm({
-
                     ...achievementForm,
 
                     description:
 
                       event.target.value,
-
                   })
-
                 }
 
               />
-
-
-
-              <button
+<button
 
                 type="submit"
 
                 className="profile-primary-button full"
 
               >
-
                 Save Achievement
-
               </button>
-
-
-
-            </form>
-
-
-
-          </div>
-
-
-
-        </div>
-
+</form>
+</div>
+</div>
       )}
-
-
-
-    </section>
-
+</section>
   );
-
 }
 
-
-
-    // ===================================
+// ===================================
 
     // ===================================
     // WELLBEING
@@ -4079,7 +2571,6 @@ if (activeTab === "Journey") {
               </p>
             </div>
           </div>
-
           <form className="journey-form" onSubmit={handleWellbeingSubmit}>
             <div className="journey-form-grid">
               <label>
@@ -4099,7 +2590,6 @@ if (activeTab === "Journey") {
                   <option value="General Wellbeing">General Wellbeing</option>
                 </select>
               </label>
-
               <label>
                 Status
                 <select
@@ -4118,7 +2608,6 @@ if (activeTab === "Journey") {
                 </select>
               </label>
             </div>
-
             <label>
               Observation
               <textarea
@@ -4133,7 +2622,6 @@ if (activeTab === "Journey") {
                 }
               />
             </label>
-
             <label>
               Support Provided
               <textarea
@@ -4148,7 +2636,6 @@ if (activeTab === "Journey") {
                 }
               />
             </label>
-
             <label className="checkbox-row">
               <input
                 type="checkbox"
@@ -4162,7 +2649,6 @@ if (activeTab === "Journey") {
               />
               Follow-up required
             </label>
-
             {wellbeingForm.followUpRequired && (
               <label>
                 Follow-up Date
@@ -4178,7 +2664,6 @@ if (activeTab === "Journey") {
                 />
               </label>
             )}
-
             <button
               type="submit"
               className="profile-primary-button full"
@@ -4186,7 +2671,6 @@ if (activeTab === "Journey") {
               Save Wellbeing Record
             </button>
           </form>
-
           <div className="profile-item-grid">
             {wellbeing.length === 0 ? (
               <article>
@@ -4200,7 +2684,6 @@ if (activeTab === "Journey") {
                   <span>{record.area}</span>
                   <h3>{record.status}</h3>
                   <p>{record.observation}</p>
-
                   {record.supportProvided && (
                     <p>
                       <strong>Support provided:</strong>{" "}
@@ -4216,7 +2699,6 @@ if (activeTab === "Journey") {
                         : ""}
                     </small>
                   )}
-
                   <small>
                     {record.observedAt
                       ? new Date(record.observedAt).toLocaleDateString("en-IN", {
@@ -4238,502 +2720,270 @@ if (activeTab === "Journey") {
 
     // ===================================
 
-
-
-  if (
-
+if (
   activeTab ===
 
   "Observations"
-
 ) {
-
   return (
-
     <section className="profile-content-card">
-
-
-
-      <div className="profile-content-heading">
-
+<div className="profile-content-heading">
         <div>
-
           <span>
-
             MENTOR OBSERVATIONS
-
           </span>
-
-
-
-          <h2>
-
+<h2>
             What mentors notice
-
           </h2>
-
-
-
-          <p>
-
+<p>
             Short observations that
 
             help capture {childName}'s
 
             ongoing journey.
-
           </p>
-
         </div>
-
-
-
-        <button
+<button
 
           className="profile-primary-button"
 
           onClick={() =>
-
             setShowObservation(true)
-
           }
 
         >
-
           + Quick Observation
-
         </button>
-
       </div>
-
-
-
-      {observationError && (
-
+{observationError && (
         <p
 
           style={{
-
             marginTop: "16px",
 
             color: "#9b3d2e",
-
           }}
 
         >
-
           {observationError}
-
         </p>
-
       )}
 
-
-
-      {observationLoading ? (
-
+{observationLoading ? (
         <div className="profile-item-grid">
-
           <article>
-
             <h3>
-
               Loading observations...
-
             </h3>
-
-
-
-            <p>
-
+<p>
               Please wait.
-
             </p>
-
           </article>
-
         </div>
-
       ) : observations.length === 0 ? (
-
         <div className="profile-item-grid">
-
           <article>
-
             <span>
-
               NO RECORDS
-
             </span>
-
-
-
-            <h3>
-
+<h3>
               No observations yet
-
             </h3>
-
-
-
-            <p>
-
+<p>
               Add the first mentor
 
               observation for{" "}
 
               {childName}.
-
             </p>
-
           </article>
-
         </div>
-
       ) : (
-
         <div className="observation-list">
-
-
-
-          {observations.map(
-
+{observations.map(
             (observation) => (
-
               <article
 
                 key={observation._id}
 
               >
-
                 <div>
-
                   <span>
-
                     {observation.category}
-
                   </span>
-
-
-
-                  <h3>
-
+<h3>
                     {observation.note}
-
                   </h3>
-
-
-
-                  {observation.tags?.length >
-
+{observation.tags?.length >
                     0 && (
-
                     <p>
-
                       Tags:{" "}
 
                       {observation.tags.join(
-
                         ", "
-
                       )}
-
                     </p>
-
                   )}
-
-
-
-                  <small>
-
+<small>
                     {observation.observedAt
 
                       ? new Date(
-
                           observation.observedAt
-
                         ).toLocaleDateString(
-
                           "en-IN",
 
                           {
-
                             day: "2-digit",
 
                             month: "short",
 
                             year: "numeric",
-
                           }
-
                         )
 
                       : ""}
-
                   </small>
-
                 </div>
-
-
-
-                {observation.followUpRequired && (
-
+{observation.followUpRequired && (
                   <small>
-
                     Follow-up required
-
                   </small>
-
                 )}
-
               </article>
-
             )
-
           )}
-
-
-
-        </div>
-
+</div>
       )}
 
-
-
-      {showObservation && (
-
+{showObservation && (
         <div className="observation-overlay">
-
-
-
-          <div className="observation-modal">
-
-
-
-            <button
+<div className="observation-modal">
+<button
 
               className="observation-close"
 
               onClick={() =>
-
                 setShowObservation(false)
-
               }
 
             >
-
               ×
-
             </button>
-
-
-
-            <span>
-
+<span>
               QUICK OBSERVATION
-
             </span>
-
-
-
-            <h2>
-
+<h2>
               Add a mentor observation
-
             </h2>
-
-
-
-            <p>
-
+<p>
               Capture a short observation
 
               as part of {childName}'s
 
               ongoing journey.
-
             </p>
-
-
-
-            <form
+<form
 
               onSubmit={
-
                 handleObservationSubmit
-
               }
 
             >
-
-
-
-              <label>
-
+<label>
                 Category
-
               </label>
-
-
-
-              <select
+<select
 
                 value={
-
                   observationForm.category
-
                 }
 
                 onChange={(event) =>
-
                   setObservationForm({
-
                     ...observationForm,
 
                     category:
 
                       event.target.value,
-
                   })
-
                 }
 
               >
-
                 <option value="Academic">
-
                   Academic
-
                 </option>
-
-
-
-                <option value="Skill Development">
-
+<option value="Skill Development">
                   Skill Development
-
                 </option>
-
-
-
-                <option value="Wellbeing">
-
+<option value="Wellbeing">
                   Wellbeing
-
                 </option>
-
-
-
-                <option value="Mentorship">
-
+<option value="Mentorship">
                   Mentorship
-
                 </option>
-
-
-
-                <option value="General">
-
+<option value="General">
                   General
-
                 </option>
-
               </select>
-
-
-
-              <label>
-
+<label>
                 Tags
-
               </label>
-
-
-
-              <input
+<input
 
                 type="text"
 
                 placeholder="e.g. confidence, participation"
 
                 value={
-
                   observationForm.tags
-
                 }
 
                 onChange={(event) =>
-
                   setObservationForm({
-
                     ...observationForm,
 
                     tags:
 
                       event.target.value,
-
                   })
-
                 }
 
               />
-
-
-
-              <label>
-
+<label>
                 Observation
-
               </label>
-
-
-
-              <textarea
+<textarea
 
                 rows="5"
 
                 placeholder="Write a short observation..."
 
                 value={
-
                   observationForm.note
-
                 }
 
                 onChange={(event) =>
-
                   setObservationForm({
-
                     ...observationForm,
 
                     note:
 
                       event.target.value,
-
                   })
-
                 }
 
               />
-
-
-
-              <label>
-
+<label>
                 <input
 
                   type="checkbox"
 
                   checked={
-
                     observationForm.followUpRequired
-
                   }
 
                   onChange={(event) =>
-
                     setObservationForm({
-
                       ...observationForm,
 
                       followUpRequired:
@@ -4741,47 +2991,27 @@ if (activeTab === "Journey") {
                         event.target
 
                           .checked,
-
                     })
-
                   }
 
                 />
-
-
-
-                Follow-up required
-
+Follow-up required
               </label>
-
-
-
-              {observationForm.followUpRequired && (
-
+{observationForm.followUpRequired && (
                 <>
-
                   <label>
-
                     Follow-up Date
-
                   </label>
-
-
-
-                  <input
+<input
 
                     type="date"
 
                     value={
-
                       observationForm.followUpDate
-
                     }
 
                     onChange={(event) =>
-
                       setObservationForm({
-
                         ...observationForm,
 
                         followUpDate:
@@ -4789,64 +3019,36 @@ if (activeTab === "Journey") {
                           event.target
 
                             .value,
-
                       })
-
                     }
 
                   />
-
                 </>
-
               )}
-
-
-
-              <button
+<button
 
                 type="submit"
 
                 className="profile-primary-button full"
 
               >
-
                 Save Observation
-
               </button>
-
-
-
-            </form>
-
-
-
-          </div>
-
-
-
-        </div>
-
+</form>
+</div>
+</div>
       )}
-
-
-
-    </section>
-
+</section>
   );
-
 }
 
-
-
-    // ===================================
+// ===================================
 
     // FAMILY
 
     // ===================================
 
-
-
-  if (activeTab === "Family") {
+if (activeTab === "Family") {
   return (
     <FamilySection
       child={child}
@@ -4855,17 +3057,13 @@ if (activeTab === "Journey") {
   );
 }
 
-
-
-    // ===================================
+// ===================================
 
     // DOCUMENTS
 
     // ===================================
 
-
-
-   if (activeTab === "Documents") {
+if (activeTab === "Documents") {
   return (
     <DocumentSection
       child={child}
@@ -4874,29 +3072,18 @@ if (activeTab === "Journey") {
   );
 }
 
-
-    return null;
-
+return null;
   };
 
-
-
-  // =====================================
+// =====================================
 
   // PAGE
 
   // =====================================
 
-
-
-  return (
-
+return (
     <div className="child-profile-page">
-
-
-
-      {onBack && (
-
+{onBack && (
         <button
 
           className="child-profile-back"
@@ -4904,122 +3091,66 @@ if (activeTab === "Journey") {
           onClick={onBack}
 
         >
-
           ← Back to children
-
         </button>
-
       )}
-
-
-
-      <header className="child-profile-header">
-
+<header className="child-profile-header">
         <div className="profile-avatar">
-
           {childName
 
             .charAt(0)
 
             .toUpperCase()}
-
         </div>
-
-
-
-        <div className="profile-header-info">
-
+<div className="profile-header-info">
           <span>
-
             CHILD JOURNEY •{" "}
 
             {grade.toUpperCase()}
-
           </span>
-
-
-
-          <h1>
-
+<h1>
             {childName}
-
           </h1>
-
-
-
-          <p>
-
+<p>
             Admission{" "}
 
             {admissionYear} • Mentor:{" "}
 
             {mentor}
-
           </p>
-
         </div>
-
-
-
-        <div className="profile-header-status">
-
+<div className="profile-header-status">
           <i></i>
-
-
-
-          Journey {status}
-
+Journey {status}
         </div>
-
       </header>
-
-
-
-      <nav className="child-profile-tabs">
-
+<nav className="child-profile-tabs">
         {tabs.map((tab) => (
-
           <button
 
             key={tab}
 
             className={
-
               activeTab === tab
 
                 ? "active"
 
                 : ""
-
             }
 
             onClick={() =>
-
               setActiveTab(tab)
-
             }
 
           >
-
             {tab}
-
           </button>
-
         ))}
-
       </nav>
-
-
-
-      <main className="child-profile-content">
-
+<main className="child-profile-content">
         {renderContent()}
-
       </main>
-
-
-
-      {showObservation && (
+{showObservation && (
         <div className="observation-overlay">
           <div className="observation-modal">
             <button
@@ -5029,13 +3160,11 @@ if (activeTab === "Journey") {
             >
               ×
             </button>
-
             <span>QUICK OBSERVATION</span>
             <h2>Add a mentor observation</h2>
             <p>
               Capture a short observation as part of {childName}'s ongoing journey.
             </p>
-
             <form onSubmit={handleObservationSubmit}>
               <label>
                 Category
@@ -5052,7 +3181,6 @@ if (activeTab === "Journey") {
                   <option value="General">General</option>
                 </select>
               </label>
-
               <label>
                 Tags
                 <input
@@ -5064,7 +3192,6 @@ if (activeTab === "Journey") {
                   }
                 />
               </label>
-
               <label>
                 Observation
                 <textarea
@@ -5076,7 +3203,6 @@ if (activeTab === "Journey") {
                   }
                 />
               </label>
-
               <label className="checkbox-row">
                 <input
                   type="checkbox"
@@ -5087,7 +3213,6 @@ if (activeTab === "Journey") {
                 />
                 Follow-up required
               </label>
-
               {observationForm.followUpRequired && (
                 <label>
                   Follow-up Date
@@ -5106,7 +3231,6 @@ if (activeTab === "Journey") {
                   {observationError}
                 </p>
               )}
-
               <button type="submit" className="profile-primary-button full">
                 Save Observation
               </button>
@@ -5115,11 +3239,7 @@ if (activeTab === "Journey") {
         </div>
       )}
     </div>
-
   );
-
 }
-
-
 
 export default ChildProfile;

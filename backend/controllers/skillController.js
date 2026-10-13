@@ -1,5 +1,26 @@
 import Skill from "../models/Skill.js";
 
+export const getSkills = async (req, res, next) => {
+  try {
+    const filter = {};
+    if (req.query.childId) {
+      filter.child = req.query.childId;
+    }
+
+    const skills = await Skill.find(filter)
+      .populate("child", "firstName middleName lastName grade admissionNumber")
+      .sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      count: skills.length,
+      data: skills,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getSkillsByChild = async (req, res, next) => {
   try {
     const skills = await Skill.find({

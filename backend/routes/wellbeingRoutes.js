@@ -1,6 +1,7 @@
 import express from "express";
 
 import {
+  getWellbeings,
   getWellbeingByChild,
   createWellbeing,
   updateWellbeing,
@@ -9,6 +10,7 @@ import {
 
 const router = express.Router();
 
+router.get("/", getWellbeings);
 router.get("/child/:childId", getWellbeingByChild);
 
 router.post("/", createWellbeing);

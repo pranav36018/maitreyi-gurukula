@@ -1,8 +1,14 @@
+
 import Child from "../models/Child.js";
 
 export const getChildren = async (req, res, next) => {
   try {
-    const children = await Child.find()
+    const filter =
+      req.query.includeArchived === "true"
+        ? {}
+        : { isArchived: { $ne: true } };
+
+    const children = await Child.find(filter)
       .populate("mentorId", "name phone email")
       .sort({ createdAt: -1 });
 
@@ -81,9 +87,7 @@ export const updateChild = async (req, res, next) => {
 
 export const deleteChild = async (req, res, next) => {
   try {
-    const child = await Child.findByIdAndDelete(
-      req.params.id
-    );
+    const child = await Child.findById(req.params.id);
 
     if (!child) {
       return res.status(404).json({
@@ -92,9 +96,41 @@ export const deleteChild = async (req, res, next) => {
       });
     }
 
+    child.isArchived = true;
+    child.archivedAt = new Date();
+
+    await child.save();
+
     res.json({
       success: true,
-      message: "Child deleted successfully",
+      message: "Child archived successfully",
+      data: child,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const restoreChild = async (req, res, next) => {
+  try {
+    const child = await Child.findById(req.params.id);
+
+    if (!child) {
+      return res.status(404).json({
+        success: false,
+        message: "Child not found",
+      });
+    }
+
+    child.isArchived = false;
+    child.archivedAt = null;
+
+    await child.save();
+
+    res.json({
+      success: true,
+      message: "Child restored successfully",
+      data: child,
     });
   } catch (error) {
     next(error);

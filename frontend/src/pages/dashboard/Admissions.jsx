@@ -99,7 +99,29 @@ const [joiningDate, setJoiningDate] = useState(
   };
 
   useEffect(() => {
-    loadAdmissions();
+    let isMounted = true;
+
+    getAdmissions()
+      .then((response) => {
+        if (isMounted) {
+          setAdmissions(response.data || []);
+        }
+      })
+      .catch((err) => {
+        if (isMounted) {
+          console.error(err);
+          setError(err.message || "Unable to load admissions");
+        }
+      })
+      .finally(() => {
+        if (isMounted) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
@@ -510,15 +532,12 @@ const confirmChildJoining = async () => {
       <div className="admissions-page">
         <div className="admissions-heading">
           <span>GURUKULA ENTRY</span>
-
           <h1>Admissions</h1>
-
           <p>
             Track each child's journey from
             enquiry to admission.
           </p>
         </div>
-
         <div className="admissions-state">
           Loading admissions...
         </div>
@@ -528,24 +547,16 @@ const confirmChildJoining = async () => {
 
   return (
     <div className="admissions-page">
-
       {/* HEADER */}
-
       <div className="admissions-header">
-
         <div className="admissions-heading">
-
           <span>GURUKULA ENTRY</span>
-
           <h1>Admissions</h1>
-
           <p>
             Track each prospective child from
             first enquiry through admission.
           </p>
-
         </div>
-
         <button
           className="new-admission-button"
           onClick={
@@ -558,71 +569,54 @@ const confirmChildJoining = async () => {
             ? "Close Form"
             : "+ New Admission"}
         </button>
-
       </div>
-
       {/* ERROR */}
 
       {error && (
         <div className="admissions-error">
-
           <strong>
             Unable to load admissions
           </strong>
-
           <p>{error}</p>
-
           <button onClick={loadAdmissions}>
             Try Again
           </button>
-
         </div>
       )}
 
       {/* SUMMARY */}
-
       <div className="admission-summary">
-
         <div>
           <span>TOTAL ENQUIRIES</span>
-
           <strong>
             {admissions.length}
           </strong>
         </div>
-
         <div>
           <span>APPLICATIONS</span>
-
           <strong>
             {countStatus(
               "Application Received"
             )}
           </strong>
         </div>
-
         <div>
           <span>INTERVIEWS</span>
-
           <strong>
             {countStatus(
               "Selected for Interview"
             )}
           </strong>
         </div>
-
         <div>
           <span>SELECTED</span>
-
           <strong>
             {countStatus(
               "Selected as Student"
             )}
           </strong>
         </div>
-
       </div>
-
       {/* NEW / EDIT FORM */}
 
       {showForm && (
@@ -630,30 +624,22 @@ const confirmChildJoining = async () => {
           className="admission-form"
           onSubmit={handleSubmit}
         >
-
           <div className="form-section-title">
-
             <span>
               {editingId
                 ? "UPDATE ADMISSION"
                 : "CHILD DETAILS"}
             </span>
-
             <h2>
               {editingId
                 ? "Edit Admission"
                 : "New Admission Enquiry"}
             </h2>
-
           </div>
-
           {/* CHILD DETAILS */}
-
           <div className="form-grid">
-
             <label>
               First Name *
-
               <input
                 name="childFirstName"
                 value={
@@ -663,10 +649,8 @@ const confirmChildJoining = async () => {
                 placeholder="Child's first name"
               />
             </label>
-
             <label>
               Middle Name
-
               <input
                 name="childMiddleName"
                 value={
@@ -676,10 +660,8 @@ const confirmChildJoining = async () => {
                 placeholder="Middle name"
               />
             </label>
-
             <label>
               Last Name
-
               <input
                 name="childLastName"
                 value={
@@ -689,10 +671,8 @@ const confirmChildJoining = async () => {
                 placeholder="Last name"
               />
             </label>
-
             <label>
               Date of Birth
-
               <input
                 type="date"
                 name="dateOfBirth"
@@ -702,10 +682,8 @@ const confirmChildJoining = async () => {
                 onChange={handleChange}
               />
             </label>
-
             <label>
               Parent / Guardian Name *
-
               <input
                 name="parentName"
                 value={
@@ -715,10 +693,8 @@ const confirmChildJoining = async () => {
                 placeholder="Parent or guardian"
               />
             </label>
-
             <label>
               Parent Phone
-
               <input
                 name="parentPhone"
                 value={
@@ -728,10 +704,8 @@ const confirmChildJoining = async () => {
                 placeholder="Phone number"
               />
             </label>
-
             <label>
               Parent Email
-
               <input
                 type="email"
                 name="parentEmail"
@@ -742,10 +716,8 @@ const confirmChildJoining = async () => {
                 placeholder="Email address"
               />
             </label>
-
             <label>
               Referral Source
-
               <input
                 name="referralSource"
                 value={
@@ -755,15 +727,10 @@ const confirmChildJoining = async () => {
                 placeholder="How did they hear about Gurukula?"
               />
             </label>
-
           </div>
-
           {/* ADDRESS */}
-
           <label className="full-width-field">
-
             Address
-
             <textarea
               name="address"
               value={form.address}
@@ -771,26 +738,17 @@ const confirmChildJoining = async () => {
               placeholder="Family address"
               rows="3"
             />
-
           </label>
-
           {/* PROCESS */}
-
           <div className="form-section-title second">
-
             <span>PROCESS</span>
-
             <h2>
               Admission Progress
             </h2>
-
           </div>
-
           <div className="form-grid">
-
             <label>
               Enquiry Date
-
               <input
                 type="date"
                 name="enquiryDate"
@@ -800,10 +758,8 @@ const confirmChildJoining = async () => {
                 onChange={handleChange}
               />
             </label>
-
             <label>
               Application Date
-
               <input
                 type="date"
                 name="applicationDate"
@@ -813,10 +769,8 @@ const confirmChildJoining = async () => {
                 onChange={handleChange}
               />
             </label>
-
             <label>
               Interview Date
-
               <input
                 type="date"
                 name="interviewDate"
@@ -826,16 +780,13 @@ const confirmChildJoining = async () => {
                 onChange={handleChange}
               />
             </label>
-
             <label>
               Current Status
-
               <select
                 name="status"
                 value={form.status}
                 onChange={handleChange}
               >
-
                 {statuses.map(
                   (status) => (
                     <option
@@ -846,13 +797,9 @@ const confirmChildJoining = async () => {
                     </option>
                   )
                 )}
-
               </select>
-
             </label>
-
           </div>
-
           {/* FOLLOW-UP DATE IN FORM
               ONLY IF STATUS IS FOLLOW-UP */}
 
@@ -869,7 +816,6 @@ const confirmChildJoining = async () => {
                 borderRadius: "12px",
               }}
             >
-
               <div
                 style={{
                   color: "#9b5c3c",
@@ -882,7 +828,6 @@ const confirmChildJoining = async () => {
               >
                 FOLLOW-UP REQUIRED
               </div>
-
               <label
                 style={{
                   display: "flex",
@@ -893,9 +838,7 @@ const confirmChildJoining = async () => {
                   fontWeight: "700",
                 }}
               >
-
                 Next Follow-up Date *
-
                 <input
                   type="date"
                   name="nextFollowUpDate"
@@ -920,19 +863,14 @@ const confirmChildJoining = async () => {
                     fontSize: "14px",
                   }}
                 />
-
               </label>
-
             </div>
           )}
 
           {/* NOTES */}
-
           <div className="form-notes-grid">
-
             <label>
               Interview Notes
-
               <textarea
                 name="interviewNotes"
                 value={
@@ -943,10 +881,8 @@ const confirmChildJoining = async () => {
                 placeholder="Interview observations..."
               />
             </label>
-
             <label>
               Assessment Notes
-
               <textarea
                 name="assessmentNotes"
                 value={
@@ -957,10 +893,8 @@ const confirmChildJoining = async () => {
                 placeholder="Assessment details..."
               />
             </label>
-
             <label>
               Observations
-
               <textarea
                 name="observations"
                 value={
@@ -971,10 +905,8 @@ const confirmChildJoining = async () => {
                 placeholder="General observations..."
               />
             </label>
-
             <label>
               Notes
-
               <textarea
                 name="notes"
                 value={form.notes}
@@ -983,20 +915,15 @@ const confirmChildJoining = async () => {
                 placeholder="Additional notes..."
               />
             </label>
-
           </div>
-
           {/* FORM ACTIONS */}
-
           <div className="admission-form-actions">
-
             <button
               type="button"
               onClick={closeForm}
             >
               Cancel
             </button>
-
             <button
               type="submit"
               disabled={saving}
@@ -1007,9 +934,7 @@ const confirmChildJoining = async () => {
                 ? "Update Admission"
                 : "Save Admission"}
             </button>
-
           </div>
-
         </form>
       )}
 
@@ -1024,13 +949,11 @@ const confirmChildJoining = async () => {
     }}
   >
     <h2>Confirm Child Joining</h2>
-
     <p>
       Child: <strong>
         {getChildName(joiningAdmission)}
       </strong>
     </p>
-
     <label style={{ display: "block", marginBottom: "16px" }}>
       Grade / Class *
       <input
@@ -1047,7 +970,6 @@ const confirmChildJoining = async () => {
         }}
       />
     </label>
-
     <label style={{ display: "block", marginBottom: "16px" }}>
       Actual Joining Date *
       <input
@@ -1063,11 +985,8 @@ const confirmChildJoining = async () => {
         }}
       />
     </label>
-
-    
 <label style={{ display: "block", marginBottom: "16px" }}>
   Assign Mentor (Optional)
-
   <select
     value={joiningMentorId}
     onChange={(event) => setJoiningMentorId(event.target.value)}
@@ -1083,7 +1002,6 @@ const confirmChildJoining = async () => {
     }}
   >
     <option value="">No mentor assigned</option>
-
     {mentors.map((mentor) => (
       <option key={mentor._id} value={mentor._id}>
         {mentor.name}
@@ -1091,24 +1009,19 @@ const confirmChildJoining = async () => {
       </option>
     ))}
   </select>
-
   {mentors.length === 0 && (
     <small style={{ display: "block", marginTop: "6px" }}>
       No active mentors found. Add a mentor in the Mentors section first.
     </small>
   )}
 </label>
-
-
-    <button
+<button
       type="button"
       onClick={confirmChildJoining}
       disabled={saving}
     >
       {saving ? "Creating Profile..." : "Confirm & Create Child Profile"}
     </button>
-
-    
 <button
   type="button"
   onClick={() => {
@@ -1121,58 +1034,41 @@ const confirmChildJoining = async () => {
 >
   Cancel
 </button>
-
   </div>
 )}
 
       {/* ADMISSION LIST */}
-
       <div className="admission-list">
-
         {admissions.length === 0 ? (
-
           <div className="admissions-empty">
-
             <span>ADMISSIONS</span>
-
             <h2>
               No admission enquiries yet.
             </h2>
-
             <p>
               Add the first prospective
               child to begin the admission
               journey.
             </p>
-
           </div>
-
         ) : (
-
           admissions.map(
             (admission) => (
-
               <article
                 className="admission-card"
                 key={admission._id}
               >
-
                 {/* CARD HEADER */}
-
                 <div className="admission-card-top">
-
                   <div>
-
                     <span className="admission-label">
                       PROSPECTIVE CHILD
                     </span>
-
                     <h2>
                       {getChildName(
                         admission
                       )}
                     </h2>
-
                     <p>
                       Parent / Guardian:{" "}
                       <strong>
@@ -1181,69 +1077,53 @@ const confirmChildJoining = async () => {
                         }
                       </strong>
                     </p>
-
                   </div>
-
                   <span className="admission-status">
                     {admission.status}
                   </span>
-
                 </div>
-
                 {/* INFORMATION */}
-
                 <div className="admission-info-grid">
-
                   <div>
                     <span>
                       ENQUIRY DATE
                     </span>
-
                     <strong>
                       {formatDate(
                         admission.enquiryDate
                       )}
                     </strong>
                   </div>
-
                   <div>
                     <span>
                       INTERVIEW
                     </span>
-
                     <strong>
                       {formatDate(
                         admission.interviewDate
                       )}
                     </strong>
                   </div>
-
                   {/* NEXT FOLLOW-UP
                       ONLY FOR FOLLOW-UP STATUS */}
 
                   {admission.status ===
                     "To Be Followed Up Later" && (
-
                     <div>
-
                       <span>
                         NEXT FOLLOW-UP
                       </span>
-
                       <strong>
                         {formatDate(
                           admission.nextFollowUpDate
                         )}
                       </strong>
-
                     </div>
                   )}
-
                   <div>
                     <span>
                       PHONE
                     </span>
-
                     <strong>
                       {
                         admission.parentPhone ||
@@ -1251,14 +1131,11 @@ const confirmChildJoining = async () => {
                       }
                     </strong>
                   </div>
-
                 </div>
-
                 {/* INLINE FOLLOW-UP PICKER */}
 
                 {followUpId ===
                   admission._id && (
-
                   <div
                     style={{
                       marginTop:
@@ -1273,7 +1150,6 @@ const confirmChildJoining = async () => {
                         "12px",
                     }}
                   >
-
                     <div
                       style={{
                         color:
@@ -1290,7 +1166,6 @@ const confirmChildJoining = async () => {
                     >
                       FOLLOW-UP REQUIRED
                     </div>
-
                     <div
                       style={{
                         display:
@@ -1302,7 +1177,6 @@ const confirmChildJoining = async () => {
                           "wrap",
                       }}
                     >
-
                       <label
                         style={{
                           display:
@@ -1320,9 +1194,7 @@ const confirmChildJoining = async () => {
                             "220px",
                         }}
                       >
-
                         Next Follow-up Date *
-
                         <input
                           type="date"
                           value={
@@ -1354,9 +1226,7 @@ const confirmChildJoining = async () => {
                               "14px",
                           }}
                         />
-
                       </label>
-
                       <button
                         type="button"
                         onClick={() =>
@@ -1386,7 +1256,6 @@ const confirmChildJoining = async () => {
                           ? "Saving..."
                           : "Save Follow-up"}
                       </button>
-
                       <button
                         type="button"
                         onClick={
@@ -1412,9 +1281,7 @@ const confirmChildJoining = async () => {
                       >
                         Cancel
                       </button>
-
                     </div>
-
                     <p
                       style={{
                         margin:
@@ -1429,7 +1296,6 @@ const confirmChildJoining = async () => {
                       to contact or review
                       this admission enquiry.
                     </p>
-
                   </div>
                 )}
 
@@ -1439,7 +1305,6 @@ const confirmChildJoining = async () => {
                   "To Be Followed Up Later" &&
                   followUpId !==
                     admission._id && (
-
                   <div
                     style={{
                       marginTop:
@@ -1456,11 +1321,9 @@ const confirmChildJoining = async () => {
                         "13px",
                     }}
                   >
-
                     <strong>
                       Follow-up scheduled
                     </strong>
-
                     {" · "}
 
                     {admission.nextFollowUpDate
@@ -1468,36 +1331,27 @@ const confirmChildJoining = async () => {
                           admission.nextFollowUpDate
                         )
                       : "Date not selected"}
-
                   </div>
                 )}
 
                 {/* OBSERVATIONS */}
 
                 {admission.observations && (
-
                   <div className="admission-observation">
-
                     <span>
                       OBSERVATIONS
                     </span>
-
                     <p>
                       {
                         admission.observations
                       }
                     </p>
-
                   </div>
-
                 )}
 
                 {/* ACTIONS */}
-
                 <div className="admission-actions">
-
                   {/* EDIT */}
-
                   <button
                     onClick={() =>
                       openEditForm(
@@ -1507,12 +1361,10 @@ const confirmChildJoining = async () => {
                   >
                     Edit
                   </button>
-
                   {/* MOVE TO INTERVIEW */}
 
                   {admission.status !==
                     "Selected for Interview" && (
-
                     <button
                       onClick={() =>
                         changeStatus(
@@ -1523,14 +1375,12 @@ const confirmChildJoining = async () => {
                     >
                       Move to Interview
                     </button>
-
                   )}
 
                   {/* INVITED */}
 
                   {admission.status !==
                     "Invited" && (
-
                     <button
                       onClick={() =>
                         changeStatus(
@@ -1541,14 +1391,12 @@ const confirmChildJoining = async () => {
                     >
                       Mark Invited
                     </button>
-
                   )}
 
                   {/* SELECTED */}
 
                   {admission.status !==
                     "Selected as Student" && (
-
                     <button
                       className="select-button"
                       onClick={() =>
@@ -1560,7 +1408,6 @@ const confirmChildJoining = async () => {
                     >
                       Select as Student
                     </button>
-
                   )}
                   {admission.status === "Selected as Student" &&
   !admission.convertedChild && (
@@ -1594,7 +1441,6 @@ const confirmChildJoining = async () => {
                     "To Be Followed Up Later" &&
                     followUpId !==
                       admission._id && (
-
                     <button
                       onClick={() =>
                         startFollowUp(
@@ -1604,11 +1450,9 @@ const confirmChildJoining = async () => {
                     >
                       Follow Up Later
                     </button>
-
                   )}
 
                   {/* DELETE */}
-
                   <button
                     className="delete-button"
                     onClick={() =>
@@ -1619,22 +1463,14 @@ const confirmChildJoining = async () => {
                   >
                     Delete
                   </button>
-
                 </div>
-
               </article>
-
             )
           )
-
         )}
-
       </div>
-
     </div>
   );
 };
-
-
 
 export default Admissions;

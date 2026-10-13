@@ -1,5 +1,26 @@
 import Achievement from "../models/Achievement.js";
 
+export const getAchievements = async (req, res, next) => {
+  try {
+    const filter = {};
+    if (req.query.childId) {
+      filter.child = req.query.childId;
+    }
+
+    const achievements = await Achievement.find(filter)
+      .populate("child", "firstName middleName lastName grade admissionNumber")
+      .sort({ achievementDate: -1, createdAt: -1 });
+
+    res.json({
+      success: true,
+      count: achievements.length,
+      data: achievements,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getAchievementsByChild = async (
   req,
   res,

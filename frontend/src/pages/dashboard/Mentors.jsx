@@ -7,7 +7,7 @@ import {
   updateMentor,
   deleteMentor,
 } from "../../services/api";
-
+import "./Mentors.css";
 
 const emptyForm = {
   name: "",
@@ -41,7 +41,28 @@ export default function Mentors() {
   };
 
   useEffect(() => {
-    loadMentors();
+    let isMounted = true;
+
+    getMentors()
+      .then((result) => {
+        if (isMounted) {
+          setMentors(result.data || []);
+        }
+      })
+      .catch((err) => {
+        if (isMounted) {
+          setError(err.message || "Unable to load mentors.");
+        }
+      })
+      .finally(() => {
+        if (isMounted) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const change = (e) =>
@@ -106,124 +127,203 @@ export default function Mentors() {
   };
 
   return (
-    <main style={{ maxWidth: 1100, margin: "0 auto", padding: 24 }}>
-      <h1>Mentors</h1>
-      <p>Manage Gurukula mentors and their areas of responsibility.</p>
+    <main className="mentors-page">
+      <div className="mentors-header">
+        <span className="mentors-eyebrow">GURUKULA MENTORS</span>
+        <h1>Mentors</h1>
+        <p>Manage Gurukula mentors and their areas of guidance and responsibility.</p>
+      </div>
 
-      <form
-        onSubmit={submit}
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-          gap: 14,
-          padding: 20,
-          border: "1px solid #ddd",
-          borderRadius: 12,
-          marginBottom: 28,
-        }}
-      >
-        <h2 style={{ gridColumn: "1 / -1" }}>
-          {editingId ? "Edit Mentor" : "Add New Mentor"}
-        </h2>
+      <form onSubmit={submit} className="mentor-form-card">
+        <h2>{editingId ? "Edit Mentor" : "Add New Mentor"}</h2>
+        
+        <div className="mentor-form-grid">
+          <div className="mentor-form-field">
+            <label htmlFor="mentor-name">Full name *</label>
+            <input
+              id="mentor-name"
+              name="name"
+              value={form.name}
+              onChange={change}
+              required
+              placeholder="Mentor's full name"
+            />
+          </div>
 
-        <label>
-          Full name *
-          <input name="name" value={form.name} onChange={change}
-            required placeholder="Mentor's name" />
-        </label>
+          <div className="mentor-form-field">
+            <label htmlFor="mentor-phone">Phone number</label>
+            <input
+              id="mentor-phone"
+              name="phone"
+              value={form.phone}
+              onChange={change}
+              placeholder="+91 98765 43210"
+            />
+          </div>
 
-        <label>
-          Phone
-          <input name="phone" value={form.phone} onChange={change}
-            placeholder="Phone number" />
-        </label>
+          <div className="mentor-form-field">
+            <label htmlFor="mentor-email">Email address</label>
+            <input
+              id="mentor-email"
+              name="email"
+              type="email"
+              value={form.email}
+              onChange={change}
+              placeholder="mentor@gurukula.org"
+            />
+          </div>
 
-        <label>
-          Email
-          <input name="email" type="email" value={form.email}
-            onChange={change} placeholder="Email address" />
-        </label>
+          <div className="mentor-form-field">
+            <label htmlFor="mentor-expertise">Areas of Expertise</label>
+            <input
+              id="mentor-expertise"
+              name="expertise"
+              value={form.expertise}
+              onChange={change}
+              placeholder="e.g. Sanskrit, Mathematics, Music, Yoga"
+            />
+          </div>
 
-        <label>
-          Expertise
-          <input name="expertise" value={form.expertise} onChange={change}
-            placeholder="e.g. Sanskrit, Mathematics, Arts" />
-        </label>
+          <div className="mentor-form-field">
+            <label htmlFor="mentor-responsibilities">Responsibilities</label>
+            <input
+              id="mentor-responsibilities"
+              name="responsibilities"
+              value={form.responsibilities}
+              onChange={change}
+              placeholder="e.g. Senior Shishya Guidance, Library"
+            />
+          </div>
 
-        <label>
-          Responsibilities
-          <input name="responsibilities" value={form.responsibilities}
-            onChange={change} placeholder="Mentor responsibilities" />
-        </label>
+          <div className="mentor-form-field">
+            <label htmlFor="mentor-status">Status</label>
+            <select
+              id="mentor-status"
+              name="status"
+              value={form.status}
+              onChange={change}
+            >
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
 
-        <label>
-          Status
-          <select name="status" value={form.status} onChange={change}>
-            <option>Active</option>
-            <option>Inactive</option>
-          </select>
-        </label>
+          <div className="mentor-form-field full-width">
+            <label htmlFor="mentor-notes">Notes / Background</label>
+            <textarea
+              id="mentor-notes"
+              name="notes"
+              value={form.notes}
+              onChange={change}
+              rows={3}
+              placeholder="Additional background, guidance focus, or notes"
+            />
+          </div>
 
-        <label style={{ gridColumn: "1 / -1" }}>
-          Notes
-          <textarea name="notes" value={form.notes} onChange={change}
-            rows={3} placeholder="Additional information" />
-        </label>
-
-        <div style={{ gridColumn: "1 / -1", display: "flex", gap: 10 }}>
-          <button disabled={saving} type="submit">
-            {saving ? "Saving..." : editingId ? "Update Mentor" : "Save Mentor"}
-          </button>
-          {editingId && (
-            <button type="button" onClick={reset}>Cancel Edit</button>
-          )}
+          <div className="mentor-form-actions">
+            <button
+              className="mentor-btn-primary"
+              disabled={saving}
+              type="submit"
+            >
+              {saving ? "Saving..." : editingId ? "Update Mentor" : "Save Mentor"}
+            </button>
+            {editingId && (
+              <button
+                className="mentor-btn-secondary"
+                type="button"
+                onClick={reset}
+              >
+                Cancel Edit
+              </button>
+            )}
+          </div>
         </div>
       </form>
 
-      {error && <p role="alert">{error}</p>}
-      {loading ? <p>Loading mentors...</p> : (
+      {error && <p className="mentors-empty" role="alert" style={{ borderColor: "#fad2cf", color: "#c5221f" }}>{error}</p>}
+
+      {loading ? (
+        <div className="mentors-empty">Loading mentors from database...</div>
+      ) : (
         <>
-          <h2>Mentor Directory ({mentors.length})</h2>
-          {mentors.length === 0 && (
-            <p>No mentors added yet. Add your first mentor above.</p>
-          )}
-
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-            gap: 16,
-          }}>
-            {mentors.map((mentor) => (
-              <article key={mentor._id} style={{
-                border: "1px solid #ddd",
-                borderRadius: 12,
-                padding: 18,
-              }}>
-                <h3>{mentor.name}</h3>
-                <p><strong>Status:</strong> {mentor.status}</p>
-                {mentor.phone && <p><strong>Phone:</strong> {mentor.phone}</p>}
-                {mentor.email && <p><strong>Email:</strong> {mentor.email}</p>}
-                {mentor.expertise && <p><strong>Expertise:</strong> {mentor.expertise}</p>}
-                {mentor.responsibilities && (
-                  <p><strong>Responsibilities:</strong> {mentor.responsibilities}</p>
-                )}
-                {mentor.notes && <p>{mentor.notes}</p>}
-
-                <button type="button" onClick={() => edit(mentor)}>
-                  Edit
-                </button>
-                {mentor.status === "Active" && (
-                  <button
-                    type="button"
-                    onClick={() => deactivate(mentor)}
-                    style={{ marginLeft: 8 }}
-                  >
-                    Deactivate
-                  </button>
-                )}
-              </article>
-            ))}
+          <div className="mentors-section-title">
+            <h2>Mentor Directory</h2>
+            <span>{mentors.length} {mentors.length === 1 ? "Mentor" : "Mentors"}</span>
           </div>
+
+          {mentors.length === 0 ? (
+            <div className="mentors-empty">
+              No mentors added yet. Add your first mentor using the form above.
+            </div>
+          ) : (
+            <div className="mentors-grid">
+              {mentors.map((mentor) => (
+                <article key={mentor._id} className="mentor-card">
+                  <div>
+                    <div className="mentor-card-top">
+                      <h3>{mentor.name}</h3>
+                      <span className={`mentor-badge ${mentor.status === "Active" ? "active" : "inactive"}`}>
+                        {mentor.status}
+                      </span>
+                    </div>
+
+                    <div className="mentor-info-list">
+                      {mentor.phone && (
+                        <div className="mentor-info-item">
+                          <strong>Phone:</strong>
+                          <span>{mentor.phone}</span>
+                        </div>
+                      )}
+                      {mentor.email && (
+                        <div className="mentor-info-item">
+                          <strong>Email:</strong>
+                          <span>{mentor.email}</span>
+                        </div>
+                      )}
+                      {mentor.expertise && (
+                        <div className="mentor-info-item">
+                          <strong>Expertise:</strong>
+                          <span>{mentor.expertise}</span>
+                        </div>
+                      )}
+                      {mentor.responsibilities && (
+                        <div className="mentor-info-item">
+                          <strong>Duties:</strong>
+                          <span>{mentor.responsibilities}</span>
+                        </div>
+                      )}
+                      {mentor.notes && (
+                        <div className="mentor-info-item">
+                          <strong>Notes:</strong>
+                          <span>{mentor.notes}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="mentor-card-actions">
+                    <button
+                      className="mentor-btn-edit"
+                      type="button"
+                      onClick={() => edit(mentor)}
+                    >
+                      Edit Mentor
+                    </button>
+                    {mentor.status === "Active" && (
+                      <button
+                        className="mentor-btn-deactivate"
+                        type="button"
+                        onClick={() => deactivate(mentor)}
+                      >
+                        Deactivate
+                      </button>
+                    )}
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
         </>
       )}
     </main>

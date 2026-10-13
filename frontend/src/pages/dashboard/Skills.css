@@ -1,6 +1,6 @@
 .skills-page {
   width: 100%;
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -17,7 +17,7 @@
 
 .skills-eyebrow {
   margin: 0 0 12px;
-  color: #b96548;
+  color: #FBBF24;
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.16em;
@@ -25,34 +25,37 @@
 
 .skills-header h1 {
   margin: 0 0 16px;
-  color: #23382f;
+  color: #F8FAFC;
   font-family: "Playfair Display", Georgia, serif;
-  font-size: clamp(48px, 5vw, 70px);
-  line-height: 1;
+  font-size: clamp(44px, 4.8vw, 66px);
+  line-height: 1.05;
   font-weight: 600;
 }
 
 .skills-description {
-  max-width: 700px;
+  max-width: 100%;
   margin: 0;
-  color: #46514b;
+  color: #CBD5E1;
   font-size: 17px;
   line-height: 1.75;
 }
 
 .skills-add-button {
   flex-shrink: 0;
-  border: none;
-  padding: 15px 21px;
-  background: #23382f;
-  color: #fffdf8;
+  border: 1.5px solid rgba(254, 240, 138, 0.45);
+  border-radius: 12px;
+  padding: 15px 24px;
+  background: linear-gradient(135deg, #c2410c 0%, #ea580c 100%);
+  color: #ffffff;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
+  transition: all 0.22s ease;
 }
 
 .skills-add-button:hover {
-  background: #b96548;
+  background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+  transform: translateY(-2px);
 }
 
 
@@ -64,27 +67,29 @@
   gap: 30px;
   margin-bottom: 45px;
   padding: 45px;
-  background: #f4eee4;
+  border-radius: 20px;
+  border: 1.5px solid rgba(251, 191, 36, 0.2);
+  background: #132F24;
 }
 
 .skills-intro-number {
-  color: #b96548;
+  color: #FBBF24;
   font-size: 17px;
   font-weight: 800;
   letter-spacing: 0.08em;
 }
 
 .skills-intro span {
-  color: #b96548;
+  color: #FBBF24;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.15em;
 }
 
 .skills-intro h2 {
-  max-width: 700px;
+  max-width: 100%;
   margin: 12px 0 15px;
-  color: #23382f;
+  color: #F8FAFC;
   font-family: "Playfair Display", Georgia, serif;
   font-size: clamp(36px, 4vw, 52px);
   line-height: 1.1;
@@ -92,9 +97,9 @@
 }
 
 .skills-intro p {
-  max-width: 700px;
+  max-width: 100%;
   margin: 0;
-  color: #59645d;
+  color: #CBD5E1;
   font-size: 16px;
   line-height: 1.8;
 }
@@ -108,13 +113,13 @@
   gap: 25px;
   margin-bottom: 40px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #ded7cc;
+  border-bottom: 1px solid rgba(251, 191, 36, 0.18);
 }
 
 .skills-filter-bar > span {
   flex-shrink: 0;
   padding-top: 10px;
-  color: #8a7568;
+  color: #FBBF24;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.14em;
@@ -127,24 +132,26 @@
 }
 
 .skill-filter {
-  border: 1px solid #d8d1c5;
-  background: #fffdf8;
-  color: #5c665f;
-  padding: 9px 15px;
+  border: 1px solid rgba(251, 191, 36, 0.22);
+  border-radius: 999px;
+  background: #0B2219;
+  color: #CBD5E1;
+  padding: 9px 18px;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .skill-filter:hover {
-  border-color: #b96548;
-  color: #b96548;
+  border-color: #FBBF24;
+  color: #FBBF24;
 }
 
 .skill-filter.active {
-  border-color: #23382f;
-  background: #23382f;
-  color: #fffdf8;
+  border-color: #fbbf24;
+  background: linear-gradient(135deg, #c2410c 0%, #ea580c 100%);
+  color: #ffffff;
 }
 
 
@@ -159,7 +166,7 @@
 }
 
 .skills-heading span {
-  color: #b96548;
+  color: #FBBF24;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.15em;
@@ -167,16 +174,16 @@
 
 .skills-heading h2 {
   margin: 9px 0 0;
-  color: #23382f;
+  color: #F8FAFC;
   font-family: "Playfair Display", Georgia, serif;
   font-size: 35px;
   font-weight: 600;
 }
 
 .skills-heading p {
-  max-width: 420px;
+  max-width: 520px;
   margin: 0;
-  color: #657069;
+  color: #CBD5E1;
   font-size: 14px;
   line-height: 1.7;
 }
@@ -186,16 +193,18 @@
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
   margin-bottom: 60px;
 }
 
 .skill-card {
   min-height: 340px;
   padding: 25px;
-  border: 1px solid #e2dbd0;
-  background: #fffdf8;
+  border: 1.5px solid rgba(251, 191, 36, 0.18);
+  border-radius: 18px;
+  background: #132F24;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 .skill-card-top {
@@ -205,13 +214,13 @@
 }
 
 .skill-number {
-  color: #b96548;
+  color: #FBBF24;
   font-size: 14px;
   font-weight: 800;
 }
 
 .skill-category {
-  color: #8a7568;
+  color: #CBD5E1;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -220,12 +229,12 @@
 
 .skill-icon {
   margin: 35px 0 25px;
-  color: #d6a45f;
+  color: #FBBF24;
   font-size: 34px;
 }
 
 .skill-child {
-  color: #8a7568;
+  color: #94A3B8;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -234,7 +243,7 @@
 
 .skill-card h3 {
   margin: 9px 0 8px;
-  color: #23382f;
+  color: #F8FAFC;
   font-family: "Playfair Display", Georgia, serif;
   font-size: 28px;
   line-height: 1.2;
@@ -243,7 +252,7 @@
 
 .skill-card > p {
   margin: 0;
-  color: #59645d;
+  color: #CBD5E1;
   font-size: 14px;
   line-height: 1.7;
 }
@@ -254,7 +263,7 @@
   gap: 10px;
   margin-top: 28px;
   padding-top: 16px;
-  border-top: 1px solid #e8e1d7;
+  border-top: 1px solid rgba(251, 191, 36, 0.16);
 }
 
 .skill-card-bottom div {
@@ -264,14 +273,14 @@
 }
 
 .skill-card-bottom span {
-  color: #8a7568;
+  color: #94A3B8;
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 0.1em;
 }
 
 .skill-card-bottom strong {
-  color: #23382f;
+  color: #F8FAFC;
   font-size: 13px;
 }
 
@@ -281,19 +290,21 @@
 .skills-empty {
   margin-bottom: 60px;
   padding: 75px 30px;
-  border: 1px dashed #d8d1c5;
+  border: 1.5px dashed rgba(251, 191, 36, 0.25);
+  border-radius: 18px;
+  background: #132F24;
   text-align: center;
 }
 
 .skills-empty > div {
   margin-bottom: 12px;
-  color: #d6a45f;
+  color: #FBBF24;
   font-size: 40px;
 }
 
 .skills-empty h2 {
   margin: 0 0 10px;
-  color: #23382f;
+  color: #F8FAFC;
   font-family: "Playfair Display", Georgia, serif;
   font-size: 30px;
 }
@@ -301,7 +312,7 @@
 .skills-empty p {
   max-width: 480px;
   margin: 0 auto 20px;
-  color: #657069;
+  color: #CBD5E1;
   font-size: 14px;
   line-height: 1.7;
 }
@@ -309,7 +320,7 @@
 .skills-empty button {
   border: none;
   background: transparent;
-  color: #b96548;
+  color: #FBBF24;
   font-size: 14px;
   font-weight: 800;
   cursor: pointer;
@@ -324,11 +335,13 @@
   gap: 60px;
   margin-bottom: 55px;
   padding: 55px;
-  background: #23382f;
+  border-radius: 20px;
+  border: 1.5px solid rgba(251, 191, 36, 0.22);
+  background: linear-gradient(145deg, #132F24 0%, #071912 100%);
 }
 
 .skills-areas-heading span {
-  color: #d6a45f;
+  color: #FBBF24;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.15em;
@@ -336,7 +349,7 @@
 
 .skills-areas-heading h2 {
   margin: 15px 0 0;
-  color: #fffdf8;
+  color: #F8FAFC;
   font-family: "Playfair Display", Georgia, serif;
   font-size: clamp(40px, 4vw, 56px);
   line-height: 1.05;
@@ -350,14 +363,14 @@
 }
 
 .skills-area-list > div {
-  border-top: 1px solid rgba(255, 253, 248, 0.2);
+  border-top: 1px solid rgba(251, 191, 36, 0.2);
   padding-top: 17px;
 }
 
 .skills-area-list span {
   display: block;
   margin-bottom: 12px;
-  color: #d6a45f;
+  color: #FBBF24;
   font-size: 12px;
   font-weight: 800;
 }
@@ -365,7 +378,7 @@
 .skills-area-list strong {
   display: block;
   margin-bottom: 7px;
-  color: #fffdf8;
+  color: #F8FAFC;
   font-family: "Playfair Display", Georgia, serif;
   font-size: 21px;
   font-weight: 600;
@@ -373,7 +386,7 @@
 
 .skills-area-list p {
   margin: 0;
-  color: #dfe5df;
+  color: #CBD5E1;
   font-size: 13px;
   line-height: 1.65;
 }
@@ -387,7 +400,8 @@
   z-index: 100;
   display: flex;
   justify-content: flex-end;
-  background: rgba(25, 38, 32, 0.38);
+  background: rgba(4, 15, 11, 0.78);
+  backdrop-filter: blur(8px);
 }
 
 .skills-form-panel {
@@ -397,7 +411,9 @@
   box-sizing: border-box;
   overflow-y: auto;
   padding: 55px 45px;
-  background: #fffdf8;
+  background: #132F24;
+  border-left: 1.5px solid rgba(251, 191, 36, 0.25);
+  color: #F8FAFC;
 }
 
 .skills-close {
@@ -406,13 +422,13 @@
   right: 25px;
   border: none;
   background: transparent;
-  color: #59645d;
+  color: #F8FAFC;
   font-size: 28px;
   cursor: pointer;
 }
 
 .skills-form-label {
-  color: #b96548;
+  color: #FBBF24;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.15em;
@@ -420,7 +436,7 @@
 
 .skills-form-panel h2 {
   margin: 12px 0;
-  color: #23382f;
+  color: #F8FAFC;
   font-family: "Playfair Display", Georgia, serif;
   font-size: 42px;
   line-height: 1.1;
@@ -429,7 +445,7 @@
 
 .skills-form-intro {
   margin: 0 0 30px;
-  color: #657069;
+  color: #CBD5E1;
   font-size: 14px;
   line-height: 1.7;
 }
@@ -453,7 +469,7 @@
 }
 
 .skills-field label {
-  color: #23382f;
+  color: #E2E8F0;
   font-size: 13px;
   font-weight: 700;
 }
@@ -463,9 +479,10 @@
 .skills-field textarea {
   box-sizing: border-box;
   width: 100%;
-  border: 1px solid #d8d1c5;
-  background: #ffffff;
-  color: #23382f;
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  border-radius: 10px;
+  background: #0B2219;
+  color: #F8FAFC;
   font-family: "Inter", sans-serif;
   font-size: 14px;
   outline: none;
@@ -486,7 +503,7 @@
 .skills-field input:focus,
 .skills-field select:focus,
 .skills-field textarea:focus {
-  border-color: #b96548;
+  border-color: #FBBF24;
 }
 
 .skills-submit {
@@ -494,17 +511,18 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 5px;
-  border: none;
+  border: 1.5px solid rgba(254, 240, 138, 0.45);
+  border-radius: 12px;
   padding: 15px 18px;
-  background: #23382f;
-  color: #fffdf8;
+  background: linear-gradient(135deg, #c2410c 0%, #ea580c 100%);
+  color: #ffffff;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
 }
 
 .skills-submit:hover {
-  background: #b96548;
+  background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
 }
 
 

@@ -1,6 +1,7 @@
 import express from "express";
 
 import {
+  getAcademics,
   getAcademicsByChild,
   createAcademic,
   updateAcademic,
@@ -9,6 +10,7 @@ import {
 
 const router = express.Router();
 
+router.get("/", getAcademics);
 router.get("/child/:childId", getAcademicsByChild);
 
 router.post("/", createAcademic);

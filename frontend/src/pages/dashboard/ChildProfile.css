@@ -1,39 +1,57 @@
 .child-profile-page {
-  max-width: 1400px;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
 }
 
 .child-profile-back {
-  border: none;
-  background: transparent;
-  color: #b96548;
-  font-size: 15px;
-  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  border-radius: var(--radius-pill, 9999px);
+  background: #132F24;
+  color: #F8FAFC;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 650;
   cursor: pointer;
-  padding: 0 0 22px;
+  padding: 8px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease;
+}
+
+.child-profile-back:hover {
+  border-color: #FBBF24;
+  color: #FBBF24;
+  background: #173B2D;
+  transform: translateX(-2px);
 }
 
 .child-profile-header {
-  background: #20392f;
-  color: #fffdf8;
-  padding: 42px;
+  background: linear-gradient(145deg, #132F24 0%, #071912 100%);
+  color: #F8FAFC;
+  padding: 40px;
   display: flex;
   align-items: center;
   gap: 24px;
-  border-radius: 4px;
+  border-radius: 18px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(251, 191, 36, 0.22);
 }
 
 .profile-avatar {
-  width: 82px;
-  height: 82px;
+  width: 88px;
+  height: 88px;
   border-radius: 50%;
-  background: #d6a45f;
-  color: #20392f;
+  background: #FBBF24;
+  color: #071912;
   display: grid;
   place-items: center;
   font-family: "Playfair Display", Georgia, serif;
-  font-size: 38px;
-  font-weight: 600;
+  font-size: 42px;
+  font-weight: 700;
 }
 
 .profile-header-info {
@@ -46,69 +64,88 @@
 .profile-section-heading span,
 .observation-modal > span {
   display: block;
-  color: #b96548;
-  font-size: 12px;
-  font-weight: 800;
+  color: #FBBF24;
+  font-size: 14.5px;
+  font-weight: 850;
   letter-spacing: .14em;
   margin-bottom: 10px;
 }
 
 .profile-header-info > span {
-  color: #d6a45f;
+  color: #FBBF24;
 }
 
 .profile-header-info h1 {
   margin: 0;
-  color: #fffdf8;
+  color: #F8FAFC;
   font-family: "Playfair Display", Georgia, serif;
-  font-size: 52px;
+  font-size: clamp(44px, 5vw, 64px);
   line-height: 1.1;
-  font-weight: 600;
+  font-weight: 800;
 }
 
 .profile-header-info p {
   margin: 8px 0 0;
-  color: #dfe6df;
-  font-size: 16px;
+  color: #CBD5E1;
+  font-size: 20px;
 }
 
 .profile-header-status {
-  padding: 10px 15px;
-  border: 1px solid rgba(255,255,255,.2);
-  font-size: 14px;
+  padding: 10px 22px;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: 999px;
+  font-size: 16.5px;
+  font-weight: 750;
+  background: rgba(251, 191, 36, 0.12);
+  color: #FDE68A;
+  display: inline-flex;
+  align-items: center;
 }
 
 .profile-header-status i {
   display: inline-block;
-  width: 7px;
-  height: 7px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
-  background: #d6a45f;
+  background: #FBBF24;
   margin-right: 8px;
 }
 
 .child-profile-tabs {
   display: flex;
-  gap: 4px;
+  gap: 8px;
   overflow-x: auto;
   padding: 18px 0;
-  border-bottom: 1px solid #ddd8cd;
+  border-bottom: 1.5px solid rgba(251, 191, 36, 0.18);
 }
 
 .child-profile-tabs button {
-  border: none;
-  background: transparent;
-  padding: 12px 15px;
+  border: 1.5px solid rgba(251, 191, 36, 0.18);
+  border-radius: 12px;
+  background: #0B2219;
+  padding: 12px 22px;
   white-space: nowrap;
-  color: #68716b;
-  font-size: 14px;
+  color: #CBD5E1;
+  font-family: var(--font-sans);
+  font-size: 16.5px;
   font-weight: 700;
   cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.child-profile-tabs button:hover {
+  background: #132F24;
+  color: #FBBF24;
+  border-color: #FBBF24;
+  transform: translateY(-1px);
 }
 
 .child-profile-tabs button.active {
-  color: #20392f;
-  background: #eee9df;
+  color: #ffffff;
+  background: linear-gradient(135deg, #c2410c 0%, #ea580c 100%);
+  border-color: #fbbf24;
+  font-weight: 850;
+  box-shadow: 0 4px 14px rgba(194, 65, 12, 0.35);
 }
 
 .child-profile-content {
@@ -123,24 +160,28 @@
 
 .profile-card,
 .profile-content-card {
-  background: #fffdf8;
-  border: 1px solid #e1ddd3;
+  background: #132F24;
+  border: 1.5px solid rgba(251, 191, 36, 0.18);
+  border-radius: 20px;
   padding: 34px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
 }
 
 .profile-card h2,
 .profile-content-card h2 {
   margin: 0 0 14px;
-  color: #20392f;
+  color: #F8FAFC;
   font-family: "Playfair Display", Georgia, serif;
-  font-size: 34px;
+  font-size: 38px;
+  font-weight: 850;
 }
 
 .profile-card p,
 .profile-content-card p {
-  color: #4d5952;
-  font-size: 16px;
-  line-height: 1.75;
+  color: #CBD5E1;
+  font-size: 18.5px;
+  font-weight: 500;
+  line-height: 1.8;
 }
 
 .profile-detail-grid {
@@ -151,22 +192,24 @@
 }
 
 .profile-detail-grid div {
-  border-top: 1px solid #ddd8cd;
+  border-top: 1px solid rgba(251, 191, 36, 0.16);
   padding-top: 12px;
 }
 
 .profile-detail-grid span {
   display: block;
-  color: #8a918b;
-  font-size: 11px;
-  font-weight: 800;
+  color: #94A3B8;
+  font-size: 14px;
+  font-weight: 850;
   letter-spacing: .1em;
   margin-bottom: 6px;
+  text-transform: uppercase;
 }
 
 .profile-detail-grid strong {
-  color: #20392f;
-  font-size: 16px;
+  color: #F8FAFC;
+  font-size: 20px;
+  font-weight: 800;
 }
 
 .profile-milestones {
@@ -174,17 +217,19 @@
 }
 
 .profile-milestones div {
-  border-left: 2px solid #d6a45f;
+  border-left: 2px solid #FBBF24;
   padding: 5px 0 22px 20px;
 }
 
 .profile-milestones strong {
-  color: #b96548;
-  font-size: 15px;
+  color: #FBBF24;
+  font-size: 18px;
 }
 
 .profile-milestones p {
   margin: 4px 0 0;
+  font-size: 17.5px;
+  color: #CBD5E1;
 }
 
 .profile-section-heading {
@@ -193,21 +238,22 @@
 
 .profile-section-heading h2 {
   margin: 0;
-  color: #20392f;
+  color: #F8FAFC;
   font-family: "Playfair Display", Georgia, serif;
-  font-size: 38px;
+  font-size: 44px;
+  font-weight: 850;
 }
 
 .profile-growth-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid #ddd8cd;
-  border-bottom: 1px solid #ddd8cd;
+  border-top: 1px solid rgba(251, 191, 36, 0.18);
+  border-bottom: 1px solid rgba(251, 191, 36, 0.18);
 }
 
 .profile-growth-grid div {
   padding: 25px;
-  border-right: 1px solid #ddd8cd;
+  border-right: 1px solid rgba(251, 191, 36, 0.18);
 }
 
 .profile-growth-grid div:last-child {
@@ -215,21 +261,21 @@
 }
 
 .profile-growth-grid span {
-  color: #b96548;
+  color: #FBBF24;
   font-weight: 800;
   font-size: 14px;
 }
 
 .profile-growth-grid strong {
   display: block;
-  color: #20392f;
+  color: #F8FAFC;
   font-family: "Playfair Display", Georgia, serif;
   font-size: 23px;
   margin: 15px 0 7px;
 }
 
 .profile-growth-grid p {
-  color: #59635d;
+  color: #CBD5E1;
   margin: 0;
   line-height: 1.6;
 }
@@ -243,21 +289,33 @@
 }
 
 .profile-primary-button {
-  border: none;
-  background: #b96548;
-  color: white;
-  padding: 13px 18px;
-  font-size: 14px;
-  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1.5px solid rgba(254, 240, 138, 0.45);
+  border-radius: 12px;
+  background: linear-gradient(135deg, #c2410c 0%, #ea580c 50%, #d97706 100%);
+  color: #ffffff;
+  padding: 13px 24px;
+  font-family: var(--font-sans);
+  font-size: 15.5px;
+  font-weight: 850;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 16px rgba(194, 65, 12, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.25);
   cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .profile-primary-button:hover {
-  background: #20392f;
+  background: linear-gradient(135deg, #9a3412 0%, #c2410c 50%, #b45309 100%);
+  border-color: #fef08a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(194, 65, 12, 0.42);
 }
 
 .profile-primary-button.full {
   width: 100%;
+  justify-content: center;
   margin-top: 20px;
 }
 
@@ -266,23 +324,24 @@
   grid-template-columns: 90px 1fr;
   gap: 25px;
   padding: 25px 0;
-  border-bottom: 1px solid #ddd8cd;
+  border-bottom: 1px solid rgba(251, 191, 36, 0.16);
 }
 
 .timeline > div > strong {
-  color: #b96548;
+  color: #FBBF24;
   font-size: 16px;
 }
 
 .timeline article h3 {
   margin: 0 0 5px;
-  color: #20392f;
+  color: #F8FAFC;
   font-family: "Playfair Display", Georgia, serif;
   font-size: 25px;
 }
 
 .timeline article p {
   margin: 0;
+  color: #CBD5E1;
 }
 
 .academic-list {
@@ -294,21 +353,24 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 0;
-  border-bottom: 1px solid #ddd8cd;
+  border-bottom: 1px solid rgba(251, 191, 36, 0.16);
 }
 
 .academic-row strong {
-  color: #20392f;
+  color: #F8FAFC;
   font-size: 17px;
 }
 
 .academic-row p {
   margin: 5px 0 0;
+  color: #CBD5E1;
 }
 
 .academic-row span {
-  background: #eee9df;
-  color: #20392f;
+  background: #0B2219;
+  color: #FBBF24;
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  border-radius: 8px;
   padding: 8px 12px;
   font-size: 13px;
   font-weight: 700;
@@ -323,29 +385,34 @@
 
 .profile-item-grid article {
   padding: 24px;
-  border: 1px solid #ddd8cd;
+  border: 1px solid rgba(251, 191, 36, 0.2);
+  background: #0B2219;
+  border-radius: 14px;
 }
 
 .profile-item-grid article > span {
-  color: #b96548;
-  font-size: 11px;
+  color: #FBBF24;
+  font-size: 12.5px;
   font-weight: 800;
   letter-spacing: .1em;
 }
 
 .profile-item-grid h3 {
   margin: 12px 0 7px;
-  color: #20392f;
+  color: #F8FAFC;
   font-family: "Playfair Display", Georgia, serif;
   font-size: 23px;
 }
 
 .profile-item-grid p {
   margin: 0 0 8px;
+  color: #CBD5E1;
 }
 
 .profile-item-grid small {
-  color: #727a74;
+  color: #94A3B8;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .observation-list {
@@ -358,18 +425,27 @@
   justify-content: space-between;
   gap: 20px;
   padding: 22px;
-  border: 1px solid #ddd8cd;
+  border: 1.5px solid rgba(251, 191, 36, 0.2);
+  border-radius: 14px;
+  background: #0B2219;
+  transition: all 0.2s ease;
+}
+
+.observation-list article:hover {
+  transform: translateY(-2px);
+  border-color: #FBBF24;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
 }
 
 .observation-list article > div > span {
-  color: #b96548;
-  font-size: 11px;
+  color: #FBBF24;
+  font-size: 12.5px;
   font-weight: 800;
   letter-spacing: .1em;
 }
 
 .observation-list h3 {
-  color: #20392f;
+  color: #F8FAFC;
   font-family: "Playfair Display", Georgia, serif;
   font-size: 22px;
   margin: 8px 0 4px;
@@ -377,25 +453,29 @@
 
 .observation-list p {
   margin: 0;
+  color: #CBD5E1;
 }
 
 .observation-list small {
-  color: #7b827d;
+  color: #94A3B8;
+  font-size: 13px;
+  font-weight: 500;
   white-space: nowrap;
 }
 
 .simple-record {
-  border-top: 1px solid #ddd8cd;
+  border-top: 1px solid rgba(251, 191, 36, 0.16);
   padding: 22px 0;
 }
 
 .simple-record strong {
-  color: #20392f;
+  color: #F8FAFC;
   font-size: 17px;
 }
 
 .simple-record p {
   margin-bottom: 0;
+  color: #CBD5E1;
 }
 
 .document-list {
@@ -406,20 +486,23 @@
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  border: 1px solid #ddd8cd;
+  border: 1px solid rgba(251, 191, 36, 0.2);
+  background: #0B2219;
+  border-radius: 12px;
   margin-bottom: 10px;
-  color: #20392f;
+  color: #F8FAFC;
   font-weight: 700;
 }
 
 .document-list span {
-  color: #b96548;
+  color: #FBBF24;
 }
 
 .observation-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(25, 37, 31, .55);
+  background: rgba(4, 15, 11, 0.78);
+  backdrop-filter: blur(8px);
   display: grid;
   place-items: center;
   padding: 20px;
@@ -428,29 +511,32 @@
 
 .observation-modal {
   position: relative;
-  width: min(560px, 100%);
+  width: min(620px, 100%);
   max-height: 90vh;
   overflow-y: auto;
-  background: #fffdf8;
+  background: #132F24;
+  border: 1.5px solid rgba(251, 191, 36, 0.28);
+  border-radius: 20px;
   padding: 35px;
+  color: #F8FAFC;
 }
 
 .observation-modal h2 {
-  color: #20392f;
+  color: #F8FAFC;
   font-family: "Playfair Display", Georgia, serif;
   font-size: 32px;
   margin: 0 0 8px;
 }
 
 .observation-modal p {
-  color: #59635d;
+  color: #CBD5E1;
   line-height: 1.6;
 }
 
 .observation-modal label {
   display: block;
   margin: 20px 0 7px;
-  color: #20392f;
+  color: #E2E8F0;
   font-size: 13px;
   font-weight: 700;
 }
@@ -460,8 +546,10 @@
 .observation-modal textarea {
   width: 100%;
   box-sizing: border-box;
-  border: 1px solid #d5d0c5;
-  background: white;
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  background: #0B2219;
+  color: #F8FAFC;
+  border-radius: 10px;
   padding: 13px;
   font-family: inherit;
   font-size: 14px;
@@ -487,7 +575,7 @@
   top: 15px;
   border: none;
   background: transparent;
-  color: #20392f;
+  color: #F8FAFC;
   font-size: 28px;
   cursor: pointer;
 }
@@ -537,7 +625,7 @@
 
   .profile-growth-grid div {
     border-right: none;
-    border-bottom: 1px solid #ddd8cd;
+    border-bottom: 1px solid rgba(251, 191, 36, 0.18);
   }
 
   .profile-content-heading {
@@ -549,10 +637,12 @@
   }
 }
 .journey-form {
-  background: #fffdf9;
-  border: 1px solid #e3ddd2;
-  padding: 24px;
+  background: #0B2219;
+  border: 1.5px solid rgba(251, 191, 36, 0.22);
+  border-radius: 20px;
+  padding: 30px;
   margin-top: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 .journey-form-grid {
@@ -566,9 +656,9 @@
   flex-direction: column;
   gap: 7px;
   margin-bottom: 18px;
-  color: #4d5a53;
-  font-size: 12px;
-  font-weight: 700;
+  color: #E2E8F0;
+  font-size: 13px;
+  font-weight: 750;
 }
 
 .journey-form input,
@@ -576,11 +666,24 @@
 .journey-form textarea {
   box-sizing: border-box;
   width: 100%;
-  border: 1px solid #dcd5ca;
-  background: #faf8f3;
-  padding: 11px 13px;
+  border: 1.5px solid rgba(251, 191, 36, 0.25);
+  border-radius: 12px;
+  background: #071912;
+  padding: 12px 16px;
   font-family: inherit;
-  color: #263f36;
+  font-size: 15px;
+  font-weight: 600;
+  color: #F8FAFC;
+  transition: all 0.2s ease;
+}
+
+.journey-form input:focus,
+.journey-form select:focus,
+.journey-form textarea:focus {
+  outline: none;
+  border-color: #FBBF24;
+  background: #05140E;
+  box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.18);
 }
 
 .checkbox-row {
@@ -589,57 +692,96 @@
 }
 
 .checkbox-row input {
-  width: auto;
+  width: 18px;
+  height: 18px;
+  accent-color: #F59E0B;
 }
 
 .journey-submit-button {
-  border: none;
-  background: #183f35;
-  color: white;
-  padding: 12px 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  background: linear-gradient(135deg, #c2410c 0%, #ea580c 100%);
+  color: #ffffff;
+  padding: 12px 24px;
   cursor: pointer;
-  font-weight: 700;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 750;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 14px rgba(194, 65, 12, 0.3);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.journey-submit-button:hover {
+  background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(194, 65, 12, 0.4);
 }
 
 .journey-record-list {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
   margin-top: 25px;
 }
 
 .journey-record-card {
-  border: 1px solid #e3ddd2;
-  background: #fffdf9;
-  padding: 22px;
+  border: 1.5px solid rgba(251, 191, 36, 0.2);
+  border-radius: 16px;
+  background: #0B2219;
+  padding: 24px 26px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+  transition: all 0.2s ease;
+}
+
+.journey-record-card:hover {
+  transform: translateY(-2px);
+  border-color: #FBBF24;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
 }
 
 .journey-record-card span {
-  color: #a65d3f;
-  font-size: 10px;
-  font-weight: 700;
+  color: #FBBF24;
+  font-size: 12px;
+  font-weight: 850;
   letter-spacing: 1.3px;
+  text-transform: uppercase;
 }
 
 .journey-record-card h3 {
-  color: #183f35;
-  margin: 6px 0 12px;
+  color: #F8FAFC;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 21px;
+  font-weight: 850;
+  margin: 6px 0 10px;
 }
 
 .journey-record-card p {
-  color: #58645d;
+  color: #CBD5E1;
   line-height: 1.6;
+  font-size: 14.5px;
+  font-weight: 550;
 }
 
 .journey-record-card small {
   display: block;
-  color: #7c847f;
+  color: #94A3B8;
+  font-size: 13px;
+  font-weight: 600;
   margin-top: 10px;
 }
 
 .journey-empty {
-  padding: 35px;
+  padding: 45px;
   text-align: center;
-  border: 1px solid #e3ddd2;
-  color: #707a74;
+  border: 1.5px solid rgba(251, 191, 36, 0.2);
+  border-radius: 16px;
+  background: #0B2219;
+  color: #CBD5E1;
+  font-size: 15px;
+  font-weight: 600;
 }

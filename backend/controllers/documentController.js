@@ -1,5 +1,26 @@
 import Document from "../models/Document.js";
 
+export const getDocuments = async (req, res, next) => {
+  try {
+    const filter = {};
+    if (req.query.childId) {
+      filter.child = req.query.childId;
+    }
+
+    const documents = await Document.find(filter)
+      .populate("child", "firstName middleName lastName grade admissionNumber")
+      .sort({ documentDate: -1, createdAt: -1 });
+
+    res.json({
+      success: true,
+      count: documents.length,
+      data: documents,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getDocumentsByChild = async (
   req,
   res,

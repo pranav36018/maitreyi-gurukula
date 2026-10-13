@@ -1,5 +1,26 @@
 import Academic from "../models/Academic.js";
 
+export const getAcademics = async (req, res, next) => {
+  try {
+    const filter = {};
+    if (req.query.childId) {
+      filter.child = req.query.childId;
+    }
+
+    const academics = await Academic.find(filter)
+      .populate("child", "firstName middleName lastName grade admissionNumber")
+      .sort({ academicYear: -1, createdAt: -1 });
+
+    res.json({
+      success: true,
+      count: academics.length,
+      data: academics,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getAcademicsByChild = async (req, res, next) => {
   try {
     const academics = await Academic.find({

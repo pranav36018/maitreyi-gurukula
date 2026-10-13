@@ -90,9 +90,7 @@ function DocumentSection({ child, childName }) {
       <div className="profile-content-heading">
         <div>
           <span>DOCUMENTS</span>
-
           <h2>Journey archive</h2>
-
           <p>
             Keep important records and
             certificates connected to{" "}
@@ -100,20 +98,17 @@ function DocumentSection({ child, childName }) {
           </p>
         </div>
       </div>
-
       {error && (
         <p className="profile-error-message">
           {error}
         </p>
       )}
-
       <form
         className="profile-form-grid"
         onSubmit={handleSubmit}
       >
         <div>
           <label>Document Title</label>
-
           <input
             value={form.title}
             onChange={(event) =>
@@ -125,10 +120,8 @@ function DocumentSection({ child, childName }) {
             placeholder="Example: Admission Record"
           />
         </div>
-
         <div>
           <label>Category</label>
-
           <select
             value={form.category}
             onChange={(event) =>
@@ -141,32 +134,25 @@ function DocumentSection({ child, childName }) {
             <option value="Admission">
               Admission
             </option>
-
             <option value="Academic">
               Academic
             </option>
-
             <option value="Achievement">
               Achievement
             </option>
-
             <option value="Certificate">
               Certificate
             </option>
-
             <option value="Health">
               Health
             </option>
-
             <option value="Other">
               Other
             </option>
           </select>
         </div>
-
         <div>
           <label>Document Date</label>
-
           <input
             type="date"
             value={form.documentDate}
@@ -179,10 +165,8 @@ function DocumentSection({ child, childName }) {
             }
           />
         </div>
-
         <div>
           <label>Document Link</label>
-
           <input
             value={form.documentUrl}
             onChange={(event) =>
@@ -195,10 +179,8 @@ function DocumentSection({ child, childName }) {
             placeholder="Optional document link"
           />
         </div>
-
         <div className="profile-form-full">
           <label>Description</label>
-
           <textarea
             rows="4"
             value={form.description}
@@ -212,7 +194,6 @@ function DocumentSection({ child, childName }) {
             placeholder="Short description of this document"
           />
         </div>
-
         <div className="profile-form-full">
           <button
             type="submit"
@@ -222,10 +203,8 @@ function DocumentSection({ child, childName }) {
           </button>
         </div>
       </form>
-
       <div className="profile-record-list">
         <h3>Journey Archive</h3>
-
         {loading && (
           <p>Loading documents...</p>
         )}
@@ -236,7 +215,6 @@ function DocumentSection({ child, childName }) {
               <strong>
                 No documents yet
               </strong>
-
               <p>
                 Add an important record or
                 certificate above.
@@ -253,12 +231,10 @@ function DocumentSection({ child, childName }) {
               <strong>
                 {document.title}
               </strong>
-
               <p>
                 Category:{" "}
                 {document.category}
               </p>
-
               {document.documentDate && (
                 <p>
                   Date:{" "}

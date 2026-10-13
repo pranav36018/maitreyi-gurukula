@@ -111,8 +111,20 @@ const admissionSchema = new mongoose.Schema(
       ref: "Child",
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
 );
+
+admissionSchema.virtual("name").get(function () {
+  return [this.childFirstName, this.childMiddleName, this.childLastName].filter(Boolean).join(" ");
+});
+
+admissionSchema.virtual("fullName").get(function () {
+  return [this.childFirstName, this.childMiddleName, this.childLastName].filter(Boolean).join(" ");
+});
 
 const Admission = mongoose.model("Admission", admissionSchema);
 

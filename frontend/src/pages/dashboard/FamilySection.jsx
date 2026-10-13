@@ -113,22 +113,18 @@ function FamilySection({ child, childName }) {
       <div className="profile-content-heading">
         <div>
           <span>FAMILY INFORMATION</span>
-
           <h2>Family profile</h2>
-
           <p>
             Keep the family context connected
             to {childName}'s Gurukula journey.
           </p>
         </div>
       </div>
-
       {error && (
         <p className="profile-error-message">
           {error}
         </p>
       )}
-
       <form
         className="profile-form-grid"
         onSubmit={handleSubmit}
@@ -137,7 +133,6 @@ function FamilySection({ child, childName }) {
           <label>
             Parent / Guardian Name
           </label>
-
           <input
             value={form.guardianName}
             onChange={(event) =>
@@ -150,10 +145,8 @@ function FamilySection({ child, childName }) {
             placeholder="Enter parent or guardian name"
           />
         </div>
-
         <div>
           <label>Relationship</label>
-
           <select
             value={form.relationship}
             onChange={(event) =>
@@ -167,28 +160,22 @@ function FamilySection({ child, childName }) {
             <option value="Mother">
               Mother
             </option>
-
             <option value="Father">
               Father
             </option>
-
             <option value="Guardian">
               Guardian
             </option>
-
             <option value="Grandparent">
               Grandparent
             </option>
-
             <option value="Other">
               Other
             </option>
           </select>
         </div>
-
         <div>
           <label>Phone</label>
-
           <input
             value={form.phone}
             onChange={(event) =>
@@ -200,10 +187,8 @@ function FamilySection({ child, childName }) {
             placeholder="Phone number"
           />
         </div>
-
         <div>
           <label>Email</label>
-
           <input
             type="email"
             value={form.email}
@@ -216,10 +201,8 @@ function FamilySection({ child, childName }) {
             placeholder="Email address"
           />
         </div>
-
         <div>
           <label>Occupation</label>
-
           <input
             value={form.occupation}
             onChange={(event) =>
@@ -232,12 +215,10 @@ function FamilySection({ child, childName }) {
             placeholder="Parent / guardian occupation"
           />
         </div>
-
         <div>
           <label>
             Family Skills / Interests
           </label>
-
           <input
             value={form.skillsInterests}
             onChange={(event) =>
@@ -250,12 +231,10 @@ function FamilySection({ child, childName }) {
             placeholder="Skills, interests or expertise"
           />
         </div>
-
         <div className="profile-form-full">
           <label>
             Family Involvement / Seva
           </label>
-
           <textarea
             rows="3"
             value={form.familyInvolvement}
@@ -269,12 +248,10 @@ function FamilySection({ child, childName }) {
             placeholder="Possible Gurukula or Seva involvement"
           />
         </div>
-
         <div className="profile-form-full">
           <label>
             Additional Notes
           </label>
-
           <textarea
             rows="3"
             value={form.notes}
@@ -287,7 +264,6 @@ function FamilySection({ child, childName }) {
             placeholder="Any useful family information"
           />
         </div>
-
         <div className="profile-form-full">
           <button
             type="submit"
@@ -297,10 +273,8 @@ function FamilySection({ child, childName }) {
           </button>
         </div>
       </form>
-
       <div className="profile-record-list">
         <h3>Saved Family Records</h3>
-
         {loading && (
           <p>
             Loading family information...
@@ -313,7 +287,6 @@ function FamilySection({ child, childName }) {
               <strong>
                 No family records yet
               </strong>
-
               <p>
                 Add a parent or guardian above
                 to begin the family record.
@@ -331,37 +304,31 @@ function FamilySection({ child, childName }) {
                 {record.guardianName} •{" "}
                 {record.relationship}
               </strong>
-
               <p>
                 Phone:{" "}
                 {record.phone ||
                   "Not provided"}
               </p>
-
               <p>
                 Email:{" "}
                 {record.email ||
                   "Not provided"}
               </p>
-
               <p>
                 Occupation:{" "}
                 {record.occupation ||
                   "Not provided"}
               </p>
-
               <p>
                 Skills / Interests:{" "}
                 {record.skillsInterests ||
                   "Not provided"}
               </p>
-
               <p>
                 Family Involvement:{" "}
                 {record.familyInvolvement ||
                   "Not provided"}
               </p>
-
               {record.notes && (
                 <p>
                   Notes: {record.notes}

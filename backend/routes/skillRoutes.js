@@ -1,6 +1,7 @@
 import express from "express";
 
 import {
+  getSkills,
   getSkillsByChild,
   createSkill,
   updateSkill,
@@ -9,6 +10,7 @@ import {
 
 const router = express.Router();
 
+router.get("/", getSkills);
 router.get("/child/:childId", getSkillsByChild);
 
 router.post("/", createSkill);

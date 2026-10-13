@@ -1,6 +1,7 @@
 import express from "express";
 
 import {
+  getObservations,
   getObservationsByChild,
   createObservation,
   updateObservation,
@@ -8,6 +9,8 @@ import {
 } from "../controllers/observationController.js";
 
 const router = express.Router();
+
+router.get("/", getObservations);
 
 router.get(
   "/child/:childId",

@@ -48,13 +48,11 @@ const childSchema = new mongoose.Schema(
       type: Date,
     },
 
-    // Keep the existing mentor name for compatibility.
     mentor: {
       type: String,
       trim: true,
     },
 
-    // Link the child to a record in the Mentors collection.
     mentorId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Mentor",
@@ -90,11 +88,32 @@ const childSchema = new mongoose.Schema(
     notes: {
       type: String,
     },
+
+    isArchived: {
+      type: Boolean,
+      default: false,
+      index: true,
+    },
+
+    archivedAt: {
+      type: Date,
+      default: null,
+    },
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
+
+childSchema.virtual("name").get(function () {
+  return [this.firstName, this.middleName, this.lastName].filter(Boolean).join(" ");
+});
+
+childSchema.virtual("fullName").get(function () {
+  return [this.firstName, this.middleName, this.lastName].filter(Boolean).join(" ");
+});
 
 const Child = mongoose.model("Child", childSchema);
 

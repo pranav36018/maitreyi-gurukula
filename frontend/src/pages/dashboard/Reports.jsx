@@ -5,15 +5,16 @@ import {
   getChildren,
   getAdmissions,
   getFollowUps,
-  getAcademicsByChild,
-  getSkillsByChild,
-  getAchievementsByChild,
-  getObservationsByChild,
-  getWellbeingByChild,
-  getResponsibilitiesByChild,
+  getAcademics,
+  getSkills,
+  getAchievements,
+  getObservations,
+  getWellbeings,
+  getResponsibilities,
 } from "../../services/api";
 
 import "./Dashboard.css";
+import "./Reports.css";
 
 const reportTypes = [
   {
@@ -73,7 +74,8 @@ const reportTypes = [
 ];
 
 function getChildName(child) {
-  if (!child) return "Unknown Child";
+  if (!child) return "Gurukula Child";
+  if (typeof child === "string") return child;
 
   return (
     child.fullName ||
@@ -85,7 +87,7 @@ function getChildName(child) {
     ]
       .filter(Boolean)
       .join(" ") ||
-    "Unnamed Child"
+    "Gurukula Child"
   );
 }
 
@@ -153,15 +155,33 @@ function Reports() {
           childrenResponse,
           admissionsResponse,
           followUpsResponse,
+          academicsResponse,
+          skillsResponse,
+          achievementsResponse,
+          wellbeingResponse,
+          observationsResponse,
+          responsibilitiesResponse,
         ] = await Promise.all([
-          getChildren(),
-          getAdmissions(),
-          getFollowUps(),
+          getChildren().catch(() => ({ data: [] })),
+          getAdmissions().catch(() => ({ data: [] })),
+          getFollowUps().catch(() => ({ data: [] })),
+          getAcademics().catch(() => ({ data: [] })),
+          getSkills().catch(() => ({ data: [] })),
+          getAchievements().catch(() => ({ data: [] })),
+          getWellbeings().catch(() => ({ data: [] })),
+          getObservations().catch(() => ({ data: [] })),
+          getResponsibilities().catch(() => ({ data: [] })),
         ]);
 
         const children = childrenResponse.data || [];
         const admissions = admissionsResponse.data || [];
         const followUps = followUpsResponse.data || [];
+        const academics = academicsResponse.data || [];
+        const skills = skillsResponse.data || [];
+        const achievements = achievementsResponse.data || [];
+        const wellbeing = wellbeingResponse.data || [];
+        const observations = observationsResponse.data || [];
+        const responsibilities = responsibilitiesResponse.data || [];
 
         const reportRecords = {
           children: children.map((child) => ({
@@ -196,117 +216,69 @@ function Reports() {
             "Assigned To": item.assignedTo || "",
             Note: item.note || "",
           })),
+
+          academics: academics.map((item) => ({
+            "Child Name": getChildName(item.child),
+            "Academic Year": item.academicYear || "",
+            Subject: item.subject || "",
+            Performance: item.performance || "",
+            Remarks: item.remarks || "",
+          })),
+
+          skills: skills.map((item) => ({
+            "Child Name": getChildName(item.child),
+            Skill: item.skillName || "",
+            Category: item.category || "",
+            "Development Level": item.developmentLevel || "",
+            "Interest Level": item.interestLevel || "",
+            Remarks: item.remarks || "",
+          })),
+
+          achievements: achievements.map((item) => ({
+            "Child Name": getChildName(item.child),
+            Title: item.title || "",
+            Category: item.category || "",
+            Level: item.level || "",
+            Date: formatDate(item.achievementDate),
+            Description: item.description || "",
+          })),
+
+          wellbeing: wellbeing.map((item) => ({
+            "Child Name": getChildName(item.child),
+            Area: item.area || "",
+            Status: item.status || "",
+            Observation: item.observation || "",
+            "Support Provided": item.supportProvided || "",
+            "Observed Date": formatDate(item.observedAt),
+            "Follow-up Required": item.followUpRequired ? "Yes" : "No",
+            "Follow-up Date": formatDate(item.followUpDate),
+          })),
+
+          observations: observations.map((item) => ({
+            "Child Name": getChildName(item.child),
+            Category: item.category || "",
+            Tags: Array.isArray(item.tags)
+              ? item.tags.join("; ")
+              : item.tags || "",
+            Note: item.note || item.observation || "",
+            Date: formatDate(
+              item.observedAt || item.createdAt
+            ),
+            "Follow-up Required": item.followUpRequired ? "Yes" : "No",
+            "Follow-up Date": formatDate(item.followUpDate),
+          })),
+
+          responsibilities: responsibilities.map((item) => ({
+            "Child Name": getChildName(item.child),
+            Title: item.title || "",
+            Category: item.category || "",
+            Description: item.description || "",
+            Status: item.status || "",
+            "Start Date": formatDate(item.startDate),
+            "End Date": formatDate(item.endDate),
+            Remarks: item.remarks || "",
+          })),
         };
-
-        const academicRows = [];
-        const skillRows = [];
-        const achievementRows = [];
-        const wellbeingRows = [];
-        const observationRows = [];
-        const responsibilityRows = [];
-
-        for (const child of children) {
-          if (!child._id) continue;
-
-          const [
-            academicsResponse,
-            skillsResponse,
-            achievementsResponse,
-            wellbeingResponse,
-            observationsResponse,
-            responsibilitiesResponse,
-          ] = await Promise.all([
-            getAcademicsByChild(child._id),
-            getSkillsByChild(child._id),
-            getAchievementsByChild(child._id),
-            getWellbeingByChild(child._id),
-            getObservationsByChild(child._id),
-            getResponsibilitiesByChild(child._id),
-          ]);
-
-          const childName = getChildName(child);
-
-          (academicsResponse.data || []).forEach((item) => {
-            academicRows.push({
-              "Child Name": childName,
-              "Academic Year": item.academicYear || "",
-              Subject: item.subject || "",
-              Performance: item.performance || "",
-              Remarks: item.remarks || "",
-            });
-          });
-
-          (skillsResponse.data || []).forEach((item) => {
-            skillRows.push({
-              "Child Name": childName,
-              Skill: item.skillName || "",
-              Category: item.category || "",
-              "Development Level": item.developmentLevel || "",
-              "Interest Level": item.interestLevel || "",
-              Remarks: item.remarks || "",
-            });
-          });
-
-          (achievementsResponse.data || []).forEach((item) => {
-            achievementRows.push({
-              "Child Name": childName,
-              Title: item.title || "",
-              Category: item.category || "",
-              Level: item.level || "",
-              Date: formatDate(item.achievementDate),
-              Description: item.description || "",
-            });
-          });
-
-          (wellbeingResponse.data || []).forEach((item) => {
-            wellbeingRows.push({
-              "Child Name": childName,
-              Area: item.area || "",
-              Status: item.status || "",
-              Observation: item.observation || "",
-              "Support Provided": item.supportProvided || "",
-              "Observed Date": formatDate(item.observedAt),
-              "Follow-up Required": item.followUpRequired ? "Yes" : "No",
-              "Follow-up Date": formatDate(item.followUpDate),
-            });
-          });
-
-          (observationsResponse.data || []).forEach((item) => {
-            observationRows.push({
-              "Child Name": childName,
-              Category: item.category || "",
-              Tags: Array.isArray(item.tags)
-                ? item.tags.join("; ")
-                : item.tags || "",
-              Note: item.note || item.observation || "",
-              Date: formatDate(
-                item.observedAt || item.createdAt
-              ),
-              "Follow-up Required": item.followUpRequired ? "Yes" : "No",
-              "Follow-up Date": formatDate(item.followUpDate),
-            });
-          });
-
-          (responsibilitiesResponse.data || []).forEach((item) => {
-            responsibilityRows.push({
-              "Child Name": childName,
-              Title: item.title || "",
-              Category: item.category || "",
-              Description: item.description || "",
-              Status: item.status || "",
-              "Start Date": formatDate(item.startDate),
-              "End Date": formatDate(item.endDate),
-              Remarks: item.remarks || "",
-            });
-          });
-        }
-
-        reportRecords.academics = academicRows;
-        reportRecords.skills = skillRows;
-        reportRecords.achievements = achievementRows;
-        reportRecords.wellbeing = wellbeingRows;
-        reportRecords.observations = observationRows;
-        reportRecords.responsibilities = responsibilityRows;
 
         if (!cancelled) {
           setReportData(reportRecords);
@@ -360,13 +332,7 @@ function Reports() {
           reports for review and planning.
         </p>
       </div>
-
-      <div className="reports-summary" style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
-        gap: "14px",
-        marginTop: "25px",
-      }}>
+      <div className="reports-summary">
         {[
           ["Children", reportData.children?.length ?? "—"],
           ["Admissions", reportData.admissions?.length ?? "—"],
@@ -379,48 +345,25 @@ function Reports() {
               ).length
             : "—"],
         ].map(([label, value]) => (
-          <div key={label} style={{
-            padding: "20px",
-            background: "#ffffff",
-            border: "1px solid #e4e2d9",
-            borderRadius: "14px",
-          }}>
-            <span style={{
-              display: "block",
-              fontSize: "12px",
-              fontWeight: 700,
-              marginBottom: "10px",
-            }}>
-              {label.toUpperCase()}
-            </span>
-            <strong style={{
-              display: "block",
-              fontSize: "30px",
-              color: "#183f35",
-            }}>
-              {loading ? "…" : value}
-            </strong>
+          <div key={label} className="report-summary-card">
+            <span>{label.toUpperCase()}</span>
+            <strong>{loading ? "…" : value}</strong>
           </div>
         ))}
       </div>
-
       {error && (
-        <div role="alert" style={{
-          marginTop: "24px",
-          padding: "18px",
-          background: "#fff0ed",
-          border: "1px solid #e8b9ae",
-          borderRadius: "12px",
-          color: "#8c3327",
-        }}>
+        <div role="alert" className="reports-error-banner">
           <strong>Reports could not be loaded</strong>
           <p>{error}</p>
-          <button onClick={() => window.location.reload()}>
+          <button
+            type="button"
+            className="reports-retry-btn"
+            onClick={() => window.location.reload()}
+          >
             Try Again
           </button>
         </div>
       )}
-
       <div className="reports-grid">
         {reportTypes.map((report) => (
           <button
@@ -436,7 +379,7 @@ function Reports() {
             <span>{report.number}</span>
             <h3>{report.title}</h3>
             <p>{report.description}</p>
-            <p style={{ marginTop: "12px", fontWeight: 700 }}>
+            <p className="report-card-count">
               {loading
                 ? "Loading records…"
                 : `${reportData[report.id]?.length || 0} records`}
@@ -444,57 +387,26 @@ function Reports() {
           </button>
         ))}
       </div>
-
-      <section style={{
-        marginTop: "28px",
-        padding: "24px",
-        background: "#ffffff",
-        border: "1px solid #e4e2d9",
-        borderRadius: "16px",
-      }}>
-        <div style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          gap: "16px",
-          flexWrap: "wrap",
-        }}>
+      <section className="report-preview-section">
+        <div className="report-preview-header">
           <div>
-            <span style={{
-              fontSize: "11px",
-              fontWeight: 800,
-              letterSpacing: "0.12em",
-            }}>
-              SELECTED REPORT
-            </span>
-            <h2 style={{ margin: "8px 0" }}>
-              {activeReport?.title}
-            </h2>
+            <span>SELECTED REPORT</span>
+            <h2>{activeReport?.title}</h2>
             <p>
               {rows.length} record{rows.length === 1 ? "" : "s"} available
             </p>
           </div>
-
           <button
             type="button"
+            className="report-download-btn"
             onClick={handleDownload}
             disabled={loading || Boolean(error) || rows.length === 0}
-            style={{
-              padding: "12px 18px",
-              border: 0,
-              borderRadius: "9px",
-              background: "#183f35",
-              color: "#ffffff",
-              cursor: "pointer",
-              fontWeight: 700,
-            }}
           >
             Download CSV
           </button>
         </div>
-
         {loading ? (
-          <p style={{ marginTop: "24px" }}>Loading report records…</p>
+          <p className="reports-loading-text">Loading report records…</p>
         ) : rows.length === 0 ? (
           <div className="report-empty">
             <div className="report-empty-icon">—</div>
@@ -505,23 +417,12 @@ function Reports() {
             </p>
           </div>
         ) : (
-          <div style={{ overflowX: "auto", marginTop: "22px" }}>
-            <table style={{
-              width: "100%",
-              borderCollapse: "collapse",
-              textAlign: "left",
-              fontSize: "13px",
-            }}>
+          <div className="report-table-wrapper">
+            <table className="report-table">
               <thead>
                 <tr>
                   {Object.keys(rows[0]).map((header) => (
-                    <th key={header} style={{
-                      padding: "12px",
-                      borderBottom: "2px solid #e4e2d9",
-                      whiteSpace: "nowrap",
-                    }}>
-                      {header}
-                    </th>
+                    <th key={header}>{header}</th>
                   ))}
                 </tr>
               </thead>
@@ -529,11 +430,7 @@ function Reports() {
                 {rows.slice(0, 25).map((row, index) => (
                   <tr key={index}>
                     {Object.values(row).map((value, cellIndex) => (
-                      <td key={cellIndex} style={{
-                        padding: "12px",
-                        borderBottom: "1px solid #eeeae2",
-                        minWidth: "100px",
-                      }}>
+                      <td key={cellIndex}>
                         {String(value ?? "") || "—"}
                       </td>
                     ))}
@@ -541,9 +438,8 @@ function Reports() {
                 ))}
               </tbody>
             </table>
-
             {rows.length > 25 && (
-              <p style={{ marginTop: "12px" }}>
+              <p className="report-table-note">
                 Previewing 25 records. Download the CSV to view all{" "}
                 {rows.length} records.
               </p>

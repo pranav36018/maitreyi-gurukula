@@ -1,6 +1,7 @@
 import express from "express";
 
 import {
+  getAchievements,
   getAchievementsByChild,
   createAchievement,
   updateAchievement,
@@ -8,6 +9,8 @@ import {
 } from "../controllers/achievementController.js";
 
 const router = express.Router();
+
+router.get("/", getAchievements);
 
 router.get(
   "/child/:childId",

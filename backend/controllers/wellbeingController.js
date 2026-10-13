@@ -1,5 +1,26 @@
 import Wellbeing from "../models/Wellbeing.js";
 
+export const getWellbeings = async (req, res, next) => {
+  try {
+    const filter = {};
+    if (req.query.childId) {
+      filter.child = req.query.childId;
+    }
+
+    const records = await Wellbeing.find(filter)
+      .populate("child", "firstName middleName lastName grade admissionNumber")
+      .sort({ observedAt: -1, createdAt: -1 });
+
+    res.json({
+      success: true,
+      count: records.length,
+      data: records,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getWellbeingByChild = async (req, res, next) => {
   try {
     const records = await Wellbeing.find({

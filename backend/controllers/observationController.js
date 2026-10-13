@@ -1,5 +1,26 @@
 import Observation from "../models/Observation.js";
 
+export const getObservations = async (req, res, next) => {
+  try {
+    const filter = {};
+    if (req.query.childId) {
+      filter.child = req.query.childId;
+    }
+
+    const observations = await Observation.find(filter)
+      .populate("child", "firstName middleName lastName grade admissionNumber")
+      .sort({ observedAt: -1, createdAt: -1 });
+
+    res.json({
+      success: true,
+      count: observations.length,
+      data: observations,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getObservationsByChild = async (
   req,
   res,

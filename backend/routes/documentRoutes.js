@@ -1,6 +1,7 @@
 import express from "express";
 
 import {
+  getDocuments,
   getDocumentsByChild,
   createDocument,
   updateDocument,
@@ -8,6 +9,8 @@ import {
 } from "../controllers/documentController.js";
 
 const router = express.Router();
+
+router.get("/", getDocuments);
 
 router.get(
   "/child/:childId",

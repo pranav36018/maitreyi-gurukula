@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 
 import {
-  getChildren,
-  getAcademicsByChild,
-  getAchievementsByChild,
-  getObservationsByChild,
+  getAcademics,
+  getAchievements,
+  getObservations,
 } from "../../services/api";
 
 function DashboardActivity() {
@@ -12,114 +11,104 @@ function DashboardActivity() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+
     const loadActivity = async () => {
       try {
-        const childrenResponse = await getChildren();
+        const [
+          academicResponse,
+          achievementResponse,
+          observationResponse,
+        ] = await Promise.all([
+          getAcademics().catch(() => ({ data: [] })),
+          getAchievements().catch(() => ({ data: [] })),
+          getObservations().catch(() => ({ data: [] })),
+        ]);
 
-        const children =
-          childrenResponse.data || [];
+        const academics = academicResponse.data || [];
+        const achievements = achievementResponse.data || [];
+        const observations = observationResponse.data || [];
 
         const activityRecords = [];
 
-        for (const child of children) {
-          if (!child._id) continue;
-
-          const [
-            academicResponse,
-            achievementResponse,
-            observationResponse,
-          ] = await Promise.all([
-            getAcademicsByChild(child._id),
-            getAchievementsByChild(child._id),
-            getObservationsByChild(child._id),
-          ]);
-
-          const childName =
+        const getRecordChildName = (child) => {
+          if (!child) return "Gurukula Child";
+          if (typeof child === "string") return "Gurukula Child";
+          return (
             child.fullName ||
             child.name ||
-            "Child";
+            [child.firstName, child.middleName, child.lastName]
+              .filter(Boolean)
+              .join(" ") ||
+            "Gurukula Child"
+          );
+        };
 
-          const academics =
-            academicResponse.data || [];
-
-          const achievements =
-            achievementResponse.data || [];
-
-          const observations =
-            observationResponse.data || [];
-
-          academics.forEach((item) => {
-            activityRecords.push({
-              type: "Academic Progress",
-              title:
-                item.subject ||
-                "Academic Progress",
-              description:
-                item.remarks ||
-                "Academic progress recorded.",
-              childName,
-              date:
-                item.createdAt ||
-                item.updatedAt,
-            });
+        academics.forEach((item) => {
+          activityRecords.push({
+            type: "Academic Progress",
+            title: item.subject || "Academic Progress",
+            description: item.remarks || "Academic progress recorded.",
+            childName: getRecordChildName(item.child),
+            date: item.createdAt || item.updatedAt,
           });
+        });
 
-          achievements.forEach((item) => {
-            activityRecords.push({
-              type: "Achievement",
-              title:
-                item.title ||
-                item.achievementName ||
-                "Achievement",
-              description:
-                item.description ||
-                "New achievement recorded.",
-              childName,
-              date:
-                item.createdAt ||
-                item.updatedAt,
-            });
+        achievements.forEach((item) => {
+          activityRecords.push({
+            type: "Achievement",
+            title:
+              item.title ||
+              item.achievementName ||
+              "Achievement",
+            description:
+              item.description || "New achievement recorded.",
+            childName: getRecordChildName(item.child),
+            date: item.createdAt || item.updatedAt,
           });
+        });
 
-          observations.forEach((item) => {
-            activityRecords.push({
-              type: "Mentor Observation",
-              title:
-                item.category ||
-                "Mentor Observation",
-              description:
-                item.note ||
-                item.observation ||
-                "New mentor observation recorded.",
-              childName,
-              date:
-                item.createdAt ||
-                item.updatedAt ||
-                item.observedAt,
-            });
+        observations.forEach((item) => {
+          activityRecords.push({
+            type: "Mentor Observation",
+            title: item.category || "Mentor Observation",
+            description:
+              item.note ||
+              item.observation ||
+              "New mentor observation recorded.",
+            childName: getRecordChildName(item.child),
+            date:
+              item.observedAt ||
+              item.createdAt ||
+              item.updatedAt,
           });
-        }
+        });
 
         activityRecords.sort(
           (a, b) =>
-            new Date(b.date || 0) -
-            new Date(a.date || 0)
+            new Date(b.date || 0) - new Date(a.date || 0)
         );
 
-        setActivities(
-          activityRecords.slice(0, 6)
-        );
+        if (isMounted) {
+          setActivities(activityRecords.slice(0, 6));
+        }
       } catch (error) {
         console.error(
           "Unable to load dashboard activity:",
           error
         );
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
     loadActivity();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   if (loading) {

@@ -1,6 +1,7 @@
 import express from "express";
 
 import {
+  getResponsibilities,
   getResponsibilitiesByChild,
   createResponsibility,
   updateResponsibility,
@@ -8,6 +9,8 @@ import {
 } from "../controllers/responsibilityController.js";
 
 const router = express.Router();
+
+router.get("/", getResponsibilities);
 
 router.get(
   "/child/:childId",

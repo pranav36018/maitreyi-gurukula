@@ -69,22 +69,37 @@ const FollowUps = () => {
     }
   };
 
-  const loadChildren = async () => {
-    try {
-      const response = await getChildren();
-
-      setChildren(response.data || []);
-    } catch (err) {
-      console.error(
-        "Unable to load children:",
-        err
-      );
-    }
-  };
-
   useEffect(() => {
-    loadFollowUps();
-    loadChildren();
+    let isMounted = true;
+
+    Promise.all([
+      getFollowUps().catch((err) => {
+        console.error(err);
+        if (isMounted) {
+          setError(err.message || "Unable to load follow-ups");
+        }
+        return { data: [] };
+      }),
+      getChildren().catch((err) => {
+        console.error("Unable to load children:", err);
+        return { data: [] };
+      }),
+    ])
+      .then(([followUpsRes, childrenRes]) => {
+        if (isMounted) {
+          setFollowUps(followUpsRes.data || []);
+          setChildren(childrenRes.data || []);
+        }
+      })
+      .finally(() => {
+        if (isMounted) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const handleChange = (event) => {
@@ -401,24 +416,17 @@ const FollowUps = () => {
   if (loading) {
     return (
       <div className="followups-page">
-
         <div className="followups-heading">
-
           <span>CHILD JOURNEY</span>
-
           <h1>Follow-ups</h1>
-
           <p>
             Track actions and support that
             need continued attention.
           </p>
-
         </div>
-
         <div className="followups-state">
           Loading follow-ups...
         </div>
-
       </div>
     );
   }
@@ -426,59 +434,40 @@ const FollowUps = () => {
   if (error) {
     return (
       <div className="followups-page">
-
         <div className="followups-heading">
-
           <span>CHILD JOURNEY</span>
-
           <h1>Follow-ups</h1>
-
           <p>
             Track actions and support that
             need continued attention.
           </p>
-
         </div>
-
         <div className="followups-error">
-
           <strong>
             Unable to load follow-ups
           </strong>
-
           <p>{error}</p>
-
           <button onClick={loadFollowUps}>
             Try Again
           </button>
-
         </div>
-
       </div>
     );
   }
 
   return (
     <div className="followups-page">
-
       {/* HEADER */}
-
       <div className="followups-header">
-
         <div className="followups-heading">
-
           <span>CHILD JOURNEY</span>
-
           <h1>Follow-ups</h1>
-
           <p>
             Track actions, support, and
             continued attention for each
             child.
           </p>
-
         </div>
-
         <button
           className="followups-new-button"
           onClick={
@@ -491,45 +480,34 @@ const FollowUps = () => {
             ? "Close Form"
             : "+ Add Follow-up"}
         </button>
-
       </div>
-
       {/* SUMMARY */}
-
       <div className="followups-summary">
-
         <div>
           <span>TOTAL</span>
           <strong>{totalCount}</strong>
         </div>
-
         <div>
           <span>OVERDUE</span>
           <strong>{overdueCount}</strong>
         </div>
-
         <div>
           <span>DUE TODAY</span>
           <strong>{dueTodayCount}</strong>
         </div>
-
         <div>
           <span>PENDING</span>
           <strong>{pendingCount}</strong>
         </div>
-
         <div>
           <span>IN PROGRESS</span>
           <strong>{inProgressCount}</strong>
         </div>
-
         <div>
           <span>COMPLETED</span>
           <strong>{completedCount}</strong>
         </div>
-
       </div>
-
       {/* ADD / EDIT FORM */}
 
       {showForm && (
@@ -537,39 +515,30 @@ const FollowUps = () => {
           className="followup-form"
           onSubmit={handleSubmit}
         >
-
           <div className="followup-form-heading">
-
             <span>
               {editingId
                 ? "UPDATE FOLLOW-UP"
                 : "NEW FOLLOW-UP"}
             </span>
-
             <h2>
               {editingId
                 ? "Edit Follow-up"
                 : "Create Follow-up"}
             </h2>
-
           </div>
-
           <div className="followup-form-grid">
-
             <label>
               Child *
-
               <select
                 name="child"
                 value={form.child}
                 onChange={handleChange}
                 required
               >
-
                 <option value="">
                   Select child
                 </option>
-
                 {children.map((child) => (
                   <option
                     key={child._id}
@@ -578,14 +547,10 @@ const FollowUps = () => {
                     {getChildName(child)}
                   </option>
                 ))}
-
               </select>
-
             </label>
-
             <label>
               Follow-up Title *
-
               <input
                 name="title"
                 value={form.title}
@@ -594,16 +559,13 @@ const FollowUps = () => {
                 required
               />
             </label>
-
             <label>
               Category
-
               <select
                 name="category"
                 value={form.category}
                 onChange={handleChange}
               >
-
                 {categories.map(
                   (category) => (
                     <option
@@ -614,13 +576,10 @@ const FollowUps = () => {
                     </option>
                   )
                 )}
-
               </select>
             </label>
-
             <label>
               Due Date *
-
               <input
                 type="date"
                 name="dueDate"
@@ -629,10 +588,8 @@ const FollowUps = () => {
                 required
               />
             </label>
-
             <label>
               Assigned To
-
               <input
                 name="assignedTo"
                 value={form.assignedTo}
@@ -640,37 +597,27 @@ const FollowUps = () => {
                 placeholder="Teacher / Mentor"
               />
             </label>
-
             <label>
               Status
-
               <select
                 name="status"
                 value={form.status}
                 onChange={handleChange}
               >
-
                 <option value="Pending">
                   Pending
                 </option>
-
                 <option value="In Progress">
                   In Progress
                 </option>
-
                 <option value="Completed">
                   Completed
                 </option>
-
               </select>
             </label>
-
           </div>
-
           <label className="followup-full-field">
-
             Note
-
             <textarea
               name="note"
               value={form.note}
@@ -678,18 +625,14 @@ const FollowUps = () => {
               rows="4"
               placeholder="What needs to be followed up?"
             />
-
           </label>
-
           <div className="followup-form-actions">
-
             <button
               type="button"
               onClick={closeForm}
             >
               Cancel
             </button>
-
             <button
               type="submit"
               disabled={saving}
@@ -700,16 +643,12 @@ const FollowUps = () => {
                 ? "Update Follow-up"
                 : "Save Follow-up"}
             </button>
-
           </div>
-
         </form>
       )}
 
       {/* FILTERS */}
-
       <div className="followups-filters">
-
         {[
           "All",
           "Overdue",
@@ -718,7 +657,6 @@ const FollowUps = () => {
           "In Progress",
           "Completed",
         ].map((item) => (
-
           <button
             key={item}
             className={
@@ -732,43 +670,31 @@ const FollowUps = () => {
           >
             {item}
           </button>
-
         ))}
-
       </div>
-
       {/* LIST */}
 
       {filteredFollowUps.length === 0 ? (
-
         <div className="followups-empty">
-
           <span>
             {filter === "All"
               ? "NO FOLLOW-UPS"
               : filter.toUpperCase()}
           </span>
-
           <h2>
             {filter === "All"
               ? "Everything is clear for now."
               : "No follow-ups in this view."}
           </h2>
-
           <p>
             Follow-ups created for children
             will appear here.
           </p>
-
         </div>
-
       ) : (
-
         <div className="followups-list">
-
           {filteredFollowUps.map(
             (followUp) => (
-
               <article
                 className={`followup-card ${
                   isOverdue(followUp)
@@ -777,23 +703,16 @@ const FollowUps = () => {
                 }`}
                 key={followUp._id}
               >
-
                 {/* TOP */}
-
                 <div className="followup-top">
-
                   <div>
-
                     <span className="followup-category">
                       {followUp.category}
                     </span>
-
                     <h2>
                       {followUp.title}
                     </h2>
-
                     <p className="followup-child">
-
                       {getChildName(
                         followUp.child
                       )}
@@ -801,11 +720,8 @@ const FollowUps = () => {
                       {followUp.child?.grade
                         ? ` · ${followUp.child.grade}`
                         : ""}
-
                     </p>
-
                   </div>
-
                   <span
                     className={`followup-status ${followUp.status
                       .toLowerCase()
@@ -813,78 +729,54 @@ const FollowUps = () => {
                   >
                     {followUp.status}
                   </span>
-
                 </div>
-
                 {/* DETAILS */}
-
                 <div className="followup-details">
-
                   <div>
-
                     <span>DUE DATE</span>
-
                     <strong>
                       {formatDate(
                         followUp.dueDate
                       )}
                     </strong>
-
                   </div>
-
                   <div>
-
                     <span>ASSIGNED TO</span>
-
                     <strong>
                       {followUp.assignedTo ||
                         "Not assigned"}
                     </strong>
-
                   </div>
-
                 </div>
-
                 {/* NOTE */}
 
                 {followUp.note && (
-
                   <div className="followup-note">
-
                     <span>NOTE</span>
-
                     <p>
                       {followUp.note}
                     </p>
-
                   </div>
-
                 )}
 
                 {/* OVERDUE */}
 
                 {isOverdue(followUp) && (
-
                   <div className="followup-overdue">
                     Follow-up is overdue
                   </div>
-
                 )}
 
                 {/* DUE TODAY */}
 
                 {isDueToday(followUp) && (
-
                   <div className="followup-today">
                     Follow-up is due today
                   </div>
-
                 )}
 
                 {/* ACTIONS */}
-
                 <div className="followup-actions">
-
                   <button
                     onClick={() =>
                       openEditForm(
@@ -894,12 +786,10 @@ const FollowUps = () => {
                   >
                     Edit
                   </button>
-
                   {followUp.status !==
                     "In Progress" &&
                     followUp.status !==
                       "Completed" && (
-
                     <button
                       onClick={() =>
                         changeStatus(
@@ -910,12 +800,10 @@ const FollowUps = () => {
                     >
                       Mark In Progress
                     </button>
-
                   )}
 
                   {followUp.status !==
                     "Completed" && (
-
                     <button
                       className="complete-button"
                       onClick={() =>
@@ -927,12 +815,10 @@ const FollowUps = () => {
                     >
                       Mark Completed
                     </button>
-
                   )}
 
                   {followUp.status ===
                     "Completed" && (
-
                     <button
                       onClick={() =>
                         changeStatus(
@@ -943,9 +829,7 @@ const FollowUps = () => {
                     >
                       Reopen
                     </button>
-
                   )}
-
                   <button
                     className="delete-button"
                     onClick={() =>
@@ -956,17 +840,12 @@ const FollowUps = () => {
                   >
                     Delete
                   </button>
-
                 </div>
-
               </article>
-
             )
           )}
-
         </div>
       )}
-
     </div>
   );
 };
