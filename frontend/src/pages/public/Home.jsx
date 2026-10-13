@@ -244,26 +244,8 @@ function Home({ onLogin }) {
               onClick={onLogin}
               title="Access Acharya & Staff Portal"
             >
-              <LogIn size={16} />
+              <LogIn size={15} />
               <span>Portal Login</span>
-            </button>
-
-            <button
-              type="button"
-              className="nav-directions-btn"
-              onClick={() => setIsDirectionsOpen(true)}
-              title="Directions & Google Maps"
-            >
-              <Navigation size={15} />
-              <span>Directions</span>
-            </button>
-
-            <button
-              type="button"
-              className="nav-enquiry-btn"
-              onClick={() => handleSelectContent("contact")}
-            >
-              <span>Admission Enquiry</span>
             </button>
           </div>
 
