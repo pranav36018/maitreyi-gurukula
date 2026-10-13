@@ -163,7 +163,7 @@
 .glimpse-photo-stage {
   position: relative;
   width: 100%;
-  height: 360px;
+  height: 280px;
   background: #081C15;
   overflow: hidden;
   cursor: pointer;
@@ -772,7 +772,7 @@
 
 .glimpse-thumb-btn {
   position: relative;
-  height: 54px;
+  height: 44px;
   padding: 0 !important;
   border-radius: 8px !important;
   overflow: hidden;

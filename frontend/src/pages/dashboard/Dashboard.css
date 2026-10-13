@@ -702,6 +702,7 @@
 
   .dashboard-main-content {
     padding: 35px 22px 60px;
+    scroll-margin-top: 24px;
   }
 
   .dashboard-topbar {

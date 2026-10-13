@@ -332,6 +332,26 @@ function Dashboard() {
     );
   };
 
+  const handleNavSelect = (pageId) => {
+    setActivePage(pageId);
+    if (typeof window !== "undefined" && window.innerWidth <= 850) {
+      setTimeout(() => {
+        const target = document.getElementById("dashboard-content-area");
+        if (target) {
+          try {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          } catch {
+            const rect = target.getBoundingClientRect();
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            window.scrollTo({ top: rect.top + scrollTop - 12, behavior: "smooth" });
+          }
+        } else {
+          window.scrollTo({ top: 380, behavior: "smooth" });
+        }
+      }, 60);
+    }
+  };
+
   return (
     <div className="dashboard-shell">
       {/* SIDEBAR */}
@@ -359,7 +379,7 @@ function Dashboard() {
                     ? "dashboard-nav-item active"
                     : "dashboard-nav-item"
                 }
-                onClick={() => setActivePage(item.id)}
+                onClick={() => handleNavSelect(item.id)}
               >
                 <span className="nav-icon">
                   {typeof Icon === "string" ? Icon : <Icon size={18} />}
@@ -372,7 +392,7 @@ function Dashboard() {
         <div className="dashboard-sidebar-bottom">
           <button
             className="dashboard-settings"
-            onClick={() => setActivePage("settings")}
+            onClick={() => handleNavSelect("settings")}
           >
             <span className="nav-icon">
               <Settings size={18} />
@@ -412,7 +432,7 @@ function Dashboard() {
             </div>
           </div>
         </header>
-        <div className="dashboard-main-content">
+        <div className="dashboard-main-content" id="dashboard-content-area">
           {renderPage()}
         </div>
       </main>
