@@ -42,6 +42,22 @@ function Home({ onLogin }) {
   const [activeSection, setActiveSection] = useState(null);
   const [isDirectionsOpen, setIsDirectionsOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showFab, setShowFab] = useState(false);
+
+  // Show floating quick-access button only when scrolled past Hero or inside a section
+  useEffect(() => {
+    const handleScroll = () => {
+      if (activeSection || window.scrollY > 350) {
+        setShowFab(true);
+      } else {
+        setShowFab(false);
+      }
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [activeSection]);
 
   // Synchronize active section with URL hash & browser back/forward buttons
   useEffect(() => {
@@ -1046,37 +1062,39 @@ function Home({ onLogin }) {
       </footer>
 
       {/* ================= PERSISTENT FLOATING QUICK ACCESS BUTTON ================= */}
-      <button
-        type="button"
-        className="floating-quick-access-fab"
-        onClick={
-          activeSection
-            ? handleBackToQuickAccess
-            : () => {
-                const hub = document.getElementById("gurukula-darshanam");
-                if (hub) {
-                  hub.scrollIntoView({ behavior: "smooth" });
-                } else {
-                  window.scrollTo({ top: 0, behavior: "smooth" });
+      {showFab && (
+        <button
+          type="button"
+          className="floating-quick-access-fab"
+          onClick={
+            activeSection
+              ? handleBackToQuickAccess
+              : () => {
+                  const hub = document.getElementById("gurukula-darshanam");
+                  if (hub) {
+                    hub.scrollIntoView({ behavior: "smooth" });
+                  } else {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }
                 }
-              }
-        }
-        title={activeSection ? "Return to Gurukula Darshanam" : "Explore Gurukula Darshanam"}
-        aria-label="Gurukula Darshanam"
-      >
-        <div className="fab-pulse-ring" aria-hidden="true" />
-        {activeSection ? (
-          <>
-            <ArrowLeft size={18} className="fab-icon" />
-            <span className="fab-label">Back to Darshanam</span>
-          </>
-        ) : (
-          <>
-            <Compass size={18} className="fab-icon" />
-            <span className="fab-label">Gurukula Darshanam</span>
-          </>
-        )}
-      </button>
+          }
+          title={activeSection ? "Return to Gurukula Darshanam" : "Explore Gurukula Darshanam"}
+          aria-label="Gurukula Darshanam"
+        >
+          <div className="fab-pulse-ring" aria-hidden="true" />
+          {activeSection ? (
+            <>
+              <ArrowLeft size={18} className="fab-icon" />
+              <span className="fab-label">Back to Darshanam</span>
+            </>
+          ) : (
+            <>
+              <Compass size={18} className="fab-icon" />
+              <span className="fab-label">Gurukula Darshanam</span>
+            </>
+          )}
+        </button>
+      )}
 
       {/* ================= DIRECTIONS MODAL POPUP ================= */}
       <DirectionsModal

@@ -8,6 +8,7 @@
   position: relative;
   width: 100%;
   height: 100%;
+  min-width: 0;
   max-width: 100%;
   box-sizing: border-box;
   z-index: 3;
@@ -18,14 +19,15 @@
   position: relative;
   width: 100%;
   height: 100%;
+  min-width: 0;
   border-radius: 20px;
-  background: rgba(10, 30, 22, 0.88);
+  background: rgba(8, 26, 19, 0.86);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1.5px solid rgba(251, 191, 36, 0.35);
   box-shadow:
     0 20px 48px rgba(0, 0, 0, 0.5),
-    0 4px 16px rgba(245, 158, 11, 0.15);
+    0 4px 16px rgba(245, 158, 11, 0.12);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -129,20 +131,23 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #F8FAFC;
+  background: rgba(251, 191, 36, 0.12);
+  border: 1.5px solid rgba(251, 191, 36, 0.45);
+  color: #FDE68A;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .showcase-ctrl-btn:hover {
   background: #EA580C;
   color: #FFFFFF;
   border-color: #EA580C;
+  transform: scale(1.08);
 }
 
 .showcase-ctrl-btn.active {
+  background: rgba(245, 158, 11, 0.28);
   color: #FBBF24;
   border-color: #FBBF24;
 }
@@ -154,8 +159,9 @@
 .showcase-photo-stage {
   position: relative;
   width: 100%;
-  flex: 1 1 auto;
-  min-height: 250px;
+  height: 250px;
+  min-height: 220px;
+  max-height: 275px;
   background: #061912;
   overflow: hidden;
   cursor: pointer;
@@ -224,20 +230,20 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: rgba(6, 22, 16, 0.92);
   color: #FDE68A;
   border: 2px solid #FBBF24;
   cursor: pointer;
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 4;
+  z-index: 5;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   box-shadow:
-    0 4px 14px rgba(0, 0, 0, 0.6),
-    0 0 12px rgba(251, 191, 36, 0.35);
+    0 4px 16px rgba(0, 0, 0, 0.65),
+    0 0 14px rgba(251, 191, 36, 0.35);
 }
 
 .showcase-nav-arrow:hover {
@@ -246,16 +252,16 @@
   color: #FFFFFF;
   transform: translateY(-50%) scale(1.12);
   box-shadow:
-    0 6px 18px rgba(234, 88, 12, 0.5),
-    0 0 16px rgba(251, 191, 36, 0.5);
+    0 6px 20px rgba(234, 88, 12, 0.55),
+    0 0 18px rgba(251, 191, 36, 0.5);
 }
 
 .showcase-nav-arrow.arrow-prev {
-  left: 14px;
+  left: 12px;
 }
 
 .showcase-nav-arrow.arrow-next {
-  right: 14px;
+  right: 12px;
 }
 
 /* Captions Overlay at Bottom of Image */
@@ -330,78 +336,87 @@
 }
 
 /* =========================================================
-   THUMBNAILS STRIP
+   THUMBNAILS STRIP (SLEEK MINI-PREVIEW TILES)
 ========================================================= */
 
 .showcase-thumb-bar {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
+  gap: 8px;
+  padding: 6px 12px;
   background: rgba(6, 20, 15, 0.96);
   border-top: 1px solid rgba(251, 191, 36, 0.18);
   overflow-x: auto;
-  scrollbar-width: none;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(251, 191, 36, 0.3) transparent;
   -webkit-overflow-scrolling: touch;
   box-sizing: border-box;
+  min-width: 0;
+  width: 100%;
 }
 
 .showcase-thumb-bar::-webkit-scrollbar {
-  display: none;
+  height: 3px;
+}
+
+.showcase-thumb-bar::-webkit-scrollbar-thumb {
+  background: rgba(251, 191, 36, 0.35);
+  border-radius: 999px;
 }
 
 .showcase-thumb-btn {
-  flex: 1 0 52px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-  background: none;
-  border: none;
+  flex: 0 0 46px;
+  width: 46px;
+  height: 32px;
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  background: #061912;
   padding: 0;
   cursor: pointer;
   opacity: 0.65;
-  transition: all 0.2s ease;
-  min-width: 50px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
 }
 
 .showcase-thumb-btn:hover {
   opacity: 1;
   transform: translateY(-2px);
+  border-color: rgba(251, 191, 36, 0.7);
 }
 
 .showcase-thumb-btn.active {
   opacity: 1;
+  border-color: #FBBF24;
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.55);
+  transform: scale(1.05);
 }
 
 .showcase-thumb-btn img {
   width: 100%;
-  height: 36px;
+  height: 100%;
   object-fit: cover;
-  border-radius: 6px;
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.2s ease;
   display: block;
 }
 
-.showcase-thumb-btn.active img {
-  border-color: #FBBF24;
-  box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+.thumb-idx-badge {
+  position: absolute;
+  bottom: 1px;
+  right: 2px;
+  font-size: 8px;
+  font-weight: 800;
+  color: #FFFFFF;
+  background: rgba(0, 0, 0, 0.75);
+  padding: 1px 3px;
+  border-radius: 3px;
+  line-height: 1;
+  letter-spacing: 0.02em;
 }
 
-.thumb-label-text {
-  font-size: 9px;
-  color: #CBD5E1;
-  font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 54px;
-}
-
-.showcase-thumb-btn.active .thumb-label-text {
-  color: #FDE68A;
-  font-weight: 750;
+.showcase-thumb-btn.active .thumb-idx-badge {
+  background: #EA580C;
+  color: #FFFFFF;
 }
 
 /* =========================================================
@@ -803,8 +818,9 @@
     padding: 6px 10px;
   }
   .showcase-thumb-btn {
-    flex: 1 0 46px;
-    min-width: 44px;
+    flex: 0 0 42px;
+    width: 42px;
+    height: 30px;
   }
   .showcase-thumb-btn img {
     height: 30px;

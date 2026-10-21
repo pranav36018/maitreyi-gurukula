@@ -353,12 +353,11 @@ export default function HeroShowcaseCard() {
                 setCurrentIdx(idx);
                 setIsPlaying(false);
               }}
-              title={`View ${item.title}`}
+              title={`Photo ${idx + 1}: ${item.title}`}
+              aria-label={`View photo ${idx + 1}: ${item.title}`}
             >
-              <img src={item.src} alt={item.title} />
-              <span className="thumb-label-text">
-                {item.tag.replace(/^[^\s]+\s/, "")}
-              </span>
+              <img src={item.src} alt={item.title} loading="lazy" />
+              <span className="thumb-idx-badge">{String(idx + 1).padStart(2, "0")}</span>
             </button>
           ))}
         </div>
