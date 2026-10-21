@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
+import { createPortal } from "react-dom";
 import {
   Sparkles,
   Play,
@@ -857,112 +858,115 @@ export default function GallerySection() {
         )}
       </div>
 
-      {/* ================= CINEMATIC ENHANCED LIGHTBOX MODAL ================= */}
-      {currentPhoto && (
-        <div className="cinematic-lightbox-backdrop" onClick={closeLightbox}>
-          <div
-            className="cinematic-lightbox-modal"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Modal Controls Header */}
-            <div className="lightbox-modal-actions">
+      {/* ================= CINEMATIC ENHANCED LIGHTBOX MODAL (PORTALED TO DOCUMENT.BODY) ================= */}
+      {currentPhoto &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <div className="cinematic-lightbox-backdrop" onClick={closeLightbox}>
+            <div
+              className="cinematic-lightbox-modal"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Controls Header */}
+              <div className="lightbox-modal-actions">
+                <button
+                  type="button"
+                  className="lb-action-btn"
+                  onClick={handleCopyShare}
+                  title="Copy share link"
+                >
+                  {copiedLink ? <Check size={16} color="#10b981" /> : <Share2 size={16} />}
+                  <span>{copiedLink ? "Link Copied!" : "Share"}</span>
+                </button>
+
+                <a
+                  href={currentPhoto.image}
+                  download
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="lb-action-btn"
+                  title="Download high-resolution photograph"
+                >
+                  <Download size={16} />
+                  <span>Download</span>
+                </a>
+
+                <button
+                  type="button"
+                  className="cinematic-close-btn"
+                  onClick={closeLightbox}
+                  aria-label="Close Lightbox (Press ESC)"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              {/* Navigation buttons */}
               <button
                 type="button"
-                className="lb-action-btn"
-                onClick={handleCopyShare}
-                title="Copy share link"
+                className="cinematic-nav-arrow arrow-prev"
+                onClick={showPrev}
+                aria-label="Previous photograph"
               >
-                {copiedLink ? <Check size={16} color="#10b981" /> : <Share2 size={16} />}
-                <span>{copiedLink ? "Link Copied!" : "Share"}</span>
+                <ChevronLeft size={30} />
               </button>
-
-              <a
-                href={currentPhoto.image}
-                download
-                target="_blank"
-                rel="noopener noreferrer"
-                className="lb-action-btn"
-                title="Download high-resolution photograph"
-              >
-                <Download size={16} />
-                <span>Download</span>
-              </a>
-
               <button
                 type="button"
-                className="cinematic-close-btn"
-                onClick={closeLightbox}
-                aria-label="Close Lightbox"
+                className="cinematic-nav-arrow arrow-next"
+                onClick={showNext}
+                aria-label="Next photograph"
               >
-                <X size={20} />
+                <ChevronRight size={30} />
               </button>
-            </div>
 
-            {/* Navigation buttons */}
-            <button
-              type="button"
-              className="cinematic-nav-arrow arrow-prev"
-              onClick={showPrev}
-              aria-label="Previous photograph"
-            >
-              <ChevronLeft size={30} />
-            </button>
-            <button
-              type="button"
-              className="cinematic-nav-arrow arrow-next"
-              onClick={showNext}
-              aria-label="Next photograph"
-            >
-              <ChevronRight size={30} />
-            </button>
+              {/* Main Image Stage */}
+              <div className="cinematic-img-stage">
+                <img src={currentPhoto.image} alt={currentPhoto.title} />
+              </div>
 
-            {/* Main Image Stage */}
-            <div className="cinematic-img-stage">
-              <img src={currentPhoto.image} alt={currentPhoto.title} />
-            </div>
-
-            {/* Comprehensive Information & Cultural Context Panel */}
-            <div className="cinematic-info-panel">
-              <div className="cinematic-header-row">
-                <div className="cinematic-tag-group">
-                  <span className="cinematic-gold-pill">{currentPhoto.category}</span>
-                  <span className="cinematic-location-tag">📍 {currentPhoto.location}</span>
+              {/* Comprehensive Information & Cultural Context Panel */}
+              <div className="cinematic-info-panel">
+                <div className="cinematic-header-row">
+                  <div className="cinematic-tag-group">
+                    <span className="cinematic-gold-pill">{currentPhoto.category}</span>
+                    <span className="cinematic-location-tag">📍 {currentPhoto.location}</span>
+                  </div>
+                  <span className="cinematic-counter">
+                    Photo {(selectedPhotoIndex ?? 0) + 1} of {filteredItems.length}
+                  </span>
                 </div>
-                <span className="cinematic-counter">
-                  Photo {(selectedPhotoIndex ?? 0) + 1} of {filteredItems.length}
-                </span>
-              </div>
 
-              <h3>{currentPhoto.title}</h3>
-              <p className="cinematic-desc-text">{currentPhoto.desc}</p>
+                <h3>{currentPhoto.title}</h3>
+                <p className="cinematic-desc-text">{currentPhoto.desc}</p>
 
-              {/* Cultural Insight Card in Lightbox */}
-              <div className="cinematic-cultural-card">
-                <div className="cultural-header">
-                  <BookOpen size={15} />
-                  <strong>CULTURAL SIGNIFICANCE &amp; ASHRAM TRADITION</strong>
+                {/* Cultural Insight Card in Lightbox */}
+                <div className="cinematic-cultural-card">
+                  <div className="cultural-header">
+                    <BookOpen size={15} />
+                    <strong>CULTURAL SIGNIFICANCE &amp; ASHRAM TRADITION</strong>
+                  </div>
+                  <p>{currentPhoto.culturalStory}</p>
                 </div>
-                <p>{currentPhoto.culturalStory}</p>
-              </div>
 
-              {/* Lightbox Mini Thumbnails Rail */}
-              <div className="lightbox-thumbs-rail">
-                {filteredItems.map((p, i) => (
-                  <button
-                    key={p.id}
-                    type="button"
-                    className={`lb-thumb-btn ${selectedPhotoIndex === i ? "active-lb-thumb" : ""}`}
-                    onClick={() => setSelectedPhotoIndex(i)}
-                    title={p.title}
-                  >
-                    <img src={p.image} alt={p.title} />
-                  </button>
-                ))}
+                {/* Lightbox Mini Thumbnails Rail */}
+                <div className="lightbox-thumbs-rail">
+                  {filteredItems.map((p, i) => (
+                    <button
+                      key={p.id}
+                      type="button"
+                      className={`lb-thumb-btn ${selectedPhotoIndex === i ? "active-lb-thumb" : ""}`}
+                      onClick={() => setSelectedPhotoIndex(i)}
+                      title={p.title}
+                    >
+                      <img src={p.image} alt={p.title} />
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </section>
   );
 }

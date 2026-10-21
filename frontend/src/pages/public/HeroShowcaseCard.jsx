@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { createPortal } from "react-dom";
 import {
   Sparkles,
   Play,
@@ -10,70 +11,83 @@ import {
   Camera,
   ArrowRight,
   MapPin,
+  BookOpen,
 } from "lucide-react";
 import "./HeroShowcaseCard.css";
 
-// 6 Authentic High-Resolution Gurukula Photographs with 100% Matching Context
+// 6 Authentic High-Resolution Gurukula Photographs with 100% Matching Context & Details
 export const SHOWCASE_GLIMPSES = [
   {
     id: "vedic-shastras",
     tag: "🌳 Vriksha Katte",
-    title: "Open-Air Vriksha Katte Under Sacred Tree Canopy",
+    title: "Open-Air Vriksha Katte Shastra Pathashala Under Sacred Canopy",
     category: "SHASTRA & SANSKRIT IMMERSION",
     src: "/images/brand/hero-banner-1.jpg",
     alt: "Acharya teaching girl students seated on the stone platform under the sacred tree in Ramohalli",
-    desc: "Acharya instructing young shishyas in Rigvedic suktas and spoken Sanskrit grammar upon the circular stone platform under the ancient sacred tree.",
-    location: "Vriksha Katte Mandapam • 12-Acre Ramohalli Campus",
+    desc: "Acharya instructing young residential shishyas in Rigvedic mantras, Paninian Sanskrit grammar, and oral sloka recitation in the open-air classroom upon the circular stone platform under the ancient sacred tree.",
+    context: "In accordance with ancient Guru-Shishya tradition, students learn shastras in natural open-air settings, fostering deep mental focus, vocal purity, and harmonious communion with nature.",
+    location: "Vriksha Katte Stone Platform • 12-Acre Ramohalli Campus, Bengaluru",
+    keyChips: ["Rigvedic Mantras", "Paninian Grammar", "Daily Oral Recitation", "Guru-Shishya Parampara"],
   },
   {
     id: "campus-parisara",
-    tag: "👨‍👩‍👧‍👧 Gurukula Family",
-    title: "The Gurukula Kutumba: Student Cohort with Founder",
-    category: "SACRED RAMOHALLI PARISARA",
+    tag: "👨‍👩‍👧‍👧 Gurukula Kutumba",
+    title: "The Gurukula Kutumba: Residential Student Cohort with Founder",
+    category: "GURUKULA FAMILY & RESIDENTIAL SEVA",
     src: "/images/local/gurukula-activity-1.jpg",
-    alt: "Complete residential student cohort seated and standing with Managing Trustee Sri Pramod Kamath under ancient trees",
-    desc: "Our residential family of shishyas across 6th Standard to 2nd PUC gathered with Managing Trustee Sri Pramod Kamath in the tranquil green grove.",
-    location: "Ramohalli Parisara • Near Big Banyan Tree",
+    alt: "Complete residential student cohort seated and standing in rows with Managing Trustee Sri Pramod Kamath under ancient trees",
+    desc: "The complete residential family of girl shishyas from 6th Standard through 2nd PUC gathered in traditional festive attire with Managing Trustee Sri Pramod Kamath in the tranquil campus grove.",
+    context: "Living as one unified family (Kutumba) under the care of resident Matrushrees and Acharyas, students from across Karnataka receive 100% free residential education, satvic meals, and loving parental mentorship.",
+    location: "Campus Green Grove • Ramohalli Parisara (Near Big Banyan Tree), Bengaluru",
+    keyChips: ["100% Free Living & Meals", "Class 6th to 2nd PUC", "Matrushree Mentorship", "300+ Alumni Sisterhood"],
   },
   {
     id: "dawn-prayer",
     tag: "🌅 Dawn Assembly",
-    title: "Morning Flag Hoisting & Prarthana at Annapoorna Hall",
+    title: "Morning Flag Hoisting & Prarthana Assembly at Annapoorna Hall",
     category: "DAILY DINACHARYA & PATRIOTISM",
     src: "/images/local/gurukula-activity-3.jpg",
     alt: "Students in white uniforms with saffron waistbands gathered before Annapoorna Hall during morning flag hoisting",
-    desc: "Students in pristine white uniforms with saffron waistbands gathered before the Annapoorna Main Hall for morning prayers and patriotic pledge.",
-    location: "Annapoorna Prangana Forecourt",
+    desc: "Students in pristine white uniforms with saffron waistbands gathered at dawn before Annapoorna Main Hall for the national flag hoisting, Vedic prayers, and daily patriotic pledge.",
+    context: "The daily Dinacharya instills spiritual grounding and patriotic duty. The morning assembly combines the chanting of Vedic Shanti Mantras with the national anthem and physical agility drills.",
+    location: "Annapoorna Prangana Forecourt • Ramohalli Campus",
+    keyChips: ["Daily 5:00 AM Jagaran", "Vedic Shanti Mantras", "National Pride", "Annapoorna Forecourt"],
   },
   {
     id: "ghosh-band",
     tag: "🥁 Ghosh Band",
-    title: "Disciplined All-Girls Ghosh Marching Band & Drums",
-    category: "MARTIAL AGILITY & TEAM RIGOR",
+    title: "Disciplined All-Girls Ghosh Marching Band & Drum Parade",
+    category: "MARTIAL AGILITY & TEAM DISCIPLINE",
     src: "/images/events/independence-day-1.webp",
     alt: "Maitreyi Gurukula Ghosh band in white uniforms, red sashes, and ceremonial berets marching with snare and bass drums",
-    desc: "Synchronized student marching band with snare drums, bass drums, and ceremonial formation fostering courage, rhythm, and sisterly unity.",
-    location: "Campus Parade Ground",
+    desc: "Synchronized student marching band with snare drums, bass drums, and ceremonial formations, fostering physical stamina, rhythm, courage, and sisterly unity.",
+    context: "100% student-conducted Ghosh band trains young girls in rhythmic coordination, martial courage, leadership, and synchronized teamwork, regularly performing at prestigious cultural assemblies.",
+    location: "Campus Parade Grounds • Ramohalli, Bengaluru",
+    keyChips: ["100% Student-Conducted", "Snare & Bass Drums", "Martial Discipline", "Cultural Utsavas"],
   },
   {
     id: "mandir-puja",
     tag: "🪔 Mandir Puja",
     title: "Daily Morning Devarapooje & Sanctum Deeparadhana",
-    category: "LIVING VEDIC SANSKARA",
+    category: "LIVING VEDIC SANSKARA & DEVOTION",
     src: "/images/brand/hero-banner-2.jpg",
     alt: "Girl students seated in devotion performing morning puja and lamp worship before the consecrated Lord Krishna shrine",
-    desc: "Young shishyas lighting brass oil lamps, offering flowers, and chanting stotras before the consecrated Lord Krishna shrine in the prayer hall.",
-    location: "Ashram Prayer Sanctum",
+    desc: "Young shishyas lighting traditional brass oil lamps, offering fresh flowers, and chanting devotional stotras before the consecrated Lord Krishna shrine in the prayer sanctum.",
+    context: "Daily Sandhya Vandanam, Agnihotra fire offerings, and temple rituals nurture inner tranquility, gratitude, and moral purity from childhood.",
+    location: "Ashram Prayer Sanctum • Ramohalli Gurukula",
+    keyChips: ["Lord Krishna Shrine", "Daily Agnihotra", "Sandhya Vandanam", "Brass Deeparadhana"],
   },
   {
     id: "campus-mahadwara",
     tag: "⛩️ Mahadwara",
     title: "Grand Campus Mahadwara: Traditional Tiled Gateway",
-    category: "HERITAGE ARCHITECTURE",
+    category: "HERITAGE ASHRAM ARCHITECTURE",
     src: "/images/local/gurukula-campus-main.jpg",
     alt: "Traditional tiled-roof entrance arch of Shubham Karoti Maitreyi Gurukula crowned with the sacred Om symbol",
-    desc: "The welcoming terracotta-roofed stone archway crowned with the sacred Om emblem and Kannada inscription at our 12-acre Ramohalli sanctuary.",
-    location: "Main Gateway • Ramohalli, Bengaluru",
+    desc: "The welcoming terracotta-roofed stone archway crowned with the sacred Om emblem and Kannada inscription, marking the entrance into our 12-to-20-acre lush sanctuary.",
+    context: "Inaugurated on Vyasa Poornima in 1994, this sacred portal marks the boundary between urban bustle and the peaceful shastric retreat located near Bengaluru's landmark Big Banyan Tree.",
+    location: "Main Gateway • Ramohalli, Bengaluru (Near Big Banyan Tree)",
+    keyChips: ["Established 1994", "12-Acre Green Haven", "Near Big Banyan Tree", "BMTC 227 Direct Transit"],
   },
 ];
 
@@ -314,86 +328,133 @@ export default function HeroShowcaseCard() {
         </div>
       </div>
 
-      {/* ================= LIGHTBOX MODAL ================= */}
-      {isLightboxOpen && (
-        <div
-          className="showcase-lightbox-backdrop"
-          onClick={() => setIsLightboxOpen(false)}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Full screen photo view"
-        >
+      {/* ================= LIGHTBOX MODAL (PORTALED TO DOCUMENT.BODY) ================= */}
+      {isLightboxOpen &&
+        typeof document !== "undefined" &&
+        createPortal(
           <div
-            className="showcase-lightbox-content"
-            onClick={(e) => e.stopPropagation()}
+            className="showcase-lightbox-backdrop"
+            onClick={() => setIsLightboxOpen(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Full screen photo view"
           >
-            {/* Lightbox Header with ESC Hint and Close Button */}
-            <div className="lightbox-top-bar">
-              <span className="lightbox-esc-hint">
-                <kbd>ESC</kbd> to exit fullscreen • <kbd>←</kbd> <kbd>→</kbd> to navigate
-              </span>
-              <button
-                type="button"
-                className="lightbox-close-btn"
-                onClick={() => setIsLightboxOpen(false)}
-                title="Close (or press ESC)"
-                aria-label="Close modal"
-              >
-                <X size={20} />
-              </button>
-            </div>
+            <div
+              className="showcase-lightbox-content"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Lightbox Header with ESC Hint, Title, and Close Button */}
+              <div className="lightbox-top-bar">
+                <div className="lightbox-top-left">
+                  <span className="lightbox-tag-pill">{currentPhoto.category}</span>
+                  <span className="lightbox-counter-pill">
+                    Photo {currentIdx + 1} of {SHOWCASE_GLIMPSES.length}
+                  </span>
+                </div>
 
-            <div className="lightbox-image-stage">
-              <img
-                src={currentPhoto.src}
-                alt={currentPhoto.alt}
-                className="lightbox-photo"
-              />
-
-              {/* Lightbox Prev / Next Controls */}
-              <button
-                type="button"
-                className="lightbox-arrow lightbox-arrow-left"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handlePrev();
-                }}
-                title="Previous Photo (Left Arrow)"
-                aria-label="Previous photo"
-              >
-                <ChevronLeft size={30} />
-              </button>
-
-              <button
-                type="button"
-                className="lightbox-arrow lightbox-arrow-right"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleNext();
-                }}
-                title="Next Photo (Right Arrow)"
-                aria-label="Next photo"
-              >
-                <ChevronRight size={30} />
-              </button>
-            </div>
-
-            <div className="lightbox-info">
-              <div className="lightbox-info-header">
-                <span className="lightbox-tag-pill">{currentPhoto.category}</span>
-                <span className="lightbox-counter">
-                  {currentIdx + 1} of {SHOWCASE_GLIMPSES.length}
-                </span>
+                <div className="lightbox-top-right">
+                  <span className="lightbox-esc-hint">
+                    <kbd>ESC</kbd> to exit • <kbd>←</kbd> <kbd>→</kbd> to navigate
+                  </span>
+                  <button
+                    type="button"
+                    className="lightbox-close-btn"
+                    onClick={() => setIsLightboxOpen(false)}
+                    title="Close (Press ESC)"
+                    aria-label="Close modal"
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
               </div>
-              <h3>{currentPhoto.title}</h3>
-              <p>{currentPhoto.desc}</p>
-              <span className="lightbox-location-text">
-                📍 {currentPhoto.location}
-              </span>
+
+              {/* Lightbox Main Image Stage with Floating Arrows */}
+              <div className="lightbox-image-stage">
+                <img
+                  src={currentPhoto.src}
+                  alt={currentPhoto.alt}
+                  className="lightbox-photo"
+                />
+
+                {/* Lightbox Prev / Next Controls */}
+                <button
+                  type="button"
+                  className="lightbox-arrow lightbox-arrow-left"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handlePrev();
+                  }}
+                  title="Previous Photo (Left Arrow)"
+                  aria-label="Previous photo"
+                >
+                  <ChevronLeft size={28} />
+                </button>
+
+                <button
+                  type="button"
+                  className="lightbox-arrow lightbox-arrow-right"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleNext();
+                  }}
+                  title="Next Photo (Right Arrow)"
+                  aria-label="Next photo"
+                >
+                  <ChevronRight size={28} />
+                </button>
+              </div>
+
+              {/* Comprehensive Accurate Image Details Panel */}
+              <div className="lightbox-info">
+                <div className="lightbox-location-tag">
+                  <MapPin size={13} className="info-pin-ico" />
+                  <span>{currentPhoto.location}</span>
+                </div>
+
+                <h3 className="lightbox-photo-title">{currentPhoto.title}</h3>
+
+                <p className="lightbox-photo-desc">{currentPhoto.desc}</p>
+
+                {currentPhoto.context && (
+                  <div className="lightbox-context-box">
+                    <div className="context-header">
+                      <BookOpen size={14} />
+                      <strong>GURUKULA TRADITION &amp; DAILY IMMERSION</strong>
+                    </div>
+                    <p>{currentPhoto.context}</p>
+                  </div>
+                )}
+
+                {/* Key Highlight Chips */}
+                {currentPhoto.keyChips && (
+                  <div className="lightbox-chips-row">
+                    {currentPhoto.keyChips.map((chip, idx) => (
+                      <span key={idx} className="lightbox-chip">
+                        ✦ {chip}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {/* Mini Thumbnails Rail inside Lightbox */}
+                <div className="lightbox-thumb-strip">
+                  {SHOWCASE_GLIMPSES.map((item, idx) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      className={`lightbox-mini-thumb ${currentIdx === idx ? "active" : ""}`}
+                      onClick={() => setCurrentIdx(idx)}
+                      title={item.title}
+                    >
+                      <img src={item.src} alt={item.title} />
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </div>
   );
 }
