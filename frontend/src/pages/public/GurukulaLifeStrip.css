@@ -1,0 +1,231 @@
+/* =========================================================
+   GURUKULA LIFE STRIP (LIVELY 8-PHOTO VIBRANT SHOWCASE)
+   Clean, translucent frosted glass cards allowing the
+   Gurukula campus background to shine through everywhere.
+========================================================= */
+
+.gurukula-life-section {
+  position: relative;
+  padding: 48px 0 24px;
+  background: transparent;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.gurukula-life-container {
+  max-width: var(--container-max-w, 1240px);
+  margin: 0 auto;
+  padding: 0 var(--container-pad, 24px);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.gurukula-life-header {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 36px;
+}
+
+.life-header-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  background: rgba(245, 158, 11, 0.16);
+  border: 1.5px solid rgba(251, 191, 36, 0.4);
+  color: #FDE68A;
+  font-size: 11.5px;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.gurukula-life-header h2 {
+  margin: 0 0 12px;
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 3.2vw, 38px);
+  font-weight: 750;
+  color: #FFFFFF;
+  line-height: 1.25;
+}
+
+.life-title-highlight {
+  background: linear-gradient(135deg, #FDE68A 0%, #FBBF24 55%, #EA580C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.life-header-desc {
+  margin: 0 auto;
+  font-size: 15px;
+  color: #CBD5E1;
+  line-height: 1.65;
+  font-weight: 450;
+  max-width: 780px;
+}
+
+/* =========================================================
+   8-PHOTO GRID (4x2 on Desktop, 2x4 on Tablet, 1x8 on Mobile)
+========================================================= */
+
+.gurukula-life-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.life-photo-card {
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(12, 34, 25, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(251, 191, 36, 0.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+  box-sizing: border-box;
+}
+
+.life-photo-card:hover {
+  transform: translateY(-5px);
+  border-color: #FBBF24;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 14px rgba(251, 191, 36, 0.2);
+}
+
+.life-photo-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #061912;
+}
+
+.life-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.life-photo-card:hover .life-card-img {
+  transform: scale(1.06);
+}
+
+.life-photo-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(6, 22, 16, 0.1) 0%,
+    rgba(6, 22, 16, 0.05) 50%,
+    rgba(5, 18, 13, 0.75) 100%
+  );
+  pointer-events: none;
+}
+
+.life-tag-pill {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(6, 22, 16, 0.9);
+  border: 1px solid rgba(251, 191, 36, 0.45);
+  color: #FDE68A;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  z-index: 2;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.life-expand-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(6, 22, 16, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 2;
+}
+
+.life-photo-card:hover .life-expand-badge {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.life-card-info {
+  padding: 12px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.life-card-location {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  color: #FBBF24;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.location-pin {
+  flex-shrink: 0;
+}
+
+.life-card-title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* =========================================================
+   RESPONSIVE BREAKPOINTS
+========================================================= */
+
+@media (max-width: 1024px) {
+  .gurukula-life-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .gurukula-life-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .gurukula-life-header h2 {
+    font-size: 24px;
+  }
+}

@@ -1285,7 +1285,9 @@
   position: relative;
   z-index: 2;
   width: 100%;
-  background: #0B2219;
+  background: rgba(11, 34, 25, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid rgba(251, 191, 36, 0.22);
   padding: 6px 0;
 }
@@ -2358,8 +2360,12 @@
 ========================================================= */
 
 .maitreyi-footer {
+  position: relative;
+  z-index: 2;
   padding: 72px 0 32px;
-  background: var(--color-forest-dark);
+  background: rgba(6, 20, 15, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   color: #F8FAFC;
   border-top: 3px solid var(--color-terracotta);
 }

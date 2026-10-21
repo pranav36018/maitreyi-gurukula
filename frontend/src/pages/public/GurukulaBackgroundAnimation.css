@@ -28,35 +28,41 @@
   pointer-events: none;
 }
 
+.gurukula-ambient-container.global-ambient .gurukula-sky-atmosphere,
 .gurukula-ambient-container.content-ambient .gurukula-sky-atmosphere {
   background:
-    radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.14) 0%, transparent 60%),
-    radial-gradient(circle at 10% 25%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
-    radial-gradient(circle at 90% 70%, rgba(217, 119, 6, 0.1) 0%, transparent 45%),
-    linear-gradient(180deg, #071912 0%, #081C15 35%, #0B241B 70%, #071912 100%);
+    radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.18) 0%, transparent 60%),
+    radial-gradient(circle at 10% 25%, rgba(16, 185, 129, 0.14) 0%, transparent 45%),
+    radial-gradient(circle at 90% 70%, rgba(217, 119, 6, 0.12) 0%, transparent 45%),
+    linear-gradient(180deg, #05150E 0%, #081F17 35%, #0A271D 70%, #05150E 100%);
 }
 
+.gurukula-ambient-container.global-ambient .gurukula-photo-slide,
 .gurukula-ambient-container.content-ambient .gurukula-photo-slide {
   opacity: 0;
-  filter: saturate(1.1) contrast(1.05) brightness(0.65);
+  filter: saturate(1.2) contrast(1.1) brightness(0.85);
 }
 
+.gurukula-ambient-container.global-ambient .gurukula-photo-slide.active,
 .gurukula-ambient-container.content-ambient .gurukula-photo-slide.active {
-  opacity: 0.16;
-}
-
-.gurukula-ambient-container.content-ambient .gurukula-royal-scrim {
-  background:
-    radial-gradient(ellipse at 50% 15%, rgba(8, 28, 21, 0.72) 0%, rgba(7, 25, 18, 0.92) 100%),
-    linear-gradient(180deg, rgba(8, 28, 21, 0.82) 0%, rgba(7, 25, 18, 0.94) 100%);
-}
-
-.gurukula-ambient-container.content-ambient .gurukula-dawn-radiance {
   opacity: 0.55;
 }
 
+.gurukula-ambient-container.global-ambient .gurukula-royal-scrim,
+.gurukula-ambient-container.content-ambient .gurukula-royal-scrim {
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(6, 22, 16, 0.25) 0%, rgba(5, 20, 14, 0.65) 100%),
+    linear-gradient(180deg, rgba(5, 18, 13, 0.45) 0%, rgba(6, 22, 16, 0.2) 50%, rgba(5, 18, 13, 0.72) 100%);
+}
+
+.gurukula-ambient-container.global-ambient .gurukula-dawn-radiance,
+.gurukula-ambient-container.content-ambient .gurukula-dawn-radiance {
+  opacity: 0.65;
+}
+
+.gurukula-ambient-container.global-ambient .gurukula-prana-canvas,
 .gurukula-ambient-container.content-ambient .gurukula-prana-canvas {
-  opacity: 0.75;
+  opacity: 0.85;
 }
 
 /* =========================================================

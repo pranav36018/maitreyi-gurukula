@@ -35,6 +35,7 @@ import QuickAccessGrid, { CONTENT_ITEMS } from "./QuickAccessGrid";
 import QuickAccessTopBar from "./QuickAccessTopBar";
 import GurukulaBackgroundAnimation from "./GurukulaBackgroundAnimation";
 import HeroShowcaseCard from "./HeroShowcaseCard";
+import GurukulaLifeStrip from "./GurukulaLifeStrip";
 import "./PublicSections.css";
 
 function Home({ onLogin }) {
@@ -146,6 +147,9 @@ function Home({ onLogin }) {
 
   return (
     <div className="maitreyi-home">
+      {/* Living Vedic Background Animation (Golden Prana & Scenic Campus) across entire Home Page */}
+      <GurukulaBackgroundAnimation variant="global" />
+
       {/* ================= NAVIGATION ================= */}
       <nav className="maitreyi-nav">
         <div className="maitreyi-nav-inner">
@@ -468,9 +472,9 @@ function Home({ onLogin }) {
       {/* ================= HERO SECTION ================= */}
       {/* Show Hero on home gateway */}
       {!activeSection && (
-        <section className="maitreyi-hero" id="hero">
-          <GurukulaBackgroundAnimation isHeroOnly={true} />
-          <div className="maitreyi-hero-inner">
+        <>
+          <section className="maitreyi-hero" id="hero">
+            <div className="maitreyi-hero-inner">
             <div className="maitreyi-hero-content">
               {/* Vedic Invocation Ribbon */}
               <div className="hero-pill-badge">
@@ -618,15 +622,16 @@ function Home({ onLogin }) {
             </div>
           </div>
         </section>
+
+        {/* Vibrant Showcase of Gurukula Life (8 Photos with Full-Screen Lightbox) */}
+        <GurukulaLifeStrip />
+      </>
       )}
 
       {/* ================= MAIN CONTENT AREA ================= */}
       {activeSection ? (
         /* ================= MODE: RESPECTIVE CONTENT VIEW ================= */
         <div className="qa-single-content-wrapper">
-          {/* Living Vedic Background Animation (Golden Prana & Scenic Campus) */}
-          <GurukulaBackgroundAnimation variant="content" />
-
           {/* Sticky Navigation Bar with Back Button & Content Switcher */}
           <QuickAccessTopBar
             activeId={activeSection}

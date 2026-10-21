@@ -72,18 +72,18 @@ function GurukulaBackgroundAnimation({ isHeroOnly = true, variant = isHeroOnly ?
 
     // Golden sparks and sacred prana motes
     const particles = [];
-    const particleCount = 45;
+    const particleCount = 65;
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * (width || window.innerWidth),
         y: Math.random() * (height || window.innerHeight),
-        radius: Math.random() * 2.2 + 0.8,
-        speedX: (Math.random() - 0.5) * 0.35,
-        speedY: -(Math.random() * 0.45 + 0.18), // rises upward gently
-        opacity: Math.random() * 0.65 + 0.25,
-        pulseSpeed: Math.random() * 0.02 + 0.008,
-        colorType: Math.random() > 0.35 ? "gold" : "saffron",
+        radius: Math.random() * 2.5 + 0.9,
+        speedX: (Math.random() - 0.5) * 0.4,
+        speedY: -(Math.random() * 0.5 + 0.2), // rises upward gently
+        opacity: Math.random() * 0.75 + 0.25,
+        pulseSpeed: Math.random() * 0.025 + 0.008,
+        colorType: Math.random() > 0.4 ? "gold" : "saffron",
       });
     }
 
@@ -137,7 +137,7 @@ function GurukulaBackgroundAnimation({ isHeroOnly = true, variant = isHeroOnly ?
   return (
     <div
       ref={containerRef}
-      className={`gurukula-ambient-container ${variant === "hero" ? "hero-ambient" : "content-ambient"}`}
+      className={`gurukula-ambient-container ${variant === "hero" ? "hero-ambient" : variant === "global" ? "global-ambient" : "content-ambient"}`}
       aria-hidden="true"
     >
       {/* 1. Deep Celestial Sacred Atmosphere */}
