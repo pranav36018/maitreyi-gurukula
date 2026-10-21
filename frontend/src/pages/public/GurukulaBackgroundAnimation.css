@@ -1,6 +1,7 @@
 /* =========================================================
    CINEMATIC GURUKULA SACRED LIVING BACKGROUND
-   Royal Emerald, Golden Dawn Radiance, and Ethereal Sacred Motes
+   Royal Emerald, Golden Dawn Radiance, Sacred Geometric Mandala,
+   and Ethereal Sacred Motes (Prana)
 ========================================================= */
 
 .gurukula-ambient-container {
@@ -65,10 +66,10 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.14) 0%, transparent 60%),
-    radial-gradient(circle at 15% 35%, rgba(16, 185, 129, 0.12) 0%, transparent 50%),
-    radial-gradient(circle at 85% 60%, rgba(194, 65, 12, 0.08) 0%, transparent 50%),
-    linear-gradient(180deg, #071912 0%, #0B241B 50%, #081C15 100%);
+    radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.18) 0%, transparent 60%),
+    radial-gradient(circle at 15% 35%, rgba(16, 185, 129, 0.14) 0%, transparent 50%),
+    radial-gradient(circle at 85% 60%, rgba(194, 65, 12, 0.1) 0%, transparent 50%),
+    linear-gradient(180deg, #05150E 0%, #081F17 50%, #05150E 100%);
   z-index: 0;
 }
 
@@ -93,14 +94,14 @@
   background-position: center 30%;
   background-repeat: no-repeat;
   opacity: 0;
-  filter: saturate(1.1) contrast(1.05) brightness(0.7);
-  transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: saturate(1.15) contrast(1.08) brightness(0.68);
+  transition: opacity 2.2s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform, opacity;
 }
 
 .gurukula-photo-slide.active {
-  opacity: 0.22;
-  animation: kenBurnsAtmospheric 15s ease-out forwards;
+  opacity: 0.26;
+  animation: kenBurnsAtmospheric 18s ease-out forwards;
 }
 
 @keyframes kenBurnsAtmospheric {
@@ -108,7 +109,7 @@
     transform: scale(1.0) translate(0, 0);
   }
   100% {
-    transform: scale(1.06) translate(-10px, -6px);
+    transform: scale(1.07) translate(-12px, -8px);
   }
 }
 
@@ -118,29 +119,94 @@
   inset: 0;
   z-index: 2;
   background:
-    radial-gradient(ellipse at 50% 30%, rgba(8, 28, 21, 0.62) 0%, rgba(7, 25, 18, 0.88) 100%),
-    linear-gradient(180deg, rgba(8, 28, 21, 0.68) 0%, rgba(7, 25, 18, 0.88) 100%);
+    radial-gradient(ellipse at 50% 30%, rgba(6, 22, 16, 0.55) 0%, rgba(5, 20, 14, 0.88) 100%),
+    linear-gradient(180deg, rgba(6, 22, 16, 0.6) 0%, rgba(5, 20, 14, 0.9) 100%);
 }
 
 /* =========================================================
-   3. AMBIENT GOLDEN DAWN RADIANCE
+   3. SACRED VEDIC GEOMETRIC MANDALA WATERMARK
+========================================================= */
+.gurukula-mandala-wrapper {
+  position: absolute;
+  top: 50%;
+  right: -80px;
+  transform: translateY(-50%);
+  width: 720px;
+  height: 720px;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.28;
+  filter: drop-shadow(0 0 40px rgba(251, 191, 36, 0.15));
+  animation: mandalaBreath 16s ease-in-out infinite alternate;
+}
+
+.gurukula-mandala-svg {
+  width: 100%;
+  height: 100%;
+  animation: mandalaRotate 140s linear infinite;
+  transform-origin: center center;
+}
+
+@keyframes mandalaRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes mandalaBreath {
+  0% {
+    opacity: 0.22;
+    transform: translateY(-50%) scale(0.96);
+  }
+  100% {
+    opacity: 0.35;
+    transform: translateY(-50%) scale(1.04);
+  }
+}
+
+/* On mobile / smaller screens, center the mandala gracefully */
+@media (max-width: 900px) {
+  .gurukula-mandala-wrapper {
+    right: 50%;
+    transform: translate(50%, -50%);
+    width: 480px;
+    height: 480px;
+    opacity: 0.18;
+  }
+  @keyframes mandalaBreath {
+    0% {
+      opacity: 0.14;
+      transform: translate(50%, -50%) scale(0.95);
+    }
+    100% {
+      opacity: 0.24;
+      transform: translate(50%, -50%) scale(1.04);
+    }
+  }
+}
+
+/* =========================================================
+   4. AMBIENT GOLDEN DAWN RADIANCE
 ========================================================= */
 .gurukula-dawn-radiance {
   position: absolute;
-  top: -140px;
+  top: -120px;
   left: 50%;
   transform: translateX(-50%);
-  width: 900px;
-  height: 520px;
+  width: 1000px;
+  height: 560px;
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(254, 240, 138, 0.3) 0%,
-    rgba(251, 191, 36, 0.18) 35%,
-    rgba(245, 158, 11, 0.08) 60%,
+    rgba(254, 240, 138, 0.32) 0%,
+    rgba(251, 191, 36, 0.2) 35%,
+    rgba(245, 158, 11, 0.09) 60%,
     transparent 75%
   );
-  filter: blur(45px);
+  filter: blur(50px);
   z-index: 3;
   animation: dawnPulse 8s ease-in-out infinite alternate;
 }
@@ -157,7 +223,7 @@
 }
 
 /* =========================================================
-   4. HTML5 CANVAS: GOLDEN PARTICLES / PRANA MOTES
+   5. HTML5 CANVAS: GOLDEN PARTICLES / PRANA MOTES
 ========================================================= */
 .gurukula-prana-canvas {
   position: absolute;

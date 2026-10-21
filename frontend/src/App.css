@@ -1024,15 +1024,15 @@
   max-width: 100%;
   width: 100%;
   height: 100%;
-  background: rgba(17, 42, 32, 0.94);
+  background: rgba(14, 38, 28, 0.94);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   padding: 24px 28px;
   border-radius: 20px;
-  border: 1.5px solid rgba(251, 191, 36, 0.28);
+  border: 1.5px solid rgba(251, 191, 36, 0.32);
   box-shadow:
-    0 20px 48px rgba(0, 0, 0, 0.45),
-    0 4px 16px rgba(217, 119, 6, 0.12);
+    0 20px 48px rgba(0, 0, 0, 0.5),
+    0 4px 16px rgba(245, 158, 11, 0.12);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -1044,10 +1044,10 @@
   display: inline-flex;
   align-items: center;
   align-self: flex-start;
-  gap: 6px;
-  padding: 4px 12px;
+  gap: 7px;
+  padding: 5px 14px;
   border-radius: 9999px;
-  background: rgba(245, 158, 11, 0.16);
+  background: rgba(245, 158, 11, 0.14);
   border: 1px solid rgba(251, 191, 36, 0.4);
   color: #FDE68A;
   font-size: 11px;
@@ -1057,17 +1057,23 @@
   margin-bottom: 0;
 }
 
+.hero-sanskrit-tag {
+  color: #FBBF24;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
 .hero-badge-icon { color: #FBBF24; }
 .hero-badge-dot { color: #F59E0B; }
-.hero-badge-tag { color: #FDE68A; font-weight: 750; }
+.hero-badge-tag { color: #FDE68A; font-weight: 700; }
 
 .maitreyi-hero h1 {
   margin: 0;
   color: #F8FAFC;
   font-family: var(--font-serif);
   font-size: clamp(22px, 2.2vw, 30px);
-  font-weight: 700;
-  line-height: 1.24;
+  font-weight: 750;
+  line-height: 1.25;
   letter-spacing: -0.015em;
 }
 
@@ -1088,7 +1094,7 @@
 }
 
 /* =========================================================
-   HERO ACTIONS CLUSTER: CTAs + SECONDARY LINKS + 2x2 FEATURES
+   HERO ACTIONS CLUSTER: CTAs + HALLMARK PILLS + SECONDARY LINKS
 ========================================================= */
 
 .hero-action-cluster {
@@ -1111,7 +1117,7 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  height: 38px;
+  height: 40px;
   width: 100%;
   padding: 0 14px;
   border-radius: 10px;
@@ -1120,7 +1126,7 @@
   color: #FFFFFF;
   font-size: 13px;
   font-weight: 700;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   box-sizing: border-box;
@@ -1129,7 +1135,7 @@
   background: #2D6A4F;
   border-color: #FDE68A;
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.25);
+  box-shadow: 0 4px 16px rgba(251, 191, 36, 0.3);
 }
 
 .hero-cta-primary {
@@ -1137,7 +1143,7 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  height: 38px;
+  height: 40px;
   width: 100%;
   padding: 0 14px;
   border-radius: 10px;
@@ -1146,7 +1152,7 @@
   color: #FFFFFF;
   font-size: 13px;
   font-weight: 700;
-  box-shadow: 0 2px 8px rgba(194, 65, 12, 0.35);
+  box-shadow: 0 2px 10px rgba(194, 65, 12, 0.35);
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   box-sizing: border-box;
@@ -1155,7 +1161,7 @@
   background: var(--color-terracotta-hover);
   border-color: var(--color-terracotta-hover);
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.45);
+  box-shadow: 0 4px 16px rgba(234, 88, 12, 0.45);
 }
 
 .hero-cta-login {
@@ -1163,7 +1169,7 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  height: 38px;
+  height: 40px;
   width: 100%;
   padding: 0 14px;
   border-radius: 10px;
@@ -1171,7 +1177,7 @@
   border: 1.5px solid rgba(251, 191, 36, 0.45);
   color: #FDE68A;
   font-size: 12.5px;
-  font-weight: 700;
+  font-weight: 750;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
   cursor: pointer;
   white-space: nowrap;
@@ -1186,12 +1192,49 @@
   transform: translateY(-1px);
 }
 
+/* Sleek Horizontal Floating Hallmarks */
+.hero-hallmarks-strip {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  width: 100%;
+}
+
+.hero-hallmark-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 11px;
+  border-radius: 8px;
+  background: rgba(8, 24, 18, 0.85);
+  border: 1px solid rgba(251, 191, 36, 0.22);
+  color: #E2E8F0;
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.hero-hallmark-pill:hover {
+  background: rgba(14, 38, 28, 0.95);
+  border-color: #FBBF24;
+  color: #FFFFFF;
+}
+
+.hero-hallmark-pill .hallmark-dot {
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
 .hero-secondary-links {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 4px 4px 0;
+  padding: 2px 4px 0;
   width: 100%;
   box-sizing: border-box;
 }
@@ -1218,65 +1261,6 @@
 .hero-link-sep {
   color: rgba(251, 191, 36, 0.4);
   font-size: 11px;
-}
-
-/* 2x2 Structured Ashram Features Grid */
-.hero-features-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  width: 100%;
-  margin-top: 4px;
-}
-
-.hero-feature-box {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
-  min-height: 48px;
-  border-radius: 10px;
-  background: rgba(11, 34, 25, 0.85);
-  border: 1px solid rgba(251, 191, 36, 0.22);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease, border-color 0.2s ease;
-  min-width: 0;
-  box-sizing: border-box;
-}
-.hero-feature-box:hover {
-  transform: translateY(-1px);
-  border-color: #FBBF24;
-  background: rgba(17, 42, 32, 0.95);
-}
-
-.hero-feature-box .feature-icon {
-  font-size: 16px;
-  flex-shrink: 0;
-}
-
-.hero-feature-box .feature-info {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.25;
-  min-width: 0;
-}
-
-.hero-feature-box .feature-info strong {
-  font-size: 11.5px;
-  font-weight: 750;
-  color: #F8FAFC;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.hero-feature-box .feature-info span {
-  font-size: 10.5px;
-  font-weight: 500;
-  color: #CBD5E1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 /* =========================================================
@@ -2986,23 +2970,16 @@
     padding-top: 4px;
   }
 
-  .hero-features-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
+  .hero-hallmarks-strip {
+    grid-template-columns: 1fr;
+    gap: 6px;
     width: 100%;
   }
 
-  .hero-feature-box {
-    padding: 10px 12px;
-    gap: 8px;
-  }
-
-  .hero-feature-box .feature-info strong {
-    font-size: 12.5px;
-  }
-
-  .hero-feature-box .feature-info span {
-    font-size: 11px;
+  .hero-hallmark-pill {
+    padding: 8px 12px;
+    font-size: 11.5px;
+    border-radius: 8px;
   }
 
   .maitreyi-hero-art {

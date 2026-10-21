@@ -472,25 +472,26 @@ function Home({ onLogin }) {
           <GurukulaBackgroundAnimation isHeroOnly={true} />
           <div className="maitreyi-hero-inner">
             <div className="maitreyi-hero-content">
+              {/* Vedic Invocation Ribbon */}
               <div className="hero-pill-badge">
-                <Sparkles size={16} className="hero-badge-icon" />
-                <span>SHUBHAM KAROTI MAITREYI GURUKULA</span>
+                <Sparkles size={14} className="hero-badge-icon" />
+                <span className="hero-sanskrit-tag">॥ सा विद्या या विमुक्तये ॥</span>
                 <span className="hero-badge-dot">•</span>
-                <span className="hero-badge-tag">12-ACRE RESIDENTIAL CAMPUS</span>
+                <span className="hero-badge-tag">12-ACRE RESIDENTIAL SANCTUARY</span>
               </div>
 
               <h1>
-                Blending Ancient Wisdom
+                Empowering India&apos;s Daughters
                 <br />
-                with Modern Learning for
+                Through Ancient Shastras &amp;
                 <br />
-                <span className="hero-title-highlight">Holistic Growth.</span>
+                <span className="hero-title-highlight">Modern Academic Excellence.</span>
               </h1>
 
               <p className="maitreyi-hero-description">
-                A charitable residential Gurukula in Bengaluru exclusively for girls — offering 100% free living,
-                wholesome satvic nourishment, spoken Sanskrit fluency, state board academic brilliance,
-                classical Bharatanatyam, and enduring character building.
+                A premier charitable residential Gurukula in Bengaluru exclusively for girls — offering 100% free living,
+                wholesome satvic nourishment, fluent spoken Sanskrit, Karnataka State Board academic distinction,
+                classical Bharatanatyam, and enduring civilizational character.
               </p>
 
               <div className="hero-action-cluster">
@@ -527,6 +528,26 @@ function Home({ onLogin }) {
                   </button>
                 </div>
 
+                {/* Sleek Horizontal Floating Hallmarks */}
+                <div className="hero-hallmarks-strip">
+                  <div className="hero-hallmark-pill">
+                    <span className="hallmark-dot">🌿</span>
+                    <span>100% Free Living &amp; Satvic Meals</span>
+                  </div>
+                  <div className="hero-hallmark-pill">
+                    <span className="hallmark-dot">📜</span>
+                    <span>Dual Board (SSLC &amp; Sanskrit Univ)</span>
+                  </div>
+                  <div className="hero-hallmark-pill">
+                    <span className="hallmark-dot">🪷</span>
+                    <span>Conversational Spoken Sanskrit</span>
+                  </div>
+                  <div className="hero-hallmark-pill">
+                    <span className="hallmark-dot">🏡</span>
+                    <span>12-Acre Green Campus (Ramohalli)</span>
+                  </div>
+                </div>
+
                 {/* Elegant Secondary Quick Links */}
                 <div className="hero-secondary-links">
                   <button
@@ -535,7 +556,7 @@ function Home({ onLogin }) {
                     onClick={() => handleSelectContent("story")}
                     title="Read our 30-year heritage and origins"
                   >
-                    <Scroll size={14} />
+                    <Scroll size={13} />
                     <span>Our 30-Yr Heritage</span>
                   </button>
                   <span className="hero-link-sep">•</span>
@@ -545,7 +566,7 @@ function Home({ onLogin }) {
                     onClick={() => setIsDirectionsOpen(true)}
                     title="Interactive Google Maps directions to Gurukula"
                   >
-                    <Navigation size={14} />
+                    <Navigation size={13} />
                     <span>Directions &amp; Map</span>
                   </button>
                   <span className="hero-link-sep">•</span>
@@ -555,44 +576,9 @@ function Home({ onLogin }) {
                     onClick={() => handleSelectContent("campus-photos")}
                     title="Campus photo gallery tour"
                   >
-                    <Sparkles size={14} />
+                    <Sparkles size={13} />
                     <span>Campus Tour</span>
                   </button>
-                </div>
-
-                {/* Balanced 2x2 Highlights Grid */}
-                <div className="hero-features-grid">
-                  <div className="hero-feature-box">
-                    <span className="feature-icon">🌿</span>
-                    <div className="feature-info">
-                      <strong>100% Free of Cost</strong>
-                      <span>Education, Living &amp; Satvic Meals</span>
-                    </div>
-                  </div>
-
-                  <div className="hero-feature-box">
-                    <span className="feature-icon">📜</span>
-                    <div className="feature-info">
-                      <strong>Dual Board Certification</strong>
-                      <span>SSLC &amp; Karnataka Sanskrit Univ.</span>
-                    </div>
-                  </div>
-
-                  <div className="hero-feature-box">
-                    <span className="feature-icon">🪷</span>
-                    <div className="feature-info">
-                      <strong>Spoken Sanskrit Fluency</strong>
-                      <span>Natural Living Shastric Immersion</span>
-                    </div>
-                  </div>
-
-                  <div className="hero-feature-box">
-                    <span className="feature-icon">🏡</span>
-                    <div className="feature-info">
-                      <strong>12-Acre Green Campus</strong>
-                      <span>Ramohalli, Bengaluru Sanctuary</span>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
