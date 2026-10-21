@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import {
   Sparkles,
   Play,
@@ -83,6 +83,46 @@ export default function HeroShowcaseCard() {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const autoPlayTimerRef = useRef(null);
 
+  const handleNext = useCallback(() => {
+    setCurrentIdx((prev) => (prev + 1) % SHOWCASE_GLIMPSES.length);
+  }, []);
+
+  const handlePrev = useCallback(() => {
+    setCurrentIdx((prev) => (prev - 1 + SHOWCASE_GLIMPSES.length) % SHOWCASE_GLIMPSES.length);
+  }, []);
+
+  // Keyboard Navigation: ESC to exit fullscreen, Left/Right arrows to change photo
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" || e.keyCode === 27) {
+        setIsLightboxOpen(false);
+      }
+      if (e.key === "ArrowLeft" || e.keyCode === 37) {
+        handlePrev();
+        setIsPlaying(false);
+      }
+      if (e.key === "ArrowRight" || e.keyCode === 39) {
+        handleNext();
+        setIsPlaying(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handlePrev, handleNext]);
+
+  // Lock body scroll when Lightbox is open
+  useEffect(() => {
+    if (isLightboxOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isLightboxOpen]);
+
   // Auto-advance photos every 5.5 seconds when autoplay is enabled
   useEffect(() => {
     if (!isPlaying) {
@@ -91,21 +131,13 @@ export default function HeroShowcaseCard() {
     }
 
     autoPlayTimerRef.current = setInterval(() => {
-      setCurrentIdx((prev) => (prev + 1) % SHOWCASE_GLIMPSES.length);
+      handleNext();
     }, 5500);
 
     return () => {
       if (autoPlayTimerRef.current) clearInterval(autoPlayTimerRef.current);
     };
-  }, [isPlaying]);
-
-  const handleNext = () => {
-    setCurrentIdx((prev) => (prev + 1) % SHOWCASE_GLIMPSES.length);
-  };
-
-  const handlePrev = () => {
-    setCurrentIdx((prev) => (prev - 1 + SHOWCASE_GLIMPSES.length) % SHOWCASE_GLIMPSES.length);
-  };
+  }, [isPlaying, handleNext]);
 
   const currentPhoto = SHOWCASE_GLIMPSES[currentIdx];
 
@@ -121,10 +153,40 @@ export default function HeroShowcaseCard() {
           </div>
 
           <div className="showcase-header-controls">
-            {/* Slide Index Counter */}
-            <span className="showcase-counter-badge">
-              <strong>{String(currentIdx + 1).padStart(2, "0")}</strong> / {String(SHOWCASE_GLIMPSES.length).padStart(2, "0")}
-            </span>
+            {/* Labeled Prev / Next Button Bar for Explicit Choice */}
+            <div className="showcase-header-nav-group">
+              <button
+                type="button"
+                className="showcase-header-arrow-btn"
+                onClick={() => {
+                  handlePrev();
+                  setIsPlaying(false);
+                }}
+                title="View Previous Photo (or press Left Arrow)"
+                aria-label="Previous Photo"
+              >
+                <ChevronLeft size={16} />
+                <span className="btn-text-label">Prev</span>
+              </button>
+
+              <span className="showcase-counter-badge">
+                <strong>{String(currentIdx + 1).padStart(2, "0")}</strong> / {String(SHOWCASE_GLIMPSES.length).padStart(2, "0")}
+              </span>
+
+              <button
+                type="button"
+                className="showcase-header-arrow-btn"
+                onClick={() => {
+                  handleNext();
+                  setIsPlaying(false);
+                }}
+                title="View Next Photo (or press Right Arrow)"
+                aria-label="Next Photo"
+              >
+                <span className="btn-text-label">Next</span>
+                <ChevronRight size={16} />
+              </button>
+            </div>
 
             {/* Autoplay Play/Pause Button */}
             <button
@@ -142,7 +204,7 @@ export default function HeroShowcaseCard() {
               type="button"
               className="showcase-ctrl-btn"
               onClick={() => setIsLightboxOpen(true)}
-              title="Enlarge photograph full-screen"
+              title="Enlarge photograph full-screen (Press ESC to exit)"
               aria-label="Enlarge image"
             >
               <Maximize2 size={13} />
@@ -154,7 +216,7 @@ export default function HeroShowcaseCard() {
         <div
           className="showcase-photo-stage"
           onClick={() => setIsLightboxOpen(true)}
-          title="Click to view full screen"
+          title="Click to view full screen (Press ESC to exit)"
         >
           {/* Main Visual Image */}
           <img
@@ -174,7 +236,7 @@ export default function HeroShowcaseCard() {
             <span>{currentPhoto.category}</span>
           </div>
 
-          {/* Left Navigation Arrow */}
+          {/* Large, Prominent Floating Previous Button */}
           <button
             type="button"
             className="showcase-nav-arrow arrow-prev"
@@ -183,12 +245,13 @@ export default function HeroShowcaseCard() {
               handlePrev();
               setIsPlaying(false);
             }}
+            title="Previous Photo (Left Arrow)"
             aria-label="Previous photograph"
           >
-            <ChevronLeft size={20} />
+            <ChevronLeft size={24} />
           </button>
 
-          {/* Right Navigation Arrow */}
+          {/* Large, Prominent Floating Next Button */}
           <button
             type="button"
             className="showcase-nav-arrow arrow-next"
@@ -197,9 +260,10 @@ export default function HeroShowcaseCard() {
               handleNext();
               setIsPlaying(false);
             }}
+            title="Next Photo (Right Arrow)"
             aria-label="Next photograph"
           >
-            <ChevronRight size={20} />
+            <ChevronRight size={24} />
           </button>
 
           {/* Bottom Captions Overlay */}
@@ -227,7 +291,7 @@ export default function HeroShowcaseCard() {
                 setCurrentIdx(idx);
                 setIsPlaying(false);
               }}
-              title={item.title}
+              title={`View ${item.title}`}
             >
               <img src={item.src} alt={item.title} />
               <span className="thumb-label-text">
@@ -255,59 +319,78 @@ export default function HeroShowcaseCard() {
         <div
           className="showcase-lightbox-backdrop"
           onClick={() => setIsLightboxOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Full screen photo view"
         >
           <div
             className="showcase-lightbox-content"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              type="button"
-              className="lightbox-close-btn"
-              onClick={() => setIsLightboxOpen(false)}
-              aria-label="Close modal"
-            >
-              <X size={22} />
-            </button>
+            {/* Lightbox Header with ESC Hint and Close Button */}
+            <div className="lightbox-top-bar">
+              <span className="lightbox-esc-hint">
+                <kbd>ESC</kbd> to exit fullscreen • <kbd>←</kbd> <kbd>→</kbd> to navigate
+              </span>
+              <button
+                type="button"
+                className="lightbox-close-btn"
+                onClick={() => setIsLightboxOpen(false)}
+                title="Close (or press ESC)"
+                aria-label="Close modal"
+              >
+                <X size={20} />
+              </button>
+            </div>
 
-            <img
-              src={currentPhoto.src}
-              alt={currentPhoto.alt}
-              className="lightbox-photo"
-            />
+            <div className="lightbox-image-stage">
+              <img
+                src={currentPhoto.src}
+                alt={currentPhoto.alt}
+                className="lightbox-photo"
+              />
+
+              {/* Lightbox Prev / Next Controls */}
+              <button
+                type="button"
+                className="lightbox-arrow lightbox-arrow-left"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handlePrev();
+                }}
+                title="Previous Photo (Left Arrow)"
+                aria-label="Previous photo"
+              >
+                <ChevronLeft size={30} />
+              </button>
+
+              <button
+                type="button"
+                className="lightbox-arrow lightbox-arrow-right"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleNext();
+                }}
+                title="Next Photo (Right Arrow)"
+                aria-label="Next photo"
+              >
+                <ChevronRight size={30} />
+              </button>
+            </div>
 
             <div className="lightbox-info">
-              <span className="lightbox-tag-pill">{currentPhoto.category}</span>
+              <div className="lightbox-info-header">
+                <span className="lightbox-tag-pill">{currentPhoto.category}</span>
+                <span className="lightbox-counter">
+                  {currentIdx + 1} of {SHOWCASE_GLIMPSES.length}
+                </span>
+              </div>
               <h3>{currentPhoto.title}</h3>
               <p>{currentPhoto.desc}</p>
               <span className="lightbox-location-text">
                 📍 {currentPhoto.location}
               </span>
             </div>
-
-            {/* Lightbox Prev / Next Controls */}
-            <button
-              type="button"
-              className="lightbox-arrow lightbox-arrow-left"
-              onClick={(e) => {
-                e.stopPropagation();
-                handlePrev();
-              }}
-              aria-label="Previous"
-            >
-              <ChevronLeft size={28} />
-            </button>
-
-            <button
-              type="button"
-              className="lightbox-arrow lightbox-arrow-right"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleNext();
-              }}
-              aria-label="Next"
-            >
-              <ChevronRight size={28} />
-            </button>
           </div>
         </div>
       )}

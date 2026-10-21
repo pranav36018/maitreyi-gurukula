@@ -6,27 +6,27 @@ const scenicAtmospheres = [
   {
     id: "panoramic-campus",
     src: "/images/campus/campus-panoramic.webp",
-    title: "12-Acre Serene Green Sanctuary",
+    title: "12-Acre Serene Green Sanctuary • Ramohalli",
+  },
+  {
+    id: "main-mahadwara",
+    src: "/images/local/gurukula-campus-main.jpg",
+    title: "Traditional Tiled Mahadwara Entrance Arch",
+  },
+  {
+    id: "vriksha-katte",
+    src: "/images/brand/hero-banner-1.jpg",
+    title: "Vriksha Katte Pathashala Under Ancient Canopy",
+  },
+  {
+    id: "morning-assembly",
+    src: "/images/campus/campus-morning-assembly.webp",
+    title: "Dawn Prayers & Assembly at Annapoorna Hall",
   },
   {
     id: "morning-mandapam",
     src: "/images/campus/campus-mandapam.webp",
     title: "Sacred Yajnashala & Dhyana Mandapam",
-  },
-  {
-    id: "morning-assembly",
-    src: "/images/campus/campus-morning-assembly.webp",
-    title: "Dawn Prayers & Chanting Assembly",
-  },
-  {
-    id: "main-ashram",
-    src: "/images/local/gurukula-campus-main.jpg",
-    title: "Ramohalli Parisara Courtyard",
-  },
-  {
-    id: "celebration-mandala",
-    src: "/images/events/celebration-flower-mandala.webp",
-    title: "Auspicious Floral Rangoli Mandala",
   },
 ];
 

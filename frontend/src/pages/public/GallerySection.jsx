@@ -448,26 +448,22 @@ export default function GallerySection() {
   };
 
   const showNext = () => {
-    if (selectedPhotoIndex !== null) {
-      setSelectedPhotoIndex((selectedPhotoIndex + 1) % filteredItems.length);
-    }
+    setSelectedPhotoIndex((prev) => (prev !== null ? (prev + 1) % filteredItems.length : null));
   };
 
   const showPrev = () => {
-    if (selectedPhotoIndex !== null) {
-      setSelectedPhotoIndex(
-        (selectedPhotoIndex - 1 + filteredItems.length) % filteredItems.length
-      );
-    }
+    setSelectedPhotoIndex((prev) =>
+      prev !== null ? (prev - 1 + filteredItems.length) % filteredItems.length : null
+    );
   };
 
   // Keyboard navigation for lightbox
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (selectedPhotoIndex === null) return;
-      if (e.key === "Escape") closeLightbox();
-      if (e.key === "ArrowRight") showNext();
-      if (e.key === "ArrowLeft") showPrev();
+      if (e.key === "Escape" || e.keyCode === 27) closeLightbox();
+      if (e.key === "ArrowRight" || e.keyCode === 39) showNext();
+      if (e.key === "ArrowLeft" || e.keyCode === 37) showPrev();
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
